@@ -127,7 +127,7 @@ This chapter provides an overview of the Resource Provisioning Protocol (RPP) ar
 *  **Domain-specific logic resides in data representations:** Only the specifics of resource provisioning are encoded within the data structures and semantics of the RPP message bodies. The underlying transport and general resource handling are handled by standard web technologies.
 * **Layered architecture for modularity:** The architecture is layered to promote modularity, separation of concerns, and independent evolution of different aspects of the protocol.
 
-The architecture is divided into three main layers: **HTTP Transport**, **Media Type**, and **Resource Type**. Each layer defines specific aspects of the protocol, including transport mechanisms, data representation, and resource definitions. This layered approach allows for clear separation of concerns, enabling independent evolution and extensibility of each layer.
+The architecture is divided into three main layers: **HTTP Transport**, **Data Representation**, and **Resource Definition**. Each layer defines specific aspects of the protocol. This layered approach allows for clear separation of concerns, enabling independent evolution and extensibility of each layer.
 
 image::./assets/Architecture.drawio.svg[Static,300]
 
