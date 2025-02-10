@@ -1,5 +1,5 @@
 # RPP Architecture
-This repository contains the initial draft of the RPP (RESTful Provisioning Protocol) architecture. The aim of this project is to leverage REST architectural principles and JSON data-interchange formats to enhance the existing Extensible Provisioning Protocol (EPP).
+This repository contains the initial draft of the RPP (RESTful Provisioning Protocol) architecture. 
 
 ## Overview
 The [Architecture.adoc](./Architecture.adoc) file outlines the core components, design considerations, and requirements for RPP. 
