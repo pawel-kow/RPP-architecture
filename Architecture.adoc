@@ -129,7 +129,7 @@ This chapter provides an overview of the Resource Provisioning Protocol (RPP) ar
 
 The architecture is divided into three main layers: **HTTP Transport**, **Media Type**, and **Resource Type**. Each layer defines specific aspects of the protocol, including transport mechanisms, data representation, and resource definitions. This layered approach allows for clear separation of concerns, enabling independent evolution and extensibility of each layer.
 
-image::Architecture.drawio.svg[Static,300]
+image::./assets/Architecture.drawio.svg[Static,300]
 
 === Resource Oriented Architecture
 RPP adopts a Resource Oriented Architecture (ROA), aligning with RESTful principles.  This approach treats all manageable entities as "resources," identified by unique URLs.  Operations on these resources are performed through a uniform interface using HTTP methods (GET, POST, PUT, DELETE, PATCH).  This contrasts with RPC-style protocols, which often define specific operations with custom parameters.  ROA promotes a more standardized and interoperable approach, leveraging the existing web infrastructure and its well-defined semantics.  Key aspects of ROA within RPP include:
