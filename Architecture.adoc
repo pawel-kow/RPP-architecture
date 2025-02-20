@@ -45,14 +45,14 @@ This architecture document serves as a foundation for a series of specifications
 
 == Terminology
 
-This document uses terminology from RFC5730 <<RFC5730>> and broadly adopts the REST architectural principles as defined in <<RFC7231>> and related RFCs.
+This document uses terminology from RFC5730 <<RFC5730>> and broadly adopts the REST architectural principles as defined in [REST] and related RFCs.
 
 *  **RPP:** RESTful Provisioning Protocol. The protocol being defined by the RPP working group.
 
 *  **EPP:** Extensible Provisioning Protocol as defined in <<RFC5730>>.
 
 *  **REST:** REpresentational State Transfer architectural style
-<<RFC7231>>.
+<<REST>>.
 
 *  **JSON:** JavaScript Object Notation <<RFC8259>>.
 
@@ -63,6 +63,8 @@ This document uses terminology from RFC5730 <<RFC5730>> and broadly adopts the R
 * **OpenAPI:** The OpenAPI Specification (OAS) (formerly known as Swagger Specification) is an API description format for REST APIs.
 
 == Requirements
+
+Note: This list of requirements is based on the current (20.2.2025) state of discussion in RPP working group and may be changed in futher work <<RPPReq>>.
 
 RPP is designed to meet the following requirements:
 
@@ -378,6 +380,7 @@ FIXME: find an appropriate section for this
 * [[[RFC5732, RFC 5732]]] Hollenbeck, S., "Extensible Provisioning Protocol (EPP) Host Mapping", STD 69, RFC 5732, DOI 10.17487/RFC5732, August 2009, <https://www.rfc-editor.org/info/rfc5732>.
 * [[[RFC5733, RFC 5733]]] Hollenbeck, S., "Extensible Provisioning Protocol (EPP) Contact Mapping", STD 69, RFC 5733, DOI 10.17487/RFC5733, August 2009, <https://www.rfc-editor.org/info/rfc5733>.
 * [[[RFC7231, RFC 7231]]] Fielding, R., Ed., and J. Reschke, Ed., "Hypertext Transfer Protocol (HTTP/1.1): Semantics and Content", RFC 7231, DOI 10.17487/RFC7231, June 2014, <https://www.rfc-editor.org/info/rfc7231>.
+* [[[REST, REST]]] Fielding, R., "Architectural Styles and the Design of Network-based Software Architectures", Doctoral Dissertation, University of California, Irvine, September 2000, <http://roy.gbiv.com/pubs/dissertation/top.htm>.
 * [[[RFC7240, RFC 7240]]] Snell, J., "Prefer Header for HTTP", RFC 7240, DOI 10.17487/RFC7240, June 2014, <https://www.rfc-editor.org/info/rfc7240>.
 * [[[RFC8259,RFC 8259]]] Bray, T., Ed., "The JavaScript Object Notation (JSON) Data Interchange Format", STD 90, RFC 8259, DOI 10.17487/RFC8259, December 2017, <https://www.rfc-editor.org/info/rfc8259>.
 * [[[RFC6570, RFC 6570]]] Gregorio, J., Fielding, R., Hadley, M., Nottingham, M., and D. Orchard, "URI Template", RFC 6570, DOI 10.17487/RFC6570, March 2012, <https://www.rfc-editor.org/info/rfc6570>.
@@ -385,6 +388,7 @@ FIXME: find an appropriate section for this
 [bibliography,normative=false]
 === Informative References
 
+* [[[RPPReq, RPP Requirements]]] RPP Requirements (Work in progress 20.2.2025) <https://github.com/SIDN/ietf-wg-rpp-charter/blob/8f95f32ce22aee791a95f9c5399fec8035f5150a/requirements.md>
 * [[[RFC6749,RFC 6749]]] Hardt, D., Ed., "The OAuth 2.0 Authorization Framework", RFC 6749, DOI 10.17487/RFC6749, October 2012, <https://www.rfc-editor.org/info/rfc6749>.
 * [[[RFC6750,RFC 6750]]] Jones, M. and D. Hardt, "The OAuth 2.0 Authorization Framework: Bearer Token Usage", RFC 6750, DOI 10.17487/RFC6750, October 2012, <https://www.rfc-editor.org/info/rfc6750>.
 * [[[RFC7519,RFC 7519]]] Jones, M., Bradley, J., and N. Sakimura, "JSON Web Token (JWT)", RFC 7519, DOI 10.17487/RFC7519, May 2015, <https://www.rfc-editor.org/info/rfc7519>.
