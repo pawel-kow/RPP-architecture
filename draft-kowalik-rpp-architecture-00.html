@@ -1,0 +1,2398 @@
+<!DOCTYPE html>
+<html lang="en" class=" Internet-Draft">
+<head>
+<meta charset="utf-8">
+<meta content="Common,Latin" name="scripts">
+<meta content="initial-scale=1.0" name="viewport">
+<title>RPP Architecture</title>
+<meta content="P Kowalik" name="author">
+<meta content="xml2rfc 3.22.0" name="generator">
+<meta content="draft-kowalik-rpp-architecture-00" name="ietf.draft">
+<!-- Generator version information:
+  xml2rfc 3.22.0
+    Python 3.10.12
+    ConfigArgParse 1.7
+    google-i18n-address 3.1.0
+    intervaltree 3.1.0
+    Jinja2 3.1.4
+    lxml 4.9.4
+    platformdirs 4.2.2
+    pycountry 24.6.1
+    pydyf 0.10.0
+    PyYAML 6.0.1
+    requests 2.32.3
+    setuptools 71.0.3
+    wcwidth 0.2.13
+    weasyprint 61.2
+-->
+<link href="draft-kowalik-rpp-architecture-00.xml" rel="alternate" type="application/rfc+xml">
+<link href="#copyright" rel="license">
+<style type="text/css">/*
+
+  NOTE: Changes at the bottom of this file overrides some earlier settings.
+
+  Once the style has stabilized and has been adopted as an official RFC style,
+  this can be consolidated so that style settings occur only in one place, but
+  for now the contents of this file consists first of the initial CSS work as
+  provided to the RFC Formatter (xml2rfc) work, followed by itemized and
+  commented changes found necessary during the development of the v3
+  formatters.
+
+*/
+
+/* fonts */
+@import url('https://fonts.googleapis.com/css?family=Noto+Sans'); /* Sans-serif */
+@import url('https://fonts.googleapis.com/css?family=Noto+Serif'); /* Serif (print) */
+@import url('https://fonts.googleapis.com/css?family=Roboto+Mono'); /* Monospace */
+
+:root {
+  --font-sans: 'Noto Sans', Arial, Helvetica, sans-serif;
+  --font-serif: 'Noto Serif', 'Times', 'Times New Roman', serif;
+  --font-mono: 'Roboto Mono', Courier, 'Courier New', monospace;
+}
+
+@viewport {
+  zoom: 1.0;
+}
+@-ms-viewport {
+  width: extend-to-zoom;
+  zoom: 1.0;
+}
+/* general and mobile first */
+html {
+}
+body {
+  max-width: 90%;
+  margin: 1.5em auto;
+  color: #222;
+  background-color: #fff;
+  font-size: 14px;
+  font-family: var(--font-sans);
+  line-height: 1.6;
+  scroll-behavior: smooth;
+  overflow-wrap: break-word;
+}
+.ears {
+  display: none;
+}
+
+/* headings */
+#title, h1, h2, h3, h4, h5, h6 {
+  margin: 1em 0 0.5em;
+  font-weight: bold;
+  line-height: 1.3;
+}
+#title {
+  clear: both;
+  border-bottom: 1px solid #ddd;
+  margin: 0 0 0.5em 0;
+  padding: 1em 0 0.5em;
+}
+.author {
+  padding-bottom: 4px;
+}
+h1 {
+  font-size: 26px;
+  margin: 1em 0;
+}
+h2 {
+  font-size: 22px;
+  margin-top: -20px;  /* provide offset for in-page anchors */
+  padding-top: 33px;
+}
+h3 {
+  font-size: 18px;
+  margin-top: -36px;  /* provide offset for in-page anchors */
+  padding-top: 42px;
+}
+h4 {
+  font-size: 16px;
+  margin-top: -36px;  /* provide offset for in-page anchors */
+  padding-top: 42px;
+}
+h5, h6 {
+  font-size: 14px;
+}
+#n-copyright-notice {
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 1em;
+  margin-bottom: 1em;
+}
+/* general structure */
+p {
+  padding: 0;
+  margin: 0 0 1em 0;
+  text-align: left;
+}
+div, span {
+  position: relative;
+}
+div {
+  margin: 0;
+}
+.alignRight.art-text {
+  background-color: #f9f9f9;
+  border: 1px solid #eee;
+  border-radius: 3px;
+  padding: 1em 1em 0;
+  margin-bottom: 1.5em;
+}
+.alignRight.art-text pre {
+  padding: 0;
+}
+.alignRight {
+  margin: 1em 0;
+}
+.alignRight > *:first-child {
+  border: none;
+  margin: 0;
+  float: right;
+  clear: both;
+}
+.alignRight > *:nth-child(2) {
+  clear: both;
+  display: block;
+  border: none;
+}
+svg {
+  display: block;
+}
+svg[font-family~="serif" i], svg [font-family~="serif" i] {
+  font-family: var(--font-serif);
+}
+svg[font-family~="sans-serif" i], svg [font-family~="sans-serif" i] {
+  font-family: var(--font-sans);
+}
+svg[font-family~="monospace" i], svg [font-family~="monospace" i] {
+  font-family: var(--font-mono);
+}
+.alignCenter.art-text {
+  background-color: #f9f9f9;
+  border: 1px solid #eee;
+  border-radius: 3px;
+  padding: 1em 1em 0;
+  margin-bottom: 1.5em;
+}
+.alignCenter.art-text pre {
+  padding: 0;
+}
+.alignCenter {
+  margin: 1em 0;
+}
+.alignCenter > *:first-child {
+  display: table;
+  border: none;
+  margin: 0 auto;
+}
+
+/* lists */
+ol, ul {
+  padding: 0;
+  margin: 0 0 1em 2em;
+}
+ol ol, ul ul, ol ul, ul ol {
+  margin-left: 1em;
+}
+li {
+  margin: 0 0 0.25em 0;
+}
+.ulCompact li {
+  margin: 0;
+}
+ul.empty, .ulEmpty {
+  list-style-type: none;
+}
+ul.empty li, .ulEmpty li {
+  margin-top: 0.5em;
+}
+ul.ulBare, li.ulBare {
+  margin-left: 0em !important;
+}
+ul.compact, .ulCompact,
+ol.compact, .olCompact {
+  line-height: 100%;
+  margin: 0 0 0 2em;
+}
+
+/* definition lists */
+dl {
+}
+dl > dt {
+  float: left;
+  margin-right: 1em;
+}
+/* 
+dl.nohang > dt {
+  float: none;
+}
+*/
+dl > dd {
+  margin-bottom: .8em;
+  min-height: 1.3em;
+}
+dl.compact > dd, .dlCompact > dd {
+  margin-bottom: 0em;
+}
+dl > dd > dl {
+  margin-top: 0.5em;
+  margin-bottom: 0em;
+}
+
+/* links */
+a {
+  text-decoration: none;
+}
+a[href] {
+  color: #22e; /* Arlen: WCAG 2019 */
+}
+a[href]:hover {
+  background-color: #f2f2f2;
+}
+figcaption a[href],
+a[href].selfRef {
+  color: #222;
+}
+/* XXX probably not this:
+a.selfRef:hover {
+  background-color: transparent;
+  cursor: default;
+} */
+
+/* Figures */
+tt, code, pre {
+  background-color: #f9f9f9;
+  font-family: var(--font-mono);
+}
+pre {
+  border: 1px solid #eee;
+  margin: 0;
+  padding: 1em;
+}
+img {
+  max-width: 100%;
+}
+figure {
+  margin: 0;
+}
+figure blockquote {
+  margin: 0.8em 0.4em 0.4em;
+}
+figcaption {
+  font-style: italic;
+  margin: 0 0 1em 0;
+}
+@media screen {
+  pre {
+    overflow-x: auto;
+    max-width: 100%;
+    max-width: calc(100% - 22px);
+  }
+}
+
+/* aside, blockquote */
+aside, blockquote {
+  margin-left: 0;
+  padding: 1.2em 2em;
+}
+blockquote {
+  background-color: #f9f9f9;
+  color: #111; /* Arlen: WCAG 2019 */
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  margin: 1em 0;
+}
+blockquote > *:last-child {
+  margin-bottom: 0;
+}
+cite {
+  display: block;
+  text-align: right;
+  font-style: italic;
+}
+.xref {
+  overflow-wrap: normal;
+}
+
+/* tables */
+table {
+  width: 100%;
+  margin: 0 0 1em;
+  border-collapse: collapse;
+  border: 1px solid #eee;
+}
+th, td {
+  text-align: left;
+  vertical-align: top;
+  padding: 0.5em 0.75em;
+}
+th {
+  text-align: left;
+  background-color: #e9e9e9;
+}
+tr:nth-child(2n+1) > td {
+  background-color: #f5f5f5;
+}
+table caption {
+  font-style: italic;
+  margin: 0;
+  padding: 0;
+  text-align: left;
+}
+table p {
+  /* XXX to avoid bottom margin on table row signifiers. If paragraphs should
+     be allowed within tables more generally, it would be far better to select on a class. */
+  margin: 0;
+}
+
+/* pilcrow */
+a.pilcrow {
+  color: #666; /* Arlen: AHDJ 2019 */
+  text-decoration: none;
+  visibility: hidden;
+  user-select: none;
+  -ms-user-select: none;
+  -o-user-select:none;
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+}
+@media screen {
+  aside:hover > a.pilcrow,
+  p:hover > a.pilcrow,
+  blockquote:hover > a.pilcrow,
+  div:hover > a.pilcrow,
+  li:hover > a.pilcrow,
+  pre:hover > a.pilcrow {
+    visibility: visible;
+  }
+  a.pilcrow:hover {
+    background-color: transparent;
+  }
+}
+
+/* misc */
+hr {
+  border: 0;
+  border-top: 1px solid #eee;
+}
+.bcp14 {
+  font-variant: small-caps;
+}
+
+.role {
+  font-variant: all-small-caps;
+}
+
+/* info block */
+#identifiers {
+  margin: 0;
+  font-size: 0.9em;
+}
+#identifiers dt {
+  width: 3em;
+  clear: left;
+}
+#identifiers dd {
+  float: left;
+  margin-bottom: 0;
+}
+/* Fix PDF info block run off issue */
+@media print {
+  #identifiers dd {
+    float: none;
+  }
+}
+#identifiers .authors .author {
+  display: inline-block;
+  margin-right: 1.5em;
+}
+#identifiers .authors .org {
+  font-style: italic;
+}
+
+/* The prepared/rendered info at the very bottom of the page */
+.docInfo {
+  color: #666; /* Arlen: WCAG 2019 */
+  font-size: 0.9em;
+  font-style: italic;
+  margin-top: 2em;
+}
+.docInfo .prepared {
+  float: left;
+}
+.docInfo .prepared {
+  float: right;
+}
+
+/* table of contents */
+#toc  {
+  padding: 0.75em 0 2em 0;
+  margin-bottom: 1em;
+}
+nav.toc ul {
+  margin: 0 0.5em 0 0;
+  padding: 0;
+  list-style: none;
+}
+nav.toc li {
+  line-height: 1.3em;
+  margin: 0.75em 0;
+  padding-left: 1.2em;
+  text-indent: -1.2em;
+}
+/* references */
+.references dt {
+  text-align: right;
+  font-weight: bold;
+  min-width: 7em;
+}
+.references dd {
+  margin-left: 8em;
+  overflow: auto;
+}
+
+.refInstance {
+  margin-bottom: 1.25em;
+}
+
+.refSubseries {
+  margin-bottom: 1.25em;
+}
+
+.references .ascii {
+  margin-bottom: 0.25em;
+}
+
+/* index */
+.index ul {
+  margin: 0 0 0 1em;
+  padding: 0;
+  list-style: none;
+}
+.index ul ul {
+  margin: 0;
+}
+.index li {
+  margin: 0;
+  text-indent: -2em;
+  padding-left: 2em;
+  padding-bottom: 5px;
+}
+.indexIndex {
+  margin: 0.5em 0 1em;
+}
+.index a {
+  font-weight: 700;
+}
+/* make the index two-column on all but the smallest screens */
+@media (min-width: 600px) {
+  .index ul {
+    -moz-column-count: 2;
+    -moz-column-gap: 20px;
+  }
+  .index ul ul {
+    -moz-column-count: 1;
+    -moz-column-gap: 0;
+  }
+}
+
+/* authors */
+address.vcard {
+  font-style: normal;
+  margin: 1em 0;
+}
+
+address.vcard .nameRole {
+  font-weight: 700;
+  margin-left: 0;
+}
+address.vcard .label {
+  font-family: var(--font-sans);
+  margin: 0.5em 0;
+}
+address.vcard .type {
+  display: none;
+}
+.alternative-contact {
+  margin: 1.5em 0 1em;
+}
+hr.addr {
+  border-top: 1px dashed;
+  margin: 0;
+  color: #ddd;
+  max-width: calc(100% - 16px);
+}
+
+/* temporary notes */
+.rfcEditorRemove::before {
+  position: absolute;
+  top: 0.2em;
+  right: 0.2em;
+  padding: 0.2em;
+  content: "The RFC Editor will remove this note";
+  color: #9e2a00; /* Arlen: WCAG 2019 */
+  background-color: #ffd; /* Arlen: WCAG 2019 */
+}
+.rfcEditorRemove {
+  position: relative;
+  padding-top: 1.8em;
+  background-color: #ffd; /* Arlen: WCAG 2019 */
+  border-radius: 3px;
+}
+.cref {
+  background-color: #ffd; /* Arlen: WCAG 2019 */
+  padding: 2px 4px;
+}
+.crefSource {
+  font-style: italic;
+}
+/* alternative layout for smaller screens */
+@media screen and (max-width: 1023px) {
+  body {
+    padding-top: 2em;
+  }
+  #title {
+    padding: 1em 0;
+  }
+  h1 {
+    font-size: 24px;
+  }
+  h2 {
+    font-size: 20px;
+    margin-top: -18px;  /* provide offset for in-page anchors */
+    padding-top: 38px;
+  }
+  #identifiers dd {
+    max-width: 60%;
+  }
+  #toc {
+    position: fixed;
+    z-index: 2;
+    top: 0;
+    right: 0;
+    padding: 0;
+    margin: 0;
+    background-color: inherit;
+    border-bottom: 1px solid #ccc;
+  }
+  #toc h2 {
+    margin: -1px 0 0 0;
+    padding: 4px 0 4px 6px;
+    padding-right: 1em;
+    min-width: 190px;
+    font-size: 1.1em;
+    text-align: right;
+    background-color: #444;
+    color: white;
+    cursor: pointer;
+  }
+  #toc h2::before { /* css hamburger */
+    float: right;
+    position: relative;
+    width: 1em;
+    height: 1px;
+    left: -164px;
+    margin: 6px 0 0 0;
+    background: white none repeat scroll 0 0;
+    box-shadow: 0 4px 0 0 white, 0 8px 0 0 white;
+    content: "";
+  }
+  #toc nav {
+    display: none;
+    padding: 0.5em 1em 1em;
+    overflow: auto;
+    height: calc(100vh - 48px);
+    border-left: 1px solid #ddd;
+  }
+}
+
+/* alternative layout for wide screens */
+@media screen and (min-width: 1024px) {
+  body {
+    max-width: 724px;
+    margin: 42px auto;
+    padding-left: 1.5em;
+    padding-right: 29em;
+  }
+  #toc {
+    position: fixed;
+    top: 42px;
+    right: 42px;
+    width: 25%;
+    margin: 0;
+    padding: 0 1em;
+    z-index: 1;
+  }
+  #toc h2 {
+    border-top: none;
+    border-bottom: 1px solid #ddd;
+    font-size: 1em;
+    font-weight: normal;
+    margin: 0;
+    padding: 0.25em 1em 1em 0;
+  }
+  #toc nav {
+    display: block;
+    height: calc(90vh - 84px);
+    bottom: 0;
+    padding: 0.5em 0 0;
+    overflow: auto;
+  }
+  img { /* future proofing */
+    max-width: 100%;
+    height: auto;
+  }
+}
+
+/* pagination */
+@media print {
+  body {
+    width: 100%;
+  }
+  p {
+    orphans: 3;
+    widows: 3;
+  }
+  #n-copyright-notice {
+    border-bottom: none;
+  }
+  #toc, #n-introduction {
+    page-break-before: always;
+  }
+  #toc {
+    border-top: none;
+    padding-top: 0;
+  }
+  figure, pre {
+    page-break-inside: avoid;
+  }
+  figure {
+    overflow: scroll;
+  }
+  .breakable pre {
+    break-inside: auto;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    page-break-after: avoid;
+  }
+  h2+*, h3+*, h4+*, h5+*, h6+* {
+    page-break-before: avoid;
+  }
+  pre {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    font-size: 10pt;
+  }
+  table {
+    border: 1px solid #ddd;
+  }
+  td {
+    border-top: 1px solid #ddd;
+  }
+}
+
+/* This is commented out here, as the string-set: doesn't
+   pass W3C validation currently */
+/*
+.ears thead .left {
+  string-set: ears-top-left content();
+}
+
+.ears thead .center {
+  string-set: ears-top-center content();
+}
+
+.ears thead .right {
+  string-set: ears-top-right content();
+}
+
+.ears tfoot .left {
+  string-set: ears-bottom-left content();
+}
+
+.ears tfoot .center {
+  string-set: ears-bottom-center content();
+}
+
+.ears tfoot .right {
+  string-set: ears-bottom-right content();
+}
+*/
+
+@page :first {
+  padding-top: 0;
+  @top-left {
+    content: normal;
+    border: none;
+  }
+  @top-center {
+    content: normal;
+    border: none;
+  }
+  @top-right {
+    content: normal;
+    border: none;
+  }
+}
+
+@page {
+  size: A4;
+  margin-bottom: 45mm;
+  padding-top: 20px;
+  /* The following is commented out here, but set appropriately by in code, as
+     the content depends on the document */
+  /*
+  @top-left {
+    content: 'Internet-Draft';
+    vertical-align: bottom;
+    border-bottom: solid 1px #ccc;
+  }
+  @top-left {
+    content: string(ears-top-left);
+    vertical-align: bottom;
+    border-bottom: solid 1px #ccc;
+  }
+  @top-center {
+    content: string(ears-top-center);
+    vertical-align: bottom;
+    border-bottom: solid 1px #ccc;
+  }
+  @top-right {
+    content: string(ears-top-right);
+    vertical-align: bottom;
+    border-bottom: solid 1px #ccc;
+  }
+  @bottom-left {
+    content: string(ears-bottom-left);
+    vertical-align: top;
+    border-top: solid 1px #ccc;
+  }
+  @bottom-center {
+    content: string(ears-bottom-center);
+    vertical-align: top;
+    border-top: solid 1px #ccc;
+  }
+  @bottom-right {
+      content: '[Page ' counter(page) ']';
+      vertical-align: top;
+      border-top: solid 1px #ccc;
+  }
+  */
+
+}
+
+/* Changes introduced to fix issues found during implementation */
+/* Make sure links are clickable even if overlapped by following H* */
+a {
+  z-index: 2;
+}
+/* Separate body from document info even without intervening H1 */
+section {
+  clear: both;
+}
+
+
+/* Top align author divs, to avoid names without organization dropping level with org names */
+.author {
+  vertical-align: top;
+}
+
+/* Leave room in document info to show Internet-Draft on one line */
+#identifiers dt {
+  width: 8em;
+}
+
+/* Don't waste quite as much whitespace between label and value in doc info */
+#identifiers dd {
+  margin-left: 1em;
+}
+
+/* Give floating toc a background color (needed when it's a div inside section */
+#toc {
+  background-color: white;
+}
+
+/* Make the collapsed ToC header render white on gray also when it's a link */
+@media screen and (max-width: 1023px) {
+  #toc h2 a,
+  #toc h2 a:link,
+  #toc h2 a:focus,
+  #toc h2 a:hover,
+  #toc a.toplink,
+  #toc a.toplink:hover {
+    color: white;
+    background-color: #444;
+    text-decoration: none;
+  }
+}
+
+/* Give the bottom of the ToC some whitespace */
+@media screen and (min-width: 1024px) {
+  #toc {
+    padding: 0 0 1em 1em;
+  }
+}
+
+/* Style section numbers with more space between number and title */
+.section-number {
+  padding-right: 0.5em;
+}
+
+/* prevent monospace from becoming overly large */
+tt, code, pre {
+  font-size: 95%;
+}
+
+/* Fix the height/width aspect for ascii art*/
+.sourcecode pre,
+.art-text pre {
+  line-height: 1.12;
+}
+
+
+/* Add styling for a link in the ToC that points to the top of the document */
+a.toplink {
+  float: right;
+  margin-right: 0.5em;
+}
+
+/* Fix the dl styling to match the RFC 7992 attributes */
+dl > dt,
+dl.dlParallel > dt {
+  float: left;
+  margin-right: 1em;
+}
+dl.dlNewline > dt {
+  float: none;
+}
+
+/* Provide styling for table cell text alignment */
+table td.text-left,
+table th.text-left {
+  text-align: left;
+}
+table td.text-center,
+table th.text-center {
+  text-align: center;
+}
+table td.text-right,
+table th.text-right {
+  text-align: right;
+}
+
+/* Make the alternative author contact information look less like just another
+   author, and group it closer with the primary author contact information */
+.alternative-contact {
+  margin: 0.5em 0 0.25em 0;
+}
+address .non-ascii {
+  margin: 0 0 0 2em;
+}
+
+/* With it being possible to set tables with alignment
+  left, center, and right, { width: 100%; } does not make sense */
+table {
+  width: auto;
+}
+
+/* Avoid reference text that sits in a block with very wide left margin,
+   because of a long floating dt label.*/
+.references dd {
+  overflow: visible;
+}
+
+/* Control caption placement */
+caption {
+  caption-side: bottom;
+}
+
+/* Limit the width of the author address vcard, so names in right-to-left
+   script don't end up on the other side of the page. */
+
+address.vcard {
+  max-width: 30em;
+  margin-right: auto;
+}
+
+/* For address alignment dependent on LTR or RTL scripts */
+address div.left {
+  text-align: left;
+}
+address div.right {
+  text-align: right;
+}
+
+/* Provide table alignment support.  We can't use the alignX classes above
+   since they do unwanted things with caption and other styling. */
+table.right {
+ margin-left: auto;
+ margin-right: 0;
+}
+table.center {
+ margin-left: auto;
+ margin-right: auto;
+}
+table.left {
+ margin-left: 0;
+ margin-right: auto;
+}
+
+/* Give the table caption label the same styling as the figcaption */
+caption a[href] {
+  color: #222;
+}
+
+@media print {
+  .toplink {
+    display: none;
+  }
+
+  /* avoid overwriting the top border line with the ToC header */
+  #toc {
+    padding-top: 1px;
+  }
+
+  /* Avoid page breaks inside dl and author address entries */
+  .vcard {
+    page-break-inside: avoid;
+  }
+
+}
+/* Tweak the bcp14 keyword presentation */
+.bcp14 {
+  font-variant: small-caps;
+  font-weight: bold;
+  font-size: 0.9em;
+}
+/* Tweak the invisible space above H* in order not to overlay links in text above */
+ h2 {
+  margin-top: -18px;  /* provide offset for in-page anchors */
+  padding-top: 31px;
+ }
+ h3 {
+  margin-top: -18px;  /* provide offset for in-page anchors */
+  padding-top: 24px;
+ }
+ h4 {
+  margin-top: -18px;  /* provide offset for in-page anchors */
+  padding-top: 24px;
+ }
+/* Float artwork pilcrow to the right */
+@media screen {
+  .artwork a.pilcrow {
+    display: block;
+    line-height: 0.7;
+    margin-top: 0.15em;
+  }
+}
+/* Make pilcrows on dd visible */
+@media screen {
+  dd:hover > a.pilcrow {
+    visibility: visible;
+  }
+}
+/* Make the placement of figcaption match that of a table's caption
+   by removing the figure's added bottom margin */
+.alignLeft.art-text,
+.alignCenter.art-text,
+.alignRight.art-text {
+   margin-bottom: 0;
+}
+.alignLeft,
+.alignCenter,
+.alignRight {
+  margin: 1em 0 0 0;
+}
+/* In print, the pilcrow won't show on hover, so prevent it from taking up space,
+   possibly even requiring a new line */
+@media print {
+  a.pilcrow {
+    display: none;
+  }
+}
+/* Styling for the external metadata */
+div#external-metadata {
+  background-color: #eee;
+  padding: 0.5em;
+  margin-bottom: 0.5em;
+  display: none;
+}
+div#internal-metadata {
+  padding: 0.5em;                       /* to match the external-metadata padding */
+}
+/* Styling for title RFC Number */
+h1#rfcnum {
+  clear: both;
+  margin: 0 0 -1em;
+  padding: 1em 0 0 0;
+}
+/* Make .olPercent look the same as <ol><li> */
+dl.olPercent > dd {
+  margin-bottom: 0.25em;
+  min-height: initial;
+}
+/* Give aside some styling to set it apart */
+aside {
+  border-left: 1px solid #ddd;
+  margin: 1em 0 1em 2em;
+  padding: 0.2em 2em;
+}
+aside > dl,
+aside > ol,
+aside > ul,
+aside > table,
+aside > p {
+  margin-bottom: 0.5em;
+}
+/* Additional page break settings */
+@media print {
+  figcaption, table caption {
+    page-break-before: avoid;
+  }
+}
+/* Font size adjustments for print */
+@media print {
+  body  { font-size: 10pt;      line-height: normal; max-width: 96%; }
+  h1    { font-size: 1.72em;    padding-top: 1.5em; } /* 1*1.2*1.2*1.2 */
+  h2    { font-size: 1.44em;    padding-top: 1.5em; } /* 1*1.2*1.2 */
+  h3    { font-size: 1.2em;     padding-top: 1.5em; } /* 1*1.2 */
+  h4    { font-size: 1em;       padding-top: 1.5em; }
+  h5, h6 { font-size: 1em;      margin: initial; padding: 0.5em 0 0.3em; }
+}
+/* Sourcecode margin in print, when there's no pilcrow */
+@media print {
+  .artwork,
+  .artwork > pre,
+  .sourcecode {
+    margin-bottom: 1em;
+  }
+}
+/* Avoid narrow tables forcing too narrow table captions, which may render badly */
+table {
+  min-width: 20em;
+}
+/* ol type a */
+ol.type-a { list-style-type: lower-alpha; }
+ol.type-A { list-style-type: upper-alpha; }
+ol.type-i { list-style-type: lower-roman; }
+ol.type-I { list-style-type: upper-roman; }
+/* Apply the print table and row borders in general, on request from the RPC,
+and increase the contrast between border and odd row background slightly */
+table {
+  border: 1px solid #ddd;
+}
+td {
+  border-top: 1px solid #ddd;
+}
+tr {
+  break-inside: avoid;
+}
+tr:nth-child(2n+1) > td {
+  background-color: #f8f8f8;
+}
+/* Use style rules to govern display of the TOC. */
+@media screen and (max-width: 1023px) {
+  #toc nav { display: none; }
+  #toc.active nav { display: block; }
+}
+/* Add support for keepWithNext */
+.keepWithNext {
+  break-after: avoid-page;
+  break-after: avoid-page;
+}
+/* Add support for keepWithPrevious */
+.keepWithPrevious {
+  break-before: avoid-page;
+}
+/* Change the approach to avoiding breaks inside artwork etc. */
+figure, pre, table, .artwork, .sourcecode  {
+  break-before: auto;
+  break-after: auto;
+}
+/* Avoid breaks between <dt> and <dd> */
+dl {
+  break-before: auto;
+  break-inside: auto;
+}
+dt {
+  break-before: auto;
+  break-after: avoid-page;
+}
+dd {
+  break-before: avoid-page;
+  break-after: auto;
+  orphans: 3;
+  widows: 3
+}
+span.break, dd.break {
+  margin-bottom: 0;
+  min-height: 0;
+  break-before: auto;
+  break-inside: auto;
+  break-after: auto;
+}
+/* Undo break-before ToC */
+@media print {
+  #toc {
+    break-before: auto;
+  }
+}
+/* Text in compact lists should not get extra bottom margin space,
+   since that would makes the list not compact */
+ul.compact p, .ulCompact p,
+ol.compact p, .olCompact p {
+ margin: 0;
+}
+/* But the list as a whole needs the extra space at the end */
+section ul.compact,
+section .ulCompact,
+section ol.compact,
+section .olCompact {
+  margin-bottom: 1em;                    /* same as p not within ul.compact etc. */
+}
+/* The tt and code background above interferes with for instance table cell
+   backgrounds.  Changed to something a bit more selective. */
+tt, code {
+  background-color: transparent;
+}
+p tt, p code, li tt, li code {
+  background-color: #f8f8f8;
+}
+/* Tweak the pre margin -- 0px doesn't come out well */
+pre {
+   margin-top: 0.5px;
+}
+/* Tweak the compact list text */
+ul.compact, .ulCompact,
+ol.compact, .olCompact,
+dl.compact, .dlCompact {
+  line-height: normal;
+}
+/* Don't add top margin for nested lists */
+li > ul, li > ol, li > dl,
+dd > ul, dd > ol, dd > dl,
+dl > dd > dl {
+  margin-top: initial;
+}
+/* Elements that should not be rendered on the same line as a <dt> */
+/* This should match the element list in writer.text.TextWriter.render_dl() */
+dd > div.artwork:first-child,
+dd > aside:first-child,
+dd > figure:first-child,
+dd > ol:first-child,
+dd > div.sourcecode:first-child,
+dd > table:first-child,
+dd > ul:first-child {
+  clear: left;
+}
+/* fix for weird browser behaviour when <dd/> is empty */
+dt+dd:empty::before{
+  content: "\00a0";
+}
+/* Make paragraph spacing inside <li> smaller than in body text, to fit better within the list */
+li > p {
+  margin-bottom: 0.5em
+}
+/* Don't let p margin spill out from inside list items */
+li > p:last-of-type:only-child {
+  margin-bottom: 0;
+}
+</style>
+<script type="application/javascript">async function addMetadata(){try{const e=document.styleSheets[0].cssRules;for(let t=0;t<e.length;t++)if(/#identifiers/.exec(e[t].selectorText)){const a=e[t].cssText.replace("#identifiers","#external-updates");document.styleSheets[0].insertRule(a,document.styleSheets[0].cssRules.length)}}catch(e){console.log(e)}const e=document.getElementById("external-metadata");if(e)try{var t,a="",o=function(e){const t=document.getElementsByTagName("meta");for(let a=0;a<t.length;a++)if(t[a].getAttribute("name")===e)return t[a].getAttribute("content");return""}("rfc.number");if(o){t="https://www.rfc-editor.org/rfc/rfc"+o+".json";try{const e=await fetch(t);a=await e.json()}catch(e){t=document.URL.indexOf("html")>=0?document.URL.replace(/html$/,"json"):document.URL+".json";const o=await fetch(t);a=await o.json()}}if(!a)return;e.style.display="block";const s="",d="https://datatracker.ietf.org/doc",n="https://datatracker.ietf.org/ipr/search",c="https://www.rfc-editor.org/info",l=a.doc_id.toLowerCase(),i=a.doc_id.slice(0,3).toLowerCase(),f=a.doc_id.slice(3).replace(/^0+/,""),u={status:"Status",obsoletes:"Obsoletes",obsoleted_by:"Obsoleted By",updates:"Updates",updated_by:"Updated By",see_also:"See Also",errata_url:"Errata"};let h="<dl style='overflow:hidden' id='external-updates'>";["status","obsoletes","obsoleted_by","updates","updated_by","see_also","errata_url"].forEach(e=>{if("status"==e){a[e]=a[e].toLowerCase();var t=a[e].split(" "),o=t.length,w="",p=1;for(let e=0;e<o;e++)p<o?w=w+r(t[e])+" ":w+=r(t[e]),p++;a[e]=w}else if("obsoletes"==e||"obsoleted_by"==e||"updates"==e||"updated_by"==e){var g,m="",b=1;g=a[e].length;for(let t=0;t<g;t++)a[e][t]&&(a[e][t]=String(a[e][t]).toLowerCase(),m=b<g?m+"<a href='"+s+"/rfc/".concat(a[e][t])+"'>"+a[e][t].slice(3)+"</a>, ":m+"<a href='"+s+"/rfc/".concat(a[e][t])+"'>"+a[e][t].slice(3)+"</a>",b++);a[e]=m}else if("see_also"==e){var y,L="",C=1;y=a[e].length;for(let t=0;t<y;t++)if(a[e][t]){a[e][t]=String(a[e][t]);var _=a[e][t].slice(0,3),v=a[e][t].slice(3).replace(/^0+/,"");L=C<y?"RFC"!=_?L+"<a href='"+s+"/info/"+_.toLowerCase().concat(v.toLowerCase())+"'>"+_+" "+v+"</a>, ":L+"<a href='"+s+"/info/"+_.toLowerCase().concat(v.toLowerCase())+"'>"+v+"</a>, ":"RFC"!=_?L+"<a href='"+s+"/info/"+_.toLowerCase().concat(v.toLowerCase())+"'>"+_+" "+v+"</a>":L+"<a href='"+s+"/info/"+_.toLowerCase().concat(v.toLowerCase())+"'>"+v+"</a>",C++}a[e]=L}else if("errata_url"==e){var R="";R=a[e]?R+"<a href='"+a[e]+"'>Errata exist</a> | <a href='"+d+"/"+l+"'>Datatracker</a>| <a href='"+n+"/?"+i+"="+f+"&submit="+i+"'>IPR</a> | <a href='"+c+"/"+l+"'>Info page</a>":"<a href='"+d+"/"+l+"'>Datatracker</a> | <a href='"+n+"/?"+i+"="+f+"&submit="+i+"'>IPR</a> | <a href='"+c+"/"+l+"'>Info page</a>",a[e]=R}""!=a[e]?"Errata"==u[e]?h+=`<dt>More info:</dt><dd>${a[e]}</dd>`:h+=`<dt>${u[e]}:</dt><dd>${a[e]}</dd>`:"Errata"==u[e]&&(h+=`<dt>More info:</dt><dd>${a[e]}</dd>`)}),h+="</dl>",e.innerHTML=h}catch(e){console.log(e)}else console.log("Could not locate metadata <div> element");function r(e){return e.charAt(0).toUpperCase()+e.slice(1)}}window.removeEventListener("load",addMetadata),window.addEventListener("load",addMetadata);</script>
+</head>
+<body class="xml2rfc">
+<script src="metadata.min.js"></script>
+<table class="ears">
+<thead><tr>
+<td class="left">Internet-Draft</td>
+<td class="center">rpp-architecture</td>
+<td class="right">February 2025</td>
+</tr></thead>
+<tfoot><tr>
+<td class="left">Kowalik</td>
+<td class="center">Expires 1 September 2025</td>
+<td class="right">[Page]</td>
+</tr></tfoot>
+</table>
+<div id="external-metadata" class="document-information"></div>
+<div id="internal-metadata" class="document-information">
+<dl id="identifiers">
+<dt class="label-workgroup">Workgroup:</dt>
+<dd class="workgroup">Network Working Group</dd>
+<dt class="label-internet-draft">Internet-Draft:</dt>
+<dd class="internet-draft">draft-kowalik-rpp-architecture-00</dd>
+<dt class="label-">:</dt>
+<dd></dd>
+<dt class="label-published">Published:</dt>
+<dd class="published">
+<time datetime="2025-02-28" class="published">28 February 2025</time>
+    </dd>
+<dt class="label-intended-status">Intended Status:</dt>
+<dd class="intended-status">Informational</dd>
+<dt class="label-expires">Expires:</dt>
+<dd class="expires"><time datetime="2025-09-01">1 September 2025</time></dd>
+<dt class="label-authors">Author:</dt>
+<dd class="authors">
+<div class="author">
+      <div class="author-name">P. Kowalik</div>
+<div class="org">DENIC eG</div>
+</div>
+</dd>
+</dl>
+</div>
+<h1 id="title">RPP Architecture</h1>
+<div id="status-of-memo">
+<section id="section-boilerplate.1">
+        <h2 id="name-status-of-this-memo">
+<a href="#name-status-of-this-memo" class="section-name selfRef">Status of This Memo</a>
+        </h2>
+<p id="section-boilerplate.1-1">
+        This Internet-Draft is submitted in full conformance with the
+        provisions of BCP 78 and BCP 79.<a href="#section-boilerplate.1-1" class="pilcrow">¶</a></p>
+<p id="section-boilerplate.1-2">
+        Internet-Drafts are working documents of the Internet Engineering Task
+        Force (IETF). Note that other groups may also distribute working
+        documents as Internet-Drafts. The list of current Internet-Drafts is
+        at <span><a href="https://datatracker.ietf.org/drafts/current/">https://datatracker.ietf.org/drafts/current/</a></span>.<a href="#section-boilerplate.1-2" class="pilcrow">¶</a></p>
+<p id="section-boilerplate.1-3">
+        Internet-Drafts are draft documents valid for a maximum of six months
+        and may be updated, replaced, or obsoleted by other documents at any
+        time. It is inappropriate to use Internet-Drafts as reference
+        material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
+<p id="section-boilerplate.1-4">
+        This Internet-Draft will expire on 1 September 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="copyright">
+<section id="section-boilerplate.2">
+        <h2 id="name-copyright-notice">
+<a href="#name-copyright-notice" class="section-name selfRef">Copyright Notice</a>
+        </h2>
+<p id="section-boilerplate.2-1">
+            Copyright (c) 2025 IETF Trust and the persons identified as the
+            document authors. All rights reserved.<a href="#section-boilerplate.2-1" class="pilcrow">¶</a></p>
+<p id="section-boilerplate.2-2">
+            This document is subject to BCP 78 and the IETF Trust's Legal
+            Provisions Relating to IETF Documents
+            (<span><a href="https://trustee.ietf.org/license-info">https://trustee.ietf.org/license-info</a></span>) in effect on the date of
+            publication of this document. Please review these documents
+            carefully, as they describe your rights and restrictions with
+            respect to this document. Code Components extracted from this
+            document must include Revised BSD License text as described in
+            Section 4.e of the Trust Legal Provisions and are provided without
+            warranty as described in the Revised BSD License.<a href="#section-boilerplate.2-2" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="toc">
+<section id="section-toc.1">
+        <a href="#" onclick="scroll(0,0)" class="toplink">▲</a><h2 id="name-table-of-contents">
+<a href="#name-table-of-contents" class="section-name selfRef">Table of Contents</a>
+        </h2>
+<nav class="toc"><ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.1">
+            <p id="section-toc.1-1.1.1" class="keepWithNext"><a href="#section-1" class="auto internal xref">1</a>.  <a href="#name-abstract" class="internal xref">Abstract</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.2">
+            <p id="section-toc.1-1.2.1" class="keepWithNext"><a href="#section-2" class="auto internal xref">2</a>.  <a href="#name-introduction" class="internal xref">Introduction</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3">
+            <p id="section-toc.1-1.3.1" class="keepWithNext"><a href="#section-3" class="auto internal xref">3</a>.  <a href="#name-terminology" class="internal xref">Terminology</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4">
+            <p id="section-toc.1-1.4.1"><a href="#section-4" class="auto internal xref">4</a>.  <a href="#name-requirements" class="internal xref">Requirements</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5">
+            <p id="section-toc.1-1.5.1"><a href="#section-5" class="auto internal xref">5</a>.  <a href="#name-architectural-overview" class="internal xref">Architectural Overview</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.1">
+                <p id="section-toc.1-1.5.2.1.1"><a href="#section-5.1" class="auto internal xref">5.1</a>.  <a href="#name-resource-oriented-architect" class="internal xref">Resource Oriented Architecture</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.2">
+                <p id="section-toc.1-1.5.2.2.1"><a href="#section-5.2" class="auto internal xref">5.2</a>.  <a href="#name-architecture-layers" class="internal xref">Architecture Layers</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.2.2.1">
+                    <p id="section-toc.1-1.5.2.2.2.1.1"><a href="#section-5.2.1" class="auto internal xref">5.2.1</a>.  <a href="#name-http-transport-layer" class="internal xref">HTTP Transport Layer</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.2.2.2">
+                    <p id="section-toc.1-1.5.2.2.2.2.1"><a href="#section-5.2.2" class="auto internal xref">5.2.2</a>.  <a href="#name-data-representation-layer" class="internal xref">Data Representation Layer</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.2.2.3">
+                    <p id="section-toc.1-1.5.2.2.2.3.1"><a href="#section-5.2.3" class="auto internal xref">5.2.3</a>.  <a href="#name-resource-definition-layer" class="internal xref">Resource Definition Layer</a></p>
+</li>
+                </ul>
+</li>
+            </ul>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6">
+            <p id="section-toc.1-1.6.1"><a href="#section-6" class="auto internal xref">6</a>.  <a href="#name-protocol-details" class="internal xref">Protocol Details</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.1">
+                <p id="section-toc.1-1.6.2.1.1"><a href="#section-6.1" class="auto internal xref">6.1</a>.  <a href="#name-http-transport-layer-detail" class="internal xref">HTTP Transport Layer Details</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.1.2.1">
+                    <p id="section-toc.1-1.6.2.1.2.1.1"><a href="#section-6.1.1" class="auto internal xref">6.1.1</a>.  <a href="#name-authentication-and-authoriz" class="internal xref">Authentication and Authorization</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.1.2.2">
+                    <p id="section-toc.1-1.6.2.1.2.2.1"><a href="#section-6.1.2" class="auto internal xref">6.1.2</a>.  <a href="#name-resource-addressing" class="internal xref">Resource Addressing</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.1.2.3">
+                    <p id="section-toc.1-1.6.2.1.2.3.1"><a href="#section-6.1.3" class="auto internal xref">6.1.3</a>.  <a href="#name-mapping-of-basic-operations" class="internal xref">Mapping of basic operations to HTTP uniform interface (verbs)</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.1.2.4">
+                    <p id="section-toc.1-1.6.2.1.2.4.1"><a href="#section-6.1.4" class="auto internal xref">6.1.4</a>.  <a href="#name-rpp-specific-error-codes-an" class="internal xref">RPP specific error codes and relation to HTTP error codes</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.1.2.5">
+                    <p id="section-toc.1-1.6.2.1.2.5.1"><a href="#section-6.1.5" class="auto internal xref">6.1.5</a>.  <a href="#name-transaction-tracing-and-ide" class="internal xref">Transaction tracing and idempotency</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.1.2.6">
+                    <p id="section-toc.1-1.6.2.1.2.6.1"><a href="#section-6.1.6" class="auto internal xref">6.1.6</a>.  <a href="#name-caching" class="internal xref">Caching</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.1.2.7">
+                    <p id="section-toc.1-1.6.2.1.2.7.1"><a href="#section-6.1.7" class="auto internal xref">6.1.7</a>.  <a href="#name-content-negotiation-for-med" class="internal xref">Content negotiation for media types</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.1.2.8">
+                    <p id="section-toc.1-1.6.2.1.2.8.1"><a href="#section-6.1.8" class="auto internal xref">6.1.8</a>.  <a href="#name-language-negotiation-for-te" class="internal xref">Language negotiation for textual content</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.1.2.9">
+                    <p id="section-toc.1-1.6.2.1.2.9.1"><a href="#section-6.1.9" class="auto internal xref">6.1.9</a>.  <a href="#name-definition-of-special-resou" class="internal xref">Definition of special resources</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.1.2.10">
+                    <p id="section-toc.1-1.6.2.1.2.10.1"><a href="#section-6.1.10" class="auto internal xref">6.1.10</a>. <a href="#name-service-discovery-mechanism" class="internal xref">Service discovery mechanisms</a></p>
+</li>
+                </ul>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.2">
+                <p id="section-toc.1-1.6.2.2.1"><a href="#section-6.2" class="auto internal xref">6.2</a>.  <a href="#name-data-representation-layer-2" class="internal xref">Data Representation Layer</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.2.2.1">
+                    <p id="section-toc.1-1.6.2.2.2.1.1"><a href="#section-6.2.1" class="auto internal xref">6.2.1</a>.  <a href="#name-data-structure" class="internal xref">Data structure</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.2.2.2">
+                    <p id="section-toc.1-1.6.2.2.2.2.1"><a href="#section-6.2.2" class="auto internal xref">6.2.2</a>.  <a href="#name-data-format-and-encapsulati" class="internal xref">Data format and encapsulation</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.2.2.3">
+                    <p id="section-toc.1-1.6.2.2.2.3.1"><a href="#section-6.2.3" class="auto internal xref">6.2.3</a>.  <a href="#name-media-type-definition" class="internal xref">Media Type definition</a></p>
+</li>
+                </ul>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.3">
+                <p id="section-toc.1-1.6.2.3.1"><a href="#section-6.3" class="auto internal xref">6.3</a>.  <a href="#name-resource-definition-layer-2" class="internal xref">Resource Definition Layer</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.3.2.1">
+                    <p id="section-toc.1-1.6.2.3.2.1.1"><a href="#section-6.3.1" class="auto internal xref">6.3.1</a>.  <a href="#name-data-elements" class="internal xref">Data Elements</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.3.2.2">
+                    <p id="section-toc.1-1.6.2.3.2.2.1"><a href="#section-6.3.2" class="auto internal xref">6.3.2</a>.  <a href="#name-mapping" class="internal xref">Mapping</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.3.2.3">
+                    <p id="section-toc.1-1.6.2.3.2.3.1"><a href="#section-6.3.3" class="auto internal xref">6.3.3</a>.  <a href="#name-operations" class="internal xref">Operations</a></p>
+</li>
+                </ul>
+</li>
+            </ul>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7">
+            <p id="section-toc.1-1.7.1"><a href="#section-7" class="auto internal xref">7</a>.  <a href="#name-references" class="internal xref">References</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.1">
+                <p id="section-toc.1-1.7.2.1.1"><a href="#section-7.1" class="auto internal xref">7.1</a>.  <a href="#name-informational-references" class="internal xref">Informational References</a></p>
+</li>
+            </ul>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8">
+            <p id="section-toc.1-1.8.1"><a href="#appendix-A" class="auto internal xref"></a><a href="#name-authors-address" class="internal xref">Author's Address</a></p>
+</li>
+        </ul>
+</nav>
+</section>
+</div>
+<div id="_abstract">
+<section id="section-1">
+      <h2 id="name-abstract">
+<a href="#section-1" class="section-number selfRef">1. </a><a href="#name-abstract" class="section-name selfRef">Abstract</a>
+      </h2>
+<div id="_2b515598-e310-464b-2196-ba379d21048b">
+<p id="section-1-1">The Extensible Provisioning Protocol (EPP), standardized in 2009, has served the domain name industry well for domain name management.
+However, advancements in development, integration, and operational paradigms have led to a desire for a provisioning protocol leveraging the REST architectural style and JSON data-interchange format.  This document defines the architecture for the RESTful Provisioning Protocol (RPP), aiming to standardize a REST-based protocol for provisioning services, initially focused on domain name, host, and contact management, while allowing for future extensibility.  RPP is intended to co-exist with EPP, offering a modern alternative benefiting from the REST architectural style and widely adopted technologies. RPP aims for data model compatibility with EPP core objects.<a href="#section-1-1" class="pilcrow">¶</a></p>
+</div>
+</section>
+</div>
+<div id="_introduction">
+<section id="section-2">
+      <h2 id="name-introduction">
+<a href="#section-2" class="section-number selfRef">2. </a><a href="#name-introduction" class="section-name selfRef">Introduction</a>
+      </h2>
+<div id="_456f04e5-9f35-9324-1836-a2f97d728a7e">
+<p id="section-2-1">The Extensible Provisioning Protocol (EPP) <span>[<a href="#RFC5730" class="cite xref">RFC5730</a>]</span> has been a cornerstone protocol for domain name management.  Recognizing the shift towards RESTful architectures and the widespread adoption of JSON, this document outlines the architecture of the RESTful Provisioning Protocol (RPP). RPP aims to provide a modern, standardized, and developer-friendly protocol for provisioning services, initially focusing on functional equivalents of EPP for domain names <span>[<a href="#RFC5731" class="cite xref">RFC5731</a>]</span>, hosts <span>[<a href="#RFC5732" class="cite xref">RFC5732</a>]</span>, and contacts <span>[<a href="#RFC5733" class="cite xref">RFC5733</a>]</span>. RPP also considers DNS provisioning as a potential use case, aiming for a uniform API layer for various registry operations.<a href="#section-2-1" class="pilcrow">¶</a></p>
+</div>
+<div id="_c13fb6f4-d14b-abe5-2162-578529d7454e">
+<p id="section-2-2">RPP is designed to leverage the benefits of REST, including statelessness, ease of integration, and compatibility with existing web infrastructure and tools such as OpenAPI, API gateways, and web application firewalls.  By adopting JSON as the data-interchange format, RPP seeks to align with current development practices and the successful deployment patterns observed in protocols like RDAP <span>[<a href="#RFC9082" class="cite xref">RFC9082</a>]</span>.  The choice of REST and JSON also facilitates direct browser and mobile application integration.<a href="#section-2-2" class="pilcrow">¶</a></p>
+</div>
+<div id="_26d00a45-6005-2ece-4905-5ad00f9ee771">
+<p id="section-2-3">This architecture document serves as a foundation for a series of specifications that will collectively define RPP.  It details the layered approach, core components, and design considerations for building an interoperable and extensible provisioning protocol.  RPP is intended to coexist with EPP, offering an alternative for implementers seeking a RESTful approach without aiming to replace EPP or define migration paths from EPP. RPP aims for data model compatibility with EPP core objects to allow automatic and mechanical mapping and conversion, especially for core objects (domain, contact, host).<a href="#section-2-3" class="pilcrow">¶</a></p>
+</div>
+</section>
+</div>
+<div id="_terminology">
+<section id="section-3">
+      <h2 id="name-terminology">
+<a href="#section-3" class="section-number selfRef">3. </a><a href="#name-terminology" class="section-name selfRef">Terminology</a>
+      </h2>
+<div id="_3b5790e1-7e8a-db26-47a8-a849a201596b">
+<p id="section-3-1">This document uses terminology from RFC5730 <span>[<a href="#RFC5730" class="cite xref">RFC5730</a>]</span> and broadly adopts the REST architectural principles as defined in [REST] and related RFCs.<a href="#section-3-1" class="pilcrow">¶</a></p>
+</div>
+<ul class="normal">
+<li class="normal" id="section-3-2.1">
+          <strong>RPP:</strong> RESTful Provisioning Protocol. The protocol being defined by the RPP working group.<a href="#section-3-2.1" class="pilcrow">¶</a>
+</li>
+        <li class="normal" id="section-3-2.2">
+          <strong>EPP:</strong> Extensible Provisioning Protocol as defined in <span>[<a href="#RFC5730" class="cite xref">RFC5730</a>]</span>.<a href="#section-3-2.2" class="pilcrow">¶</a>
+</li>
+        <li class="normal" id="section-3-2.3">
+          <strong>REST:</strong> REpresentational State Transfer architectural style
+<span>[<a href="#REST" class="cite xref">REST</a>]</span>.<a href="#section-3-2.3" class="pilcrow">¶</a>
+</li>
+        <li class="normal" id="section-3-2.4">
+          <strong>JSON:</strong> JavaScript Object Notation <span>[<a href="#RFC8259" class="cite xref">RFC8259</a>]</span>.<a href="#section-3-2.4" class="pilcrow">¶</a>
+</li>
+        <li class="normal" id="section-3-2.5">
+          <strong>JWT:</strong> JSON Web Token <span>[<a href="#RFC7519" class="cite xref">RFC7519</a>]</span>.<a href="#section-3-2.5" class="pilcrow">¶</a>
+</li>
+        <li class="normal" id="section-3-2.6">
+          <strong>JWT-SD:</strong> JWT with Selective Disclosure  <span>[<a href="#I-D.draft-ietf-oauth-selective-disclosure-jwt" class="cite xref">I-D.draft-ietf-oauth-selective-disclosure-jwt</a>]</span>.<a href="#section-3-2.6" class="pilcrow">¶</a>
+</li>
+        <li class="normal" id="section-3-2.7">
+          <strong>OpenAPI:</strong> The OpenAPI Specification (OAS) (formerly known as Swagger Specification) is an API description format for REST APIs.<a href="#section-3-2.7" class="pilcrow">¶</a>
+</li>
+      </ul>
+</section>
+</div>
+<div id="_requirements">
+<section id="section-4">
+      <h2 id="name-requirements">
+<a href="#section-4" class="section-number selfRef">4. </a><a href="#name-requirements" class="section-name selfRef">Requirements</a>
+      </h2>
+<div id="_04cfd2c1-027c-c558-3fe7-87737797dafe">
+<p id="section-4-1">Note: This list of requirements is based on the current (20.2.2025) state of discussion in RPP working group and may be changed in futher work <span>[<a href="#RPPReq" class="cite xref">RPPReq</a>]</span>.<a href="#section-4-1" class="pilcrow">¶</a></p>
+</div>
+<div id="_a873564d-83d1-2908-f955-4e18e3f6814e">
+<p id="section-4-2">RPP is designed to meet the following requirements:<a href="#section-4-2" class="pilcrow">¶</a></p>
+</div>
+<ul class="normal">
+<li class="normal" id="section-4-3.1">
+          <strong>RESTful Architecture:</strong> The protocol MUST adhere to REST architectural principles, targeting at least level 2 of the Richardson Maturity Model.<a href="#section-4-3.1" class="pilcrow">¶</a>
+</li>
+        <li class="normal" id="section-4-3.2">
+          <strong>JSON Data Format:</strong> The protocol MUST use JSON as the primary data-interchange format for request and response payloads.<a href="#section-4-3.2" class="pilcrow">¶</a>
+</li>
+        <li class="normal" id="section-4-3.3">
+          <strong>Functional Equivalence to EPP:</strong> RPP SHOULD provide functional equivalents for core EPP functionalities related to domain names, hosts, and contacts as defined in <span>[<a href="#RFC5731" class="cite xref">RFC5731</a>]</span>, <span>[<a href="#RFC5732" class="cite xref">RFC5732</a>]</span>, and <span>[<a href="#RFC5733" class="cite xref">RFC5733</a>]</span>. Mappings for core objects (domain, contact, host) and a selection of commonly used EPP extensions will be provided in separate specifications.<a href="#section-4-3.3" class="pilcrow">¶</a>
+</li>
+        <li class="normal" id="section-4-3.4">
+          <strong>EPP Data Model Compatibility:</strong> RPP aims for data model compatibility with the existing EPP data model for core objects (domain, contact, host) to allow automatic/mechanical mapping/conversion between EPP and RPP. Compatibility definitions for RPP to EPP mappings may be defined in compatibility profiles.<a href="#section-4-3.4" class="pilcrow">¶</a>
+</li>
+        <li class="normal" id="section-4-3.5">
+          <strong>Extensibility:</strong> The protocol MUST be extensible to accommodate new functionalities, data objects, and operations beyond the initial scope.<a href="#section-4-3.5" class="pilcrow">¶</a>
+</li>
+        <li class="normal" id="section-4-3.6">
+          <strong>Security:</strong>  RPP MUST employ strong authentication and utilize encrypted transport (HTTPS) to protect sensitive data and authentication material.  Security mechanisms SHOULD be flexible to allow operators to choose appropriate methods and support federated authentication scenarios. RPP authorization models are intended to be fine-grained and go beyond simple auth-code based models, allowing for control at the operation and potentially attribute level, supporting use cases like domain transfers, DNS provider authorizations, and renewals.<a href="#section-4-3.6" class="pilcrow">¶</a>
+</li>
+        <li class="normal" id="section-4-3.7">
+          <strong>Interoperability:</strong> The protocol MUST promote interoperability
+between different implementations to reduce integration costs and
+encourage broader adoption.<a href="#section-4-3.7" class="pilcrow">¶</a>
+</li>
+        <li class="normal" id="section-4-3.8">
+          <strong>Leverage Web Standards:</strong>  RPP SHOULD leverage widely deployed web
+standards, tools, and infrastructure components such as HTTP,
+JSON, OpenAPI, API gateways, and load balancers.<a href="#section-4-3.8" class="pilcrow">¶</a>
+</li>
+        <li class="normal" id="section-4-3.9">
+          <strong>Internationalization:</strong>  The data model MUST have support for internationalization, including for Contact objects (potentially drawing from RDAP JSContact), email addresses, and Internationalized Domain Names (IDNs). RPP should also support human-readable localized responses.<a href="#section-4-3.9" class="pilcrow">¶</a>
+</li>
+      </ul>
+<ul class="normal">
+<li class="normal" id="section-4-4.1">
+          <strong>Profiles:</strong> RPP MUST allow for the use of different profiles to indicate required parts of the data model, mapping definitions, or functional subsets for compatibility. Profiles may be indicated using MIME type headers or other mechanisms.<a href="#section-4-4.1" class="pilcrow">¶</a>
+</li>
+      </ul>
+<ul class="normal">
+<li class="normal" id="section-4-5.1">
+          <strong>Bulk Operations, Listing and Filtering:</strong> RPP SHOULD allow for common bulk operations, resource listing, and filtering capabilities.<a href="#section-4-5.1" class="pilcrow">¶</a>
+</li>
+      </ul>
+<ul class="normal">
+<li class="normal" id="section-4-6.1">
+          <strong>Data Omission Signaling:</strong> RPP SHOULD provide mechanisms for registrars to signal data omission, indicating data collected but not transmitted to the registry.<a href="#section-4-6.1" class="pilcrow">¶</a>
+</li>
+        <li class="normal" id="section-4-6.2">
+          <strong>Expanded Common Models:</strong> RPP's data model SHOULD aim for easy and natural extensibility to richer models compared to EPP, including attributes for VAT numbers, company numbers etc.<a href="#section-4-6.2" class="pilcrow">¶</a>
+</li>
+        <li class="normal" id="section-4-6.3">
+          <strong>Registrant Verification:</strong> RPP SHOULD consider mechanisms to support data formats outside of core RPP domain. Especially formats, which lose their properties if transformed, like Verifiable Credentials for contacts which are digitally signed.<a href="#section-4-6.3" class="pilcrow">¶</a>
+</li>
+        <li class="normal" id="section-4-6.4">
+          <strong>Service Discovery:</strong> RPP MUST support service discovery to reduce coupling between clients and servers, potentially using well-known URLs.<a href="#section-4-6.4" class="pilcrow">¶</a>
+</li>
+        <li class="normal" id="section-4-6.5">
+          <strong>Documentation:</strong> RPP specifications SHOULD include OpenAPI definitions to facilitate documentation, testing, and code generation, and provide implementer-friendly extension descriptions.<a href="#section-4-6.5" class="pilcrow">¶</a>
+</li>
+      </ul>
+</section>
+</div>
+<div id="_architectural_overview">
+<section id="section-5">
+      <h2 id="name-architectural-overview">
+<a href="#section-5" class="section-number selfRef">5. </a><a href="#name-architectural-overview" class="section-name selfRef">Architectural Overview</a>
+      </h2>
+<div id="_c2351217-ea5e-0488-a028-41575e888aa6">
+<p id="section-5-1">This chapter provides an overview of the Resource Provisioning Protocol (RPP) architecture.  A key design principle is the maximal reuse of existing web standards, particularly HTTP and REST principles. This allows RPP to leverage the well-established infrastructure and semantics of the web, focusing its own definitions on the specific domain of resource provisioning.  Therefore, we assume:<a href="#section-5-1" class="pilcrow">¶</a></p>
+</div>
+<ul class="normal">
+<li class="normal" id="section-5-2.1">
+          <strong>HTTP and RESTful principles are the foundation:</strong> RPP leverages HTTP for transport and adheres to RESTful principles for resource management.<a href="#section-5-2.1" class="pilcrow">¶</a>
+</li>
+        <li class="normal" id="section-5-2.2">
+          <strong>Domain-specific logic resides in data representations:</strong> Only the specifics of resource provisioning are encoded within the data structures and semantics of the RPP message bodies. The underlying transport and general resource handling are handled by standard web technologies.<a href="#section-5-2.2" class="pilcrow">¶</a>
+</li>
+        <li class="normal" id="section-5-2.3">
+          <strong>Layered architecture for modularity:</strong> The architecture is layered to promote modularity, separation of concerns, and independent evolution of different aspects of the protocol.<a href="#section-5-2.3" class="pilcrow">¶</a>
+</li>
+      </ul>
+<div id="_af1c997c-db87-684b-7d7e-ec03cd1ea95a">
+<p id="section-5-3">The architecture is divided into three main layers: <strong>HTTP Transport</strong>, <strong>Data Representation</strong>, and <strong>Resource Definition</strong>. Each layer defines specific aspects of the protocol. This layered approach allows for clear separation of concerns, enabling independent evolution and extensibility of each layer.<a href="#section-5-3" class="pilcrow">¶</a></p>
+</div>
+<div id="_997b6d23-d9f6-da8e-9352-6a6943ea150d">
+<figure id="figure-1">
+        <div id="_2afb649d-b583-ff03-7e98-f9f044df14a1">
+<div class="alignLeft art-svg artwork" id="section-5-4.1">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="572px" height="671px" viewBox="-0.5 -0.5 572 671" content='&lt;mxfile&gt;&lt;diagram id="TTPwnZrUPGOXwcpMM5Dz" name="Seite-1"&gt;7Zhbc6IwFMc/jY/dAQKIj62X9mE726nOtPsY4QipgTAheOmn30SigFDrTnVrd2ofSv65cDi/c04IHdSPV7ccp9E9C4B2LCNYddCgY1lXZrcr/yllXSgOcgsh5CQoJLMUxuQVtGhoNScBZLWBgjEqSFoXfZYk4Iuahjlny/qwGaP1u6Y4hIYw9jFtqk8kEFGheo5R6ndAwmh7Z9PQPTHeDtZCFuGALSsSGnZQnzMmiqt41QeqnLf1SzFv9EbvzjAOiThmwvzpBUavo/F0HT7SCZvODR5eIW3cAtNcP/HdZPIglQnHSZYyLrT1Yr11CWd5EoBa1eygm2VEBIxT7KvepQwCqUUiprobUxIm8tqXVgKXwgK4INK/17pDMDVjxhKh4UuT0E0mFyRJOFGdA1MpM0Jpn1HGN0agmaP+9MyKXvzUCoKzOVR63M1P9jQdp32pTINVRdKOvAUWg+BrOUT39jztNx3VPd1cliHibLlHlfBwu1rEOizD3dIlOXmh4f0NSLMBcoAFlsojpBwy+axYEJZcJs0AgzfzW6n5HkxnJ6LWq1Mz3RZsRgs2xzsbNquBbZj4OM1y+rVxBTiLdmaqxgMW0gZ1U08+kXcaorLaOjWkFmoitbtOE6ndOxtS9FYmjgXPfZFz+Kb6DlWzThUZLVSdNqrG2ag6DaqPkLGcS0hys1ynlwrVAS+w26B61hSdaj80Dc+tE2vZEZHdQsw6Xx7a38QOEevWN0PkfT4x9xCxAWQ+J+kF74r/CJyzB6776eBst0EEAnmM0k15iIhYyBJMh6V6UzJTvizH/GSFh6X4AkKsNQOcC1bnCCsinivXv9VSPxzdGqz0ypvGettI5PM+VxuVWapZTtu0tvPqSAOY4ZyKnb49GbrHRFdMgmDjABVgIxwTqm5yB3QBalw98kxz74hT3priKdAb7M/DjSebAyAJrtUJWBlDcZYR/1AE6jw7kJ36JC8wD0EcGugVA1UIHIxoDuold1E/aZ++qnTfeh8bUoilG7KPlZMKLav7eVXBrVcF225WBdNuOduYZ3tlstGXqwpmvSpYx5WFavp/IL+8Y/MLnTq/NlNlrcDryoCUEZ0beuUHJVRCzrH3Qq639wHq3QmGsRdkhQ1lyO0e5gPp7zXS/x6nqdzJ/4e0t/ZdegFp33T4rxT45nPGf1Fqzb1S6zhn9Llslp+Ii5woP7Sj4R8=&lt;/diagram&gt;&lt;/mxfile&gt;' font-family="Noto Serif">
+            <desc>Static</desc>
+            <defs></defs>
+            <g>
+              <rect x="0" y="0" width="520" height="670" rx="78" ry="78" fill="#f5f5f5" stroke="#666666" pointer-events="all"></rect>
+              <g transform="translate(-0.5 -0.5)">
+                <switch>
+                  <foreignObject pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" style="overflow: visible; text-align: left;">
+                    <div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe flex-start; justify-content: unsafe center; width: 518px; height: 1px; padding-top: 17px; margin-left: 1px;">
+                      <div data-drawio-colors="color: #333333; " style="box-sizing: border-box; font-size: 0px; text-align: center;">
+                        <div style="display: inline-block; font-size: 30px; font-family: Helvetica; color: rgb(51, 51, 51); line-height: 1.2; pointer-events: all; white-space: normal; overflow-wrap: normal;">HTTP Transport</div>
+                      </div>
+                    </div>
+                  </foreignObject>
+                  <text x="260" y="47" fill="#333333" font-family="inherit" font-size="30px" text-anchor="middle">HTTP Transport</text>
+                </switch>
+              </g>
+              <rect x="10" y="70" width="500" height="580" rx="75" ry="75" fill="#dae8fc" stroke="#6c8ebf" pointer-events="all"></rect>
+              <g transform="translate(-0.5 -0.5)">
+                <switch>
+                  <foreignObject pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" style="overflow: visible; text-align: left;">
+                    <div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe flex-start; justify-content: unsafe center; width: 498px; height: 1px; padding-top: 87px; margin-left: 11px;">
+                      <div data-drawio-colors="color: rgb(0, 0, 0); " style="box-sizing: border-box; font-size: 0px; text-align: center;">
+                        <div style="display: inline-block; font-size: 30px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; pointer-events: all; white-space: normal; overflow-wrap: normal;">Data Representation</div>
+                      </div>
+                    </div>
+                  </foreignObject>
+                  <text x="260" y="117" fill="rgb(0, 0, 0)" font-family="inherit" font-size="30px" text-anchor="middle">Data Representation</text>
+                </switch>
+              </g>
+              <rect x="25" y="140" width="475" height="490" rx="71.25" ry="71.25" fill="#dae8fc" stroke="#6c8ebf" stroke-dasharray="8 8" pointer-events="all"></rect>
+              <g transform="translate(-0.5 -0.5)">
+                <switch>
+                  <foreignObject pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" style="overflow: visible; text-align: left;">
+                    <div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe flex-start; justify-content: unsafe center; width: 473px; height: 1px; padding-top: 157px; margin-left: 26px;">
+                      <div data-drawio-colors="color: rgb(0, 0, 0); " style="box-sizing: border-box; font-size: 0px; text-align: center;">
+                        <div style="display: inline-block; font-size: 30px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; pointer-events: all; white-space: normal; overflow-wrap: normal;">Encapsulation</div>
+                      </div>
+                    </div>
+                  </foreignObject>
+                  <text x="263" y="187" fill="rgb(0, 0, 0)" font-family="inherit" font-size="30px" text-anchor="middle">Encapsulation</text>
+                </switch>
+              </g>
+              <rect x="35" y="210" width="455" height="400" rx="60" ry="60" fill="#dae8fc" stroke="#6c8ebf" stroke-dasharray="8 8" pointer-events="all"></rect>
+              <g transform="translate(-0.5 -0.5)">
+                <switch>
+                  <foreignObject pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" style="overflow: visible; text-align: left;">
+                    <div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe flex-start; justify-content: unsafe center; width: 453px; height: 1px; padding-top: 227px; margin-left: 36px;">
+                      <div data-drawio-colors="color: rgb(0, 0, 0); " style="box-sizing: border-box; font-size: 0px; text-align: center;">
+                        <div style="display: inline-block; font-size: 30px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; pointer-events: all; white-space: normal; overflow-wrap: normal;">Data Structure</div>
+                      </div>
+                    </div>
+                  </foreignObject>
+                  <text x="263" y="257" fill="rgb(0, 0, 0)" font-family="inherit" font-size="30px" text-anchor="middle">Data Structure</text>
+                </switch>
+              </g>
+              <rect x="106" y="300" width="345" height="290" rx="43.5" ry="43.5" fill="#d5e8d4" stroke="#82b366" pointer-events="all"></rect>
+              <g transform="translate(-0.5 -0.5)">
+                <switch>
+                  <foreignObject pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" style="overflow: visible; text-align: left;">
+                    <div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe flex-start; justify-content: unsafe center; width: 343px; height: 1px; padding-top: 317px; margin-left: 107px;">
+                      <div data-drawio-colors="color: rgb(0, 0, 0); " style="box-sizing: border-box; font-size: 0px; text-align: center;">
+                        <div style="display: inline-block; font-size: 30px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; pointer-events: all; white-space: normal; overflow-wrap: normal;">Resource Type</div>
+                      </div>
+                    </div>
+                  </foreignObject>
+                  <text x="279" y="347" fill="rgb(0, 0, 0)" font-family="inherit" font-size="30px" text-anchor="middle">Resource Type</text>
+                </switch>
+              </g>
+              <rect x="90" y="290" width="345" height="290" rx="43.5" ry="43.5" fill="#d5e8d4" stroke="#82b366" pointer-events="all"></rect>
+              <g transform="translate(-0.5 -0.5)">
+                <switch>
+                  <foreignObject pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" style="overflow: visible; text-align: left;">
+                    <div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe flex-start; justify-content: unsafe center; width: 343px; height: 1px; padding-top: 307px; margin-left: 91px;">
+                      <div data-drawio-colors="color: rgb(0, 0, 0); " style="box-sizing: border-box; font-size: 0px; text-align: center;">
+                        <div style="display: inline-block; font-size: 30px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; pointer-events: all; white-space: normal; overflow-wrap: normal;">Resource Type</div>
+                      </div>
+                    </div>
+                  </foreignObject>
+                  <text x="263" y="337" fill="rgb(0, 0, 0)" font-family="inherit" font-size="30px" text-anchor="middle">Resource Type</text>
+                </switch>
+              </g>
+              <rect x="70" y="280" width="345" height="290" rx="43.5" ry="43.5" fill="#d5e8d4" stroke="#82b366" pointer-events="all"></rect>
+              <g transform="translate(-0.5 -0.5)">
+                <switch>
+                  <foreignObject pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" style="overflow: visible; text-align: left;">
+                    <div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe flex-start; justify-content: unsafe center; width: 343px; height: 1px; padding-top: 297px; margin-left: 71px;">
+                      <div data-drawio-colors="color: rgb(0, 0, 0); " style="box-sizing: border-box; font-size: 0px; text-align: center;">
+                        <div style="display: inline-block; font-size: 30px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; pointer-events: all; white-space: normal; overflow-wrap: normal;">Resource Description</div>
+                      </div>
+                    </div>
+                  </foreignObject>
+                  <text x="243" y="327" fill="rgb(0, 0, 0)" font-family="inherit" font-size="30px" text-anchor="middle">Resource Description</text>
+                </switch>
+              </g>
+              <path d="M 220 400 L 244.29 400" fill="none" stroke="rgb(0, 0, 0)" stroke-width="6" stroke-miterlimit="10" pointer-events="stroke"></path>
+              <path d="M 253.29 400 L 241.29 406 L 244.29 400 L 241.29 394 Z" fill="rgb(0, 0, 0)" stroke="rgb(0, 0, 0)" stroke-width="6" stroke-miterlimit="10" pointer-events="all"></path>
+              <rect x="80" y="350" width="140" height="100" rx="15" ry="15" fill="#d5e8d4" stroke="#82b366" pointer-events="all"></rect>
+              <g transform="translate(-0.5 -0.5)">
+                <switch>
+                  <foreignObject pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" style="overflow: visible; text-align: left;">
+                    <div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 138px; height: 1px; padding-top: 400px; margin-left: 81px;">
+                      <div data-drawio-colors="color: rgb(0, 0, 0); " style="box-sizing: border-box; font-size: 0px; text-align: center;">
+                        <div style="display: inline-block; font-size: 27px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; pointer-events: all; white-space: normal; overflow-wrap: normal;">Data Elements</div>
+                      </div>
+                    </div>
+                  </foreignObject>
+                  <text x="150" y="408" fill="rgb(0, 0, 0)" font-family="inherit" font-size="27px" text-anchor="middle">Data Elemen...</text>
+                </switch>
+              </g>
+              <path d="M 400 400 L 560 400 L 560 310 L 505.71 310" fill="none" stroke="rgb(0, 0, 0)" stroke-width="6" stroke-miterlimit="10" pointer-events="stroke"></path>
+              <path d="M 496.71 310 L 508.71 304 L 505.71 310 L 508.71 316 Z" fill="rgb(0, 0, 0)" stroke="rgb(0, 0, 0)" stroke-width="6" stroke-miterlimit="10" pointer-events="all"></path>
+              <rect x="260" y="350" width="140" height="100" rx="15" ry="15" fill="#d5e8d4" stroke="#82b366" pointer-events="all"></rect>
+              <g transform="translate(-0.5 -0.5)">
+                <switch>
+                  <foreignObject pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" style="overflow: visible; text-align: left;">
+                    <div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 138px; height: 1px; padding-top: 400px; margin-left: 261px;">
+                      <div data-drawio-colors="color: rgb(0, 0, 0); " style="box-sizing: border-box; font-size: 0px; text-align: center;">
+                        <div style="display: inline-block; font-size: 27px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; pointer-events: all; white-space: normal; overflow-wrap: normal;">Mapping</div>
+                      </div>
+                    </div>
+                  </foreignObject>
+                  <text x="330" y="408" fill="rgb(0, 0, 0)" font-family="inherit" font-size="27px" text-anchor="middle">Mapping</text>
+                </switch>
+              </g>
+              <rect x="180" y="460" width="140" height="100" rx="15" ry="15" fill="#d5e8d4" stroke="#82b366" pointer-events="all"></rect>
+              <g transform="translate(-0.5 -0.5)">
+                <switch>
+                  <foreignObject pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" style="overflow: visible; text-align: left;">
+                    <div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 138px; height: 1px; padding-top: 510px; margin-left: 181px;">
+                      <div data-drawio-colors="color: rgb(0, 0, 0); " style="box-sizing: border-box; font-size: 0px; text-align: center;">
+                        <div style="display: inline-block; font-size: 27px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; pointer-events: all; white-space: normal; overflow-wrap: normal;">Operations</div>
+                      </div>
+                    </div>
+                  </foreignObject>
+                  <text x="250" y="518" fill="rgb(0, 0, 0)" font-family="inherit" font-size="27px" text-anchor="middle">Operations</text>
+                </switch>
+              </g>
+            </g>
+            <switch>
+              <g requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility"></g>
+              <a transform="translate(0,-5)" xlink:href="https://www.diagrams.net/doc/faq/svg-export-text-problems" target="_blank">
+                <text text-anchor="middle" font-size="10px" x="50%" y="100%">Text is not SVG - cannot display</text>
+              </a>
+            </switch>
+          </svg>
+        </div>
+</div>
+<figcaption><a href="#figure-1" class="selfRef">Figure 1</a></figcaption></figure>
+</div>
+<div id="_resource_oriented_architecture">
+<section id="section-5.1">
+        <h3 id="name-resource-oriented-architect">
+<a href="#section-5.1" class="section-number selfRef">5.1. </a><a href="#name-resource-oriented-architect" class="section-name selfRef">Resource Oriented Architecture</a>
+        </h3>
+<div id="_9833bb58-fe8c-b060-0371-f4ed57cfd80e">
+<p id="section-5.1-1">RPP adopts a Resource Oriented Architecture (ROA), aligning with RESTful principles.  This approach treats all manageable entities as "resources," identified by unique URLs.  Operations on these resources are performed through a uniform interface using HTTP methods (GET, POST, PUT, DELETE, PATCH).  This contrasts with RPC-style protocols, which often define specific operations with custom parameters.  ROA promotes a more standardized and interoperable approach, leveraging the existing web infrastructure and its well-defined semantics.  Key aspects of ROA within RPP include:<a href="#section-5.1-1" class="pilcrow">¶</a></p>
+</div>
+<ul class="normal">
+<li class="normal" id="section-5.1-2.1">
+            <strong>Resource Identification:</strong> Each resource is uniquely identifiable by a URL.<a href="#section-5.1-2.1" class="pilcrow">¶</a>
+</li>
+          <li class="normal" id="section-5.1-2.2">
+            <strong>Uniform Interface:</strong> HTTP methods (GET, POST, PUT, DELETE, PATCH) are used to interact with resources in a consistent manner.<a href="#section-5.1-2.2" class="pilcrow">¶</a>
+</li>
+          <li class="normal" id="section-5.1-2.3">
+            <strong>Representation:</strong> Resources can be represented in various formats (e.g., JSON, XML) through content negotiation.<a href="#section-5.1-2.3" class="pilcrow">¶</a>
+</li>
+          <li class="normal" id="section-5.1-2.4">
+            <strong>Statelessness:</strong> Each request to a resource is treated as independent of previous requests. The server does not maintain client state between requests.<a href="#section-5.1-2.4" class="pilcrow">¶</a>
+</li>
+          <li class="normal" id="section-5.1-2.5">
+            <strong>Cacheability:</strong> Responses can be cached to improve performance.<a href="#section-5.1-2.5" class="pilcrow">¶</a>
+</li>
+        </ul>
+</section>
+</div>
+<div id="_architecture_layers">
+<section id="section-5.2">
+        <h3 id="name-architecture-layers">
+<a href="#section-5.2" class="section-number selfRef">5.2. </a><a href="#name-architecture-layers" class="section-name selfRef">Architecture Layers</a>
+        </h3>
+<div id="_http_transport_layer">
+<section id="section-5.2.1">
+          <h4 id="name-http-transport-layer">
+<a href="#section-5.2.1" class="section-number selfRef">5.2.1. </a><a href="#name-http-transport-layer" class="section-name selfRef">HTTP Transport Layer</a>
+          </h4>
+<div id="_d9eb3ed6-3017-7ae0-87e6-a43dbdfc812a">
+<p id="section-5.2.1-1">This layer defines the transport mechanism for RPP messages, utilizing HTTP as the underlying protocol.<a href="#section-5.2.1-1" class="pilcrow">¶</a></p>
+</div>
+<div id="_37541a99-fa0e-af6c-dc36-d6a611bc4961">
+<p id="section-5.2.1-2">It encompasses aspects such as:<a href="#section-5.2.1-2" class="pilcrow">¶</a></p>
+</div>
+<ul class="normal">
+<li class="normal" id="section-5.2.1-3.1">
+              <strong>Authentication and Authorization:</strong> Mechanisms for verifying the identity of clients and controlling access to resources. Standard HTTP authentication mechanisms are preferred.<a href="#section-5.2.1-3.1" class="pilcrow">¶</a>
+</li>
+            <li class="normal" id="section-5.2.1-3.2">
+              <strong>Resource Addressing using URLs:</strong> Consistent and meaningful URL structures for identifying and accessing resources.<a href="#section-5.2.1-3.2" class="pilcrow">¶</a>
+</li>
+            <li class="normal" id="section-5.2.1-3.3">
+              <strong>Mapping of basic operations to HTTP uniform interface (verbs):</strong> Mapping CRUD (Create, Read, Update, Delete) operations to POST, GET, PUT/PATCH, and DELETE respectively.<a href="#section-5.2.1-3.3" class="pilcrow">¶</a>
+</li>
+            <li class="normal" id="section-5.2.1-3.4">
+              <strong>Mapping of operations beyond HTTP uniform interface to URLs and verbs:</strong> Handling more complex operations through appropriate URL structures and HTTP methods.<a href="#section-5.2.1-3.4" class="pilcrow">¶</a>
+</li>
+            <li class="normal" id="section-5.2.1-3.5">
+              <strong>RPP specific error codes and relation to HTTP error codes:</strong> Defining RPP-specific error codes while relating them to standard HTTP error codes for consistency.<a href="#section-5.2.1-3.5" class="pilcrow">¶</a>
+</li>
+            <li class="normal" id="section-5.2.1-3.6">
+              <strong>Transaction tracing and idempotency:</strong> Mechanisms for tracking requests and ensuring idempotent operations where appropriate.<a href="#section-5.2.1-3.6" class="pilcrow">¶</a>
+</li>
+            <li class="normal" id="section-5.2.1-3.7">
+              <strong>Caching:</strong> Leveraging HTTP caching mechanisms to improve performance.<a href="#section-5.2.1-3.7" class="pilcrow">¶</a>
+</li>
+            <li class="normal" id="section-5.2.1-3.8">
+              <strong>Content negotiation for media types:</strong> Supporting multiple data representation formats and using content negotiation to select the appropriate format.<a href="#section-5.2.1-3.8" class="pilcrow">¶</a>
+</li>
+            <li class="normal" id="section-5.2.1-3.9">
+              <strong>Language negotiation for textual content:</strong> Supporting multiple languages for textual content and using language negotiation to select the appropriate language.<a href="#section-5.2.1-3.9" class="pilcrow">¶</a>
+</li>
+            <li class="normal" id="section-5.2.1-3.10">
+              <strong>Definition of special resources:</strong> Defining specific resources for service discovery, metadata retrieval, etc.<a href="#section-5.2.1-3.10" class="pilcrow">¶</a>
+</li>
+            <li class="normal" id="section-5.2.1-3.11">
+              <strong>Service discovery mechanisms:</strong> Mechanisms for clients to discover available RPP services.<a href="#section-5.2.1-3.11" class="pilcrow">¶</a>
+</li>
+          </ul>
+</section>
+</div>
+<div id="_data_representation_layer">
+<section id="section-5.2.2">
+          <h4 id="name-data-representation-layer">
+<a href="#section-5.2.2" class="section-number selfRef">5.2.2. </a><a href="#name-data-representation-layer" class="section-name selfRef">Data Representation Layer</a>
+          </h4>
+<div id="_dd36747a-3cd6-158b-3208-ae870737b77b">
+<p id="section-5.2.2-1">This layer focuses on the encapsulation and data representation of RPP messages. It defines the media type used to carry RPP data and supports various data representation formats.<a href="#section-5.2.2-1" class="pilcrow">¶</a></p>
+</div>
+<div id="_f143a7f5-c01c-6a7d-6cd6-08b467faea4a">
+<p id="section-5.2.2-2">It encompasses aspects such as:<a href="#section-5.2.2-2" class="pilcrow">¶</a></p>
+</div>
+<ul class="normal">
+<li class="normal" id="section-5.2.2-3.1">
+              <strong>Data structure:</strong> Defining the structure and schema of the RPP data, potentially using a specific schema language.<a href="#section-5.2.2-3.1" class="pilcrow">¶</a>
+</li>
+            <li class="normal" id="section-5.2.2-3.2">
+              <strong>Data format:</strong> Defining the specific format used to represent RPP data within the representation(e.g., JSON, XML).<a href="#section-5.2.2-3.2" class="pilcrow">¶</a>
+</li>
+            <li class="normal" id="section-5.2.2-3.3">
+              <strong>Data encapsulation:</strong> Optionally defining encapsulation mechanisms for the data format (e.g., JWT, CBOR).<a href="#section-5.2.2-3.3" class="pilcrow">¶</a>
+</li>
+            <li class="normal" id="section-5.2.2-3.4">
+              <strong>Media Type definition:</strong> Defining the specific media type to be used in RPP, including any constraints on the data format and structure<a href="#section-5.2.2-3.4" class="pilcrow">¶</a>
+</li>
+          </ul>
+</section>
+</div>
+<div id="_resource_definition_layer">
+<section id="section-5.2.3">
+          <h4 id="name-resource-definition-layer">
+<a href="#section-5.2.3" class="section-number selfRef">5.2.3. </a><a href="#name-resource-definition-layer" class="section-name selfRef">Resource Definition Layer</a>
+          </h4>
+<div id="_830196e2-d2d5-a7fc-f303-289cbac5a06c">
+<p id="section-5.2.3-1">This layer defines the structure and operations for each resource type, independent of media type or representation. It ensures resources are well-defined and allows for easy extensibility and compatibility with different media types.<a href="#section-5.2.3-1" class="pilcrow">¶</a></p>
+</div>
+<div id="_df43088f-303d-e97b-4c85-79ad5cce8dd4">
+<p id="section-5.2.3-2">It encompasses aspects such as:<a href="#section-5.2.3-2" class="pilcrow">¶</a></p>
+</div>
+<ul class="normal">
+<li class="normal" id="section-5.2.3-3.1">
+              <strong>Data elements:</strong> Defining the individual data elements that make up a resource, including their data types, formats, and any constraints.<a href="#section-5.2.3-3.1" class="pilcrow">¶</a>
+</li>
+            <li class="normal" id="section-5.2.3-3.2">
+              <strong>Resource type definitions:</strong> Defining the structure of specific resource types by combining data elements.<a href="#section-5.2.3-3.2" class="pilcrow">¶</a>
+</li>
+            <li class="normal" id="section-5.2.3-3.3">
+              <strong>IANA registry definitions:</strong> Potentially registering resource definitions with IANA for standardized and automated processing.<a href="#section-5.2.3-3.3" class="pilcrow">¶</a>
+</li>
+            <li class="normal" id="section-5.2.3-3.4">
+              <strong>Mapping of data elements to media types:</strong> Defining how the data elements of a resource type are represented in different media types (e.g., JSON, XML).<a href="#section-5.2.3-3.4" class="pilcrow">¶</a>
+</li>
+            <li class="normal" id="section-5.2.3-3.5">
+              <strong>Extensibility mechanisms on the resource type level:</strong> Providing mechanisms for extending resource types with new data elements or operations.<a href="#section-5.2.3-3.5" class="pilcrow">¶</a>
+</li>
+          </ul>
+</section>
+</div>
+</section>
+</div>
+</section>
+</div>
+<div id="_protocol_details">
+<section id="section-6">
+      <h2 id="name-protocol-details">
+<a href="#section-6" class="section-number selfRef">6. </a><a href="#name-protocol-details" class="section-name selfRef">Protocol Details</a>
+      </h2>
+<div id="_9f4018ca-8683-ea28-9ddf-eb76f171e052">
+<p id="section-6-1">This section provides further details on each layer of the RPP
+architecture.<a href="#section-6-1" class="pilcrow">¶</a></p>
+</div>
+<div id="_http_transport_layer_details">
+<section id="section-6.1">
+        <h3 id="name-http-transport-layer-detail">
+<a href="#section-6.1" class="section-number selfRef">6.1. </a><a href="#name-http-transport-layer-detail" class="section-name selfRef">HTTP Transport Layer Details</a>
+        </h3>
+<div id="authentication-authorization">
+<section id="section-6.1.1">
+          <h4 id="name-authentication-and-authoriz">
+<a href="#section-6.1.1" class="section-number selfRef">6.1.1. </a><a href="#name-authentication-and-authoriz" class="section-name selfRef">Authentication and Authorization</a>
+          </h4>
+<div id="_62fc98b1-7bc5-9397-c4af-3795a3fe3615">
+<p id="section-6.1.1-1">RPP is aimed to leverage scalable and modern authorization standards, with a focus on OAuth 2.0 <span>[<a href="#RFC6749" class="cite xref">RFC6749</a>]</span> and related frameworks, however it should also support other authentication schemes defined for HTTP, like HTTP Basic Authentication which might be required for compatibility with existing EPP systems. RPP should remain open to support future authentication and authorization standards defined for HTTP.<a href="#section-6.1.1-1" class="pilcrow">¶</a></p>
+</div>
+<div id="_1e13cc37-28ef-fd78-7ce9-5f5949225267">
+<p id="section-6.1.1-2">Specifications will define profiles for:<a href="#section-6.1.1-2" class="pilcrow">¶</a></p>
+</div>
+<ul class="normal">
+<li class="normal" id="section-6.1.1-3.1">HTTP Authentication schemes (e.g., HTTP Basic Authentication,
+Bearer Token <span>[<a href="#RFC6750" class="cite xref">RFC6750</a>]</span>)<a href="#section-6.1.1-3.1" class="pilcrow">¶</a>
+</li>
+            <li class="normal" id="section-6.1.1-3.2">Authorization frameworks (e.g., OAuth 2.0 <span>[<a href="#RFC6749" class="cite xref">RFC6749</a>]</span>)<a href="#section-6.1.1-3.2" class="pilcrow">¶</a>
+</li>
+          </ul>
+<div id="_ee0cbd70-9be2-dcef-5da1-ec5909208f3b">
+<p id="section-6.1.1-4">Implementations will be able to choose authentication and authorization methods appropriate for their security requirements.<a href="#section-6.1.1-4" class="pilcrow">¶</a></p>
+</div>
+<div id="_authorization_scopes">
+<section id="section-6.1.1.1">
+            <h5 id="name-authorization-scopes">
+<a href="#section-6.1.1.1" class="section-number selfRef">6.1.1.1. </a><a href="#name-authorization-scopes" class="section-name selfRef">Authorization Scopes</a>
+            </h5>
+<div id="_ec6476e1-e8f5-2bdb-a7fe-7812385b5c8d">
+<p id="section-6.1.1.1-1">RPP specifications will standardize authorization scopes to define granular access control for different usage scenarios. These scopes will be defined for various operations and resource types, ensuring that clients can be granted only the necessary permissions.<a href="#section-6.1.1.1-1" class="pilcrow">¶</a></p>
+</div>
+</section>
+</div>
+<div id="_fine_grained_authorization">
+<section id="section-6.1.1.2">
+            <h5 id="name-fine-grained-authorization">
+<a href="#section-6.1.1.2" class="section-number selfRef">6.1.1.2. </a><a href="#name-fine-grained-authorization" class="section-name selfRef">Fine-Grained Authorization</a>
+            </h5>
+<div id="_5c2c122f-6066-91bb-6a77-1825e5613f92">
+<p id="section-6.1.1.2-1">RPP authorization models will be fine-grained, extending beyond simple auth-code based models used EPP.  Authorization decisions will be able to consider the specific operation being performed (e.g., update vs. read), the resource being accessed (e.g., a specific domain name), and potentially even attributes within the resource.<a href="#section-6.1.1.2-1" class="pilcrow">¶</a></p>
+</div>
+<div id="_c642175e-bf3f-18f8-fb73-54d92a272666">
+<p id="section-6.1.1.2-2">Here solutions like OAuth2 RAR <span>[<a href="#RFC9396" class="cite xref">RFC9396</a>]</span> could be considered to provide fine-grained access control.<a href="#section-6.1.1.2-2" class="pilcrow">¶</a></p>
+</div>
+</section>
+</div>
+</section>
+</div>
+<div id="_resource_addressing">
+<section id="section-6.1.2">
+          <h4 id="name-resource-addressing">
+<a href="#section-6.1.2" class="section-number selfRef">6.1.2. </a><a href="#name-resource-addressing" class="section-name selfRef">Resource Addressing</a>
+          </h4>
+<div id="_8981f645-b907-eed3-a6cb-5f3480ce5412">
+<p id="section-6.1.2-1">RPP resources are addressed using URLs.  Considerations include:<a href="#section-6.1.2-1" class="pilcrow">¶</a></p>
+</div>
+<ul class="normal">
+<li class="normal" id="section-6.1.2-2.1">Hierarchical URL structure to represent resources of different type (e.g., <code>/domains/{domain-name}</code>, <code>/contacts/{contact-id}</code>).<a href="#section-6.1.2-2.1" class="pilcrow">¶</a>
+</li>
+            <li class="normal" id="section-6.1.2-2.2">URL structure to represent list of related resources (e.g., <code>/domains/{domain-name}/contacts/</code>)<a href="#section-6.1.2-2.2" class="pilcrow">¶</a>
+</li>
+          </ul>
+<div id="_b011bc7e-41ff-4146-86ab-8d9895853ab7">
+<p id="section-6.1.2-3">RPP URL structure will be designed to be human-readable, intuitive, and RESTful, allowing clients to easily navigate and interact with resources.<a href="#section-6.1.2-3" class="pilcrow">¶</a></p>
+</div>
+<div id="_707e9f99-274a-0bcc-2043-6cd5ca38afbd">
+<p id="section-6.1.2-4">RPP would not require all URLs to be hard wired to server's RPP root URL. Instead, it would allow for relative URLs to be defined and discovered by the client. This would allow servers to distibute resources across multiple servers and URLs and allow for easier scaling.<a href="#section-6.1.2-4" class="pilcrow">¶</a></p>
+</div>
+<div id="_c19c58d1-8f47-abe8-fcf7-0bb97e557c7c">
+<p id="section-6.1.2-5">As a matter of extensibility consideration RPP should allow for additional path segments to be added to the URLs and be discoverable by clients.<a href="#section-6.1.2-5" class="pilcrow">¶</a></p>
+</div>
+<div id="_internationalized_domain_names_idn">
+<section id="section-6.1.2.1">
+            <h5 id="name-internationalized-domain-na">
+<a href="#section-6.1.2.1" class="section-number selfRef">6.1.2.1. </a><a href="#name-internationalized-domain-na" class="section-name selfRef">Internationalized Domain Names (IDN)</a>
+            </h5>
+<div id="_d1731dcd-7610-d67a-ba26-eb16b1a65a7c">
+<p id="section-6.1.2.1-1">RPP will address the handling of Internationalized Domain Names (IDNs) in resource addressing.  Specifications will define whether to use IDN or UTF-8 encoding directly in URLs and whether to employ redirects to canonical URLs or "see-also" linking for alternative representations. For example,  a "see-also" link could point from a UTF-8 encoded URL to an IDN URL and vice versa, allowing clients to use either URL. Another way would be to always redirect to the canonical URL, which would be the IDN URL.<a href="#section-6.1.2.1-1" class="pilcrow">¶</a></p>
+</div>
+</section>
+</div>
+</section>
+</div>
+<div id="_mapping_of_basic_operations_to_http_uniform_interface_verbs">
+<section id="section-6.1.3">
+          <h4 id="name-mapping-of-basic-operations">
+<a href="#section-6.1.3" class="section-number selfRef">6.1.3. </a><a href="#name-mapping-of-basic-operations" class="section-name selfRef">Mapping of basic operations to HTTP uniform interface (verbs)</a>
+          </h4>
+<div id="_84b06ddd-c09f-cd44-b57b-265fad027441">
+<p id="section-6.1.3-1">RPP operations are mapped to standard HTTP methods to leverage the
+uniform interface and RESTful principles:<a href="#section-6.1.3-1" class="pilcrow">¶</a></p>
+</div>
+<ul class="normal">
+<li class="normal" id="section-6.1.3-2.1">
+              <strong>GET:</strong>  Retrieve resource state (e.g., retrieving domain or contact information) - EPP info command<a href="#section-6.1.3-2.1" class="pilcrow">¶</a>
+</li>
+            <li class="normal" id="section-6.1.3-2.2">
+              <strong>POST:</strong> Create a new resource (e.g., registering a domain or create contact object) - EPP create command<a href="#section-6.1.3-2.2" class="pilcrow">¶</a>
+</li>
+            <li class="normal" id="section-6.1.3-2.3">
+              <strong>PUT:</strong>  Update an existing resource in its entirety (e.g., updating domain registration details) - not 100% equivalent of EPP update command<a href="#section-6.1.3-2.3" class="pilcrow">¶</a>
+</li>
+            <li class="normal" id="section-6.1.3-2.4">
+              <strong>DELETE:</strong> Delete a resource (e.g., deleting a domain registration) - EPP delete command<a href="#section-6.1.3-2.4" class="pilcrow">¶</a>
+</li>
+            <li class="normal" id="section-6.1.3-2.5">
+              <strong>PATCH:</strong>  Partially modify a resource (e.g., updating specific attributes of a domain or contact) - EPP update command<a href="#section-6.1.3-2.5" class="pilcrow">¶</a>
+</li>
+          </ul>
+<div id="_b43bfa46-35ca-dcd4-624a-05672be1a197">
+<p id="section-6.1.3-3">EPP transfer commands (query and transform), being in fact a representation of a running process, may be modelled by a subresource <code>/transfer</code> of the resource being transferred, with a PUT operation to initiate the transfer, GET operation to query the transfer status and POST operation to approve or reject the transfer. The same approach may apply when adding any other process to the resource, like domain restore.<a href="#section-6.1.3-3" class="pilcrow">¶</a></p>
+</div>
+<div id="_0044f0c4-c688-34a3-6732-2120034a3e6b">
+<p id="section-6.1.3-4">EPP check command may be modelled either as a GET operation with a dedicated media type, a POST operation with Expect header or a HEAD verb - depending on the specific requirements of the check operation.<a href="#section-6.1.3-4" class="pilcrow">¶</a></p>
+</div>
+<div id="_d580d2b2-cf52-de71-4ad4-253500797839">
+<p id="section-6.1.3-5">Other transform operations like renew, or restore which are not addressable resources in terms of REST may be either also modelled as POST requests with a dedicated media type, or be a convention of URLs with processing resources with only POST interface starting with underscore, e.g. <code>/domains/{domain-name}/_renew</code>.<a href="#section-6.1.3-5" class="pilcrow">¶</a></p>
+</div>
+<div id="_064c086d-0dff-f088-59ba-7102c00487b0">
+<p id="section-6.1.3-6">This basic set of rules and guidelines will be further refined in the RPP specifications and give an universal toolset for extending RPP with new resources and commands.<a href="#section-6.1.3-6" class="pilcrow">¶</a></p>
+</div>
+</section>
+</div>
+<div id="_rpp_specific_error_codes_and_relation_to_http_error_codes">
+<section id="section-6.1.4">
+          <h4 id="name-rpp-specific-error-codes-an">
+<a href="#section-6.1.4" class="section-number selfRef">6.1.4. </a><a href="#name-rpp-specific-error-codes-an" class="section-name selfRef">RPP specific error codes and relation to HTTP error codes</a>
+          </h4>
+<div id="_e94bf836-0a2d-a68c-0919-576dd9ee863d">
+<p id="section-6.1.4-1">RPP utilizes both HTTP status codes and RPP-specific error codes
+within the response body for detailed error reporting.<a href="#section-6.1.4-1" class="pilcrow">¶</a></p>
+</div>
+<ul class="normal">
+<li class="normal" id="section-6.1.4-2.1">Use of HTTP status codes to indicate general categories of errors (e.g., 2xx success responses, 4xx for client errors, 5xx for server errors) <span>[<a href="#RFC7231" class="cite xref">RFC7231</a>]</span>.<a href="#section-6.1.4-2.1" class="pilcrow">¶</a>
+</li>
+            <li class="normal" id="section-6.1.4-2.2">Use of additional signalling already standardised for HTTP, for example for rate limiting<a href="#section-6.1.4-2.2" class="pilcrow">¶</a>
+</li>
+            <li class="normal" id="section-6.1.4-2.3">Definition of RPP-specific error codes, warnings of additional processing information, provided in the response, preferably outside of resource representation (e.g. in HTTP Headers) to give granular information about provisioning errors.<a href="#section-6.1.4-2.3" class="pilcrow">¶</a>
+</li>
+            <li class="normal" id="section-6.1.4-2.4">Categorization of RPP error codes as temporary or permanent to guide client retry behavior.<a href="#section-6.1.4-2.4" class="pilcrow">¶</a>
+</li>
+          </ul>
+</section>
+</div>
+<div id="_transaction_tracing_and_idempotency">
+<section id="section-6.1.5">
+          <h4 id="name-transaction-tracing-and-ide">
+<a href="#section-6.1.5" class="section-number selfRef">6.1.5. </a><a href="#name-transaction-tracing-and-ide" class="section-name selfRef">Transaction tracing and idempotency</a>
+          </h4>
+<div id="_7a665ea9-c6e5-c2dd-6e48-a539cd7676f8">
+<p id="section-6.1.5-1">RPP shall support identification of requests and reponses on both client side and server side with use of client provided identifiers  and server provided identifiers. This will allow for tracking of requests and responses in case of errors, and for idempotency of requests. This should be defined outside of the Data Representation Layer (e.g. as HTTP Headers), to assure clear separation of resourse representation from performed actions. If possible existing mechanisms of HTTP shall be employed.<a href="#section-6.1.5-1" class="pilcrow">¶</a></p>
+</div>
+</section>
+</div>
+<div id="_caching">
+<section id="section-6.1.6">
+          <h4 id="name-caching">
+<a href="#section-6.1.6" class="section-number selfRef">6.1.6. </a><a href="#name-caching" class="section-name selfRef">Caching</a>
+          </h4>
+<div id="_87d32d19-5d08-c222-38e7-0eb4fbbd6164">
+<p id="section-6.1.6-1">RPP shall benefit from HTTP standard caching mechanisms to enable standard components like proxies and caches to improve performance and reduce load on servers. RPP shall define caching policies for different resources and operations, including cache-control headers and ETag support.<a href="#section-6.1.6-1" class="pilcrow">¶</a></p>
+</div>
+</section>
+</div>
+<div id="_content_negotiation_for_media_types">
+<section id="section-6.1.7">
+          <h4 id="name-content-negotiation-for-med">
+<a href="#section-6.1.7" class="section-number selfRef">6.1.7. </a><a href="#name-content-negotiation-for-med" class="section-name selfRef">Content negotiation for media types</a>
+          </h4>
+<div id="_e2eec485-d137-71ee-3a44-0dc5b5abca10">
+<p id="section-6.1.7-1">RPP supports content negotiation to allow clients to specify preferred media types for request and response payloads using the HTTP 'Accept' and 'Content-Type' headers <span>[<a href="#RFC7231" class="cite xref">RFC7231</a>]</span>.<a href="#section-6.1.7-1" class="pilcrow">¶</a></p>
+</div>
+<ul class="normal">
+<li class="normal" id="section-6.1.7-2.1">Support for 'application/rpp+json' as the primary media type.<a href="#section-6.1.7-2.1" class="pilcrow">¶</a>
+</li>
+            <li class="normal" id="section-6.1.7-2.2">Potential support for other media types defined in the Data Representation Layer<a href="#section-6.1.7-2.2" class="pilcrow">¶</a>
+</li>
+          </ul>
+<div id="_prefer_header_for_response_verbosity">
+<section id="section-6.1.7.1">
+            <h5 id="name-prefer-header-for-response-">
+<a href="#section-6.1.7.1" class="section-number selfRef">6.1.7.1. </a><a href="#name-prefer-header-for-response-" class="section-name selfRef">Prefer Header for Response Verbosity</a>
+            </h5>
+<div id="_9471df17-946f-c5f1-223e-852bf324f697">
+<p id="section-6.1.7.1-1">RPP may utilize the HTTP <code>Prefer</code> header <span>[<a href="#RFC7240" class="cite xref">RFC7240</a>]</span> with the "return" preference to allow clients to control the verbosity of responses. For example, clients not interested in full resource representations could use <code>Prefer: return=minimal</code> to request minimal responses, reducing payload sizes and improving efficiency. The default behavior, without the <code>Prefer</code> header, would be to return a full resource representation, similar to object info responses in EPP, especially after compound requests are completed.<a href="#section-6.1.7.1-1" class="pilcrow">¶</a></p>
+</div>
+</section>
+</div>
+</section>
+</div>
+<div id="_language_negotiation_for_textual_content">
+<section id="section-6.1.8">
+          <h4 id="name-language-negotiation-for-te">
+<a href="#section-6.1.8" class="section-number selfRef">6.1.8. </a><a href="#name-language-negotiation-for-te" class="section-name selfRef">Language negotiation for textual content</a>
+          </h4>
+<div id="_1e113cd3-94f3-6e90-015b-6eb8aae98e55">
+<p id="section-6.1.8-1">RPP shall support language negotiation to enable clients to request
+responses in a preferred language using the HTTP 'Accept-Language'
+header <span>[<a href="#RFC7231" class="cite xref">RFC7231</a>]</span>.<a href="#section-6.1.8-1" class="pilcrow">¶</a></p>
+</div>
+<ul class="normal">
+<li class="normal" id="section-6.1.8-2.1">Server implementations MAY support multiple languages for
+textual content in responses to provide human-readable localized responses.<a href="#section-6.1.8-2.1" class="pilcrow">¶</a>
+</li>
+            <li class="normal" id="section-6.1.8-2.2">The default language and mechanisms for indicating supported
+languages will be defined, preferably using HTTP methods, like OPTIONS or HEAD requests.<a href="#section-6.1.8-2.2" class="pilcrow">¶</a>
+</li>
+            <li class="normal" id="section-6.1.8-2.3">application/rpp+json media type may support multi-language representations, especially for witing operations involving user provided content. Other media types may have different mechanisms for language representation.<a href="#section-6.1.8-2.3" class="pilcrow">¶</a>
+</li>
+          </ul>
+</section>
+</div>
+<div id="_definition_of_special_resources">
+<section id="section-6.1.9">
+          <h4 id="name-definition-of-special-resou">
+<a href="#section-6.1.9" class="section-number selfRef">6.1.9. </a><a href="#name-definition-of-special-resou" class="section-name selfRef">Definition of special resources</a>
+          </h4>
+<div id="_1b34e221-aea4-21e5-515b-b168a6a3336a">
+<p id="section-6.1.9-1">RPP may define special resources for specific purposes:<a href="#section-6.1.9-1" class="pilcrow">¶</a></p>
+</div>
+<ul class="normal">
+<li class="normal" id="section-6.1.9-2.1">Service Discovery endpoints to advertise protocol capabilities
+and supported features (see <a href="#service-discovery" class="auto internal xref">Section 6.1.10</a>).<a href="#section-6.1.9-2.1" class="pilcrow">¶</a>
+</li>
+            <li class="normal" id="section-6.1.9-2.2">Metadata endpoints to provide schema information or other
+protocol-level metadata, potentially including OpenAPI definitions for documentation and code generation.<a href="#section-6.1.9-2.2" class="pilcrow">¶</a>
+</li>
+          </ul>
+</section>
+</div>
+<div id="service-discovery">
+<section id="section-6.1.10">
+          <h4 id="name-service-discovery-mechanism">
+<a href="#section-6.1.10" class="section-number selfRef">6.1.10. </a><a href="#name-service-discovery-mechanism" class="section-name selfRef">Service discovery mechanisms</a>
+          </h4>
+<div id="_45d04557-da61-2788-68d0-997b2438c048">
+<p id="section-6.1.10-1">RPP will define mechanisms for service discovery, allowing clients
+to dynamically discover RPP service endpoints and capabilities, reducing coupling between clients and servers.<a href="#section-6.1.10-1" class="pilcrow">¶</a></p>
+</div>
+<ul class="normal">
+<li class="normal" id="section-6.1.10-2.1">Potential use of well-known URIs (e.g., <code>/.well-known/rpp-capabilities</code>) for service discovery.<a href="#section-6.1.10-2.1" class="pilcrow">¶</a>
+</li>
+            <li class="normal" id="section-6.1.10-2.2">Options for advertising supported protocol versions,
+extensions, available resource types, authentication methods, and supported features.<a href="#section-6.1.10-2.2" class="pilcrow">¶</a>
+</li>
+            <li class="normal" id="section-6.1.10-2.3">It may be considered for RPP to distribute service discovery for each resource type separately for better scalability and management. For example instead of having a single service discovery endpoint for the whole registry on <code>/.well-known/rpp-capabilities</code> there might be a separate discovery placed under <code>/{resource-type}/.well-known/rpp-capabilities</code> e.g. <code>/domains/.well-known/rpp-capabilities</code>.<a href="#section-6.1.10-2.3" class="pilcrow">¶</a>
+</li>
+            <li class="normal" id="section-6.1.10-2.4">Service discovery shall utilize standardised methods, like URI templates <span>[<a href="#RFC6570" class="cite xref">RFC6570</a>]</span> to allow easy navigation of resources and avoid hard-coding of URLs.<a href="#section-6.1.10-2.4" class="pilcrow">¶</a>
+</li>
+          </ul>
+</section>
+</div>
+</section>
+</div>
+<div id="_data_representation_layer_2">
+<section id="section-6.2">
+        <h3 id="name-data-representation-layer-2">
+<a href="#section-6.2" class="section-number selfRef">6.2. </a><a href="#name-data-representation-layer-2" class="section-name selfRef">Data Representation Layer</a>
+        </h3>
+<div id="_35eb801f-80a4-42a4-3c84-8489af5c485a">
+<p id="section-6.2-1">This layer focuses on the encapsulation and data representation of RPP messages. It defines the media type used to carry RPP data and supports various data representation formats.<a href="#section-6.2-1" class="pilcrow">¶</a></p>
+</div>
+<div id="_data_structure">
+<section id="section-6.2.1">
+          <h4 id="name-data-structure">
+<a href="#section-6.2.1" class="section-number selfRef">6.2.1. </a><a href="#name-data-structure" class="section-name selfRef">Data structure</a>
+          </h4>
+<div id="_9eb1e18b-7ffc-9e55-5f75-d30cadae8492">
+<p id="section-6.2.1-1">RPP will define the overall structure of the message payload carried
+by the chosen media type.  Options for the data structure include:<a href="#section-6.2.1-1" class="pilcrow">¶</a></p>
+</div>
+<ul class="normal">
+<li class="normal" id="section-6.2.1-2.1">
+              <strong>'rpp' Structure:</strong>  Defining a new, dedicated data structure
+specifically for RPP messages. This would be the default in core specifications.<a href="#section-6.2.1-2.1" class="pilcrow">¶</a>
+</li>
+            <li class="normal" id="section-6.2.1-2.2">
+              <strong>'epp' Structure Adaptation:</strong>  Reusing the existing EPP XML schemas, to maintain data model compatibility with EPP core objects and simplify mapping from EPP.<a href="#section-6.2.1-2.2" class="pilcrow">¶</a>
+</li>
+            <li class="normal" id="section-6.2.1-2.3">
+              <strong>'vc' Structure Leverage:</strong>  Utilizing Verifiable Credentials
+data structures where appropriate, especially for representing
+identity or authorization information.<a href="#section-6.2.1-2.3" class="pilcrow">¶</a>
+</li>
+          </ul>
+</section>
+</div>
+<div id="_data_format_and_encapsulation">
+<section id="section-6.2.2">
+          <h4 id="name-data-format-and-encapsulati">
+<a href="#section-6.2.2" class="section-number selfRef">6.2.2. </a><a href="#name-data-format-and-encapsulati" class="section-name selfRef">Data format and encapsulation</a>
+          </h4>
+<div id="_499bf170-ab10-f773-593b-b4da48ffbad5">
+<p id="section-6.2.2-1">The primary encapsulation for RPP data represetations shall be JSON, however RPP should be able to support extensions to support other formats like XML, JWT, JWT-SD or CBOR.<a href="#section-6.2.2-1" class="pilcrow">¶</a></p>
+</div>
+<ul class="normal">
+<li class="normal" id="section-6.2.2-2.1">
+              <strong>Plain JSON:</strong> Standard JSON format <span>[<a href="#RFC8259" class="cite xref">RFC8259</a>]</span> for simplicity and broad compatibility.<a href="#section-6.2.2-2.1" class="pilcrow">¶</a>
+</li>
+            <li class="normal" id="section-6.2.2-2.2">
+              <strong>XML:</strong> Extensible Markup Language <span>[<a href="#XML" class="cite xref">XML</a>]</span> (considered for potential compatibility).<a href="#section-6.2.2-2.2" class="pilcrow">¶</a>
+</li>
+            <li class="normal" id="section-6.2.2-2.3">
+              <strong>JWT:</strong> JSON data encapsulated within a JSON Web Token <span>[<a href="#RFC7519" class="cite xref">RFC7519</a>]</span> for potential use-cases when verifiable data consistency is required<a href="#section-6.2.2-2.3" class="pilcrow">¶</a>
+</li>
+            <li class="normal" id="section-6.2.2-2.4">
+              <strong>JWT-SD:</strong> JSON data with Selective Disclosure using JWTs <span>[<a href="#I-D.draft-ietf-oauth-selective-disclosure-jwt" class="cite xref">I-D.draft-ietf-oauth-selective-disclosure-jwt</a>]</span> for minimisation of exposed data.<a href="#section-6.2.2-2.4" class="pilcrow">¶</a>
+</li>
+            <li class="normal" id="section-6.2.2-2.5">
+              <strong>CBOR:</strong> Concise Binary Object Representation for specific use cases requiring compact binary encoding.<a href="#section-6.2.2-2.5" class="pilcrow">¶</a>
+</li>
+          </ul>
+<div id="_6d9e6799-d174-4d7a-3942-b099a8088842">
+<p id="section-6.2.2-3">Change of encapsulation shall not affect the data structure, which should be defined independently of the encapsulation.<a href="#section-6.2.2-3" class="pilcrow">¶</a></p>
+</div>
+</section>
+</div>
+<div id="_media_type_definition">
+<section id="section-6.2.3">
+          <h4 id="name-media-type-definition">
+<a href="#section-6.2.3" class="section-number selfRef">6.2.3. </a><a href="#name-media-type-definition" class="section-name selfRef">Media Type definition</a>
+          </h4>
+<div id="_70ed2534-6fd2-734b-f8e0-66fd986186b3">
+<p id="section-6.2.3-1">Together encapsulation and data structure would define the whole media type. So application/rpp+json would be the primary media type with "rpp" payloads in plain json format. application/epp+xml would be epp payload as per <span>[<a href="#RFC5730" class="cite xref">RFC5730</a>]</span>. The Encapsulation and Data Structure can be also othewise combined as far as it is possible to represent the Data Structure in a given encapsulation. For example it would be straightforward to represent "rpp" structure in JWT format and application/rpp+jwt Media Type, but in order to represent epp structure in JWT format it would require first a mapping of epp messages on JSON instead of XML - rendering application/epp+jwt Media Type.<a href="#section-6.2.3-1" class="pilcrow">¶</a></p>
+</div>
+</section>
+</div>
+</section>
+</div>
+<div id="_resource_definition_layer_2">
+<section id="section-6.3">
+        <h3 id="name-resource-definition-layer-2">
+<a href="#section-6.3" class="section-number selfRef">6.3. </a><a href="#name-resource-definition-layer-2" class="section-name selfRef">Resource Definition Layer</a>
+        </h3>
+<div id="_16359f7c-99f9-7652-8acd-2916744e3cf5">
+<p id="section-6.3-1">Each resource type, no matter if on a top level, being an independent provisioning object, or a subresource, being a part of another resource, shall be well defined including data elements and possible operations. A respource definition shall on the first level of abstraction be composable out of data elements, without any reference to the media type or representation. This will allow for easy extensibility and compatibility with different media types.<a href="#section-6.3-1" class="pilcrow">¶</a></p>
+</div>
+<div id="_d0ad5917-d331-9709-084d-ea9ec5217ac7">
+<p id="section-6.3-2">All resource types shall be defined in IANA registry in a way that allows fully automated processing of the resource definition, including data elements, operations and media type representation.<a href="#section-6.3-2" class="pilcrow">¶</a></p>
+</div>
+<div id="_data_elements">
+<section id="section-6.3.1">
+          <h4 id="name-data-elements">
+<a href="#section-6.3.1" class="section-number selfRef">6.3.1. </a><a href="#name-data-elements" class="section-name selfRef">Data Elements</a>
+          </h4>
+<div id="_607a2d53-d00e-ca45-8791-5da41fd0d312">
+<p id="section-6.3.1-1">This part defines logical data elements for each resource type, which can also be re-used across resource types. It is abstracted from the actual transport and media type, focusing on the structure and constraints of data elements. Data element definition includes:<a href="#section-6.3.1-1" class="pilcrow">¶</a></p>
+</div>
+<ul class="normal">
+<li class="normal" id="section-6.3.1-2.1">Identification of logical data units (e.g. a stable identifier of a data element, which is independent of the representation)<a href="#section-6.3.1-2.1" class="pilcrow">¶</a>
+</li>
+            <li class="normal" id="section-6.3.1-2.2">Definition of logical data units (e.g., domain name, contact details)<a href="#section-6.3.1-2.2" class="pilcrow">¶</a>
+</li>
+            <li class="normal" id="section-6.3.1-2.3">Format and schema for primitive data elements or reference to other resource type definitions<a href="#section-6.3.1-2.3" class="pilcrow">¶</a>
+</li>
+            <li class="normal" id="section-6.3.1-2.4">Constraints on data elements (e.g., data type, length, allowed values)<a href="#section-6.3.1-2.4" class="pilcrow">¶</a>
+</li>
+            <li class="normal" id="section-6.3.1-2.5">Mechanisms for extensibility, if applicable<a href="#section-6.3.1-2.5" class="pilcrow">¶</a>
+</li>
+          </ul>
+<div id="_6cb34fe1-f500-b8bc-63fc-8769f16766c7">
+<p id="section-6.3.1-3">Data elements shall be defined in IANA registry in a way that allows for automated processing of the data element definition, including constraints and references to other data elements.<a href="#section-6.3.1-3" class="pilcrow">¶</a></p>
+</div>
+</section>
+</div>
+<div id="_mapping">
+<section id="section-6.3.2">
+          <h4 id="name-mapping">
+<a href="#section-6.3.2" class="section-number selfRef">6.3.2. </a><a href="#name-mapping" class="section-name selfRef">Mapping</a>
+          </h4>
+<div id="_3fa4cb24-4575-9f83-b07a-5f06923f4568">
+<p id="section-6.3.2-1">This layer defines the mapping of Data Elements onto the Data Representation Layer. For example in case of application/rpp+json media type, the mapping layer would define how the logical data units are represented in JSON format.<a href="#section-6.3.2-1" class="pilcrow">¶</a></p>
+</div>
+<div id="_28d7d0f1-d0dc-d0c2-cb7d-275a7afadcc4">
+<p id="section-6.3.2-2">This additional level of indirection would allow usage of data formats defined outside of rpp specifications - for example usage of Verifiable Credentials or Verifiable Presentations as first class resource types for contacts in RPP, and mapping appropriate data elements.<a href="#section-6.3.2-2" class="pilcrow">¶</a></p>
+</div>
+<div id="_a8f45d8f-ac95-5b10-4e16-54c036d5f651">
+<p id="section-6.3.2-3">The mapping layer shall be defined in IANA registry in a way that allows for automated processing of the mapping definition, including reading and writing operations. Mechanisms, such as defined for JavaScript Object Notation (JSON) Patch <span>[<a href="#RFC6902" class="cite xref">RFC6902</a>]</span>, may be used to define the mapping.<a href="#section-6.3.2-3" class="pilcrow">¶</a></p>
+</div>
+</section>
+</div>
+<div id="_operations">
+<section id="section-6.3.3">
+          <h4 id="name-operations">
+<a href="#section-6.3.3" class="section-number selfRef">6.3.3. </a><a href="#name-operations" class="section-name selfRef">Operations</a>
+          </h4>
+<div id="_41ee7baf-bb15-61ae-d45c-af633dcde5fa">
+<p id="section-6.3.3-1">Each resource type shall define operations possible on this resource type. This may encompass any of the mechanism defined on the HTTP transport layer and be constrained by those extensibility rules.<a href="#section-6.3.3-1" class="pilcrow">¶</a></p>
+</div>
+<div id="_bbf187f6-0e8a-9b97-eea5-bebc647ffe41">
+<p id="section-6.3.3-2">Operations shall be defined in IANA registry in a way that allows for automated processing of the operation definition, including constraints and references to other resource types.<a href="#section-6.3.3-2" class="pilcrow">¶</a></p>
+</div>
+<div id="_c326cd4b-47f9-7728-81b2-5a6a46a7165b">
+<p id="section-6.3.3-3">FIXME: find an appropriate section for this
+*  Compatibility Profiles - to define subsets of RPP for specific use cases or EPP compatibility.<a href="#section-6.3.3-3" class="pilcrow">¶</a></p>
+</div>
+</section>
+</div>
+</section>
+</div>
+</section>
+</div>
+<div id="_references">
+<section id="section-7">
+      <h2 id="name-references">
+<a href="#section-7" class="section-number selfRef">7. </a><a href="#name-references" class="section-name selfRef">References</a>
+      </h2>
+<div id="_informational_references">
+<section id="section-7.1">
+        <h3 id="name-informational-references">
+<a href="#section-7.1" class="section-number selfRef">7.1. </a><a href="#name-informational-references" class="section-name selfRef">Informational References</a>
+        </h3>
+<dl class="references">
+<dt id="RFC5730">[RFC5730]</dt>
+        <dd>
+<span class="refAuthor">Hollenbeck, S.</span>, <span class="refTitle">"Extensible Provisioning Protocol (EPP)"</span>, <span class="stream">IETF</span>, <span class="seriesInfo">STD 69</span>, <span class="seriesInfo">DOI 10.17487/RFC5730</span>, <span class="seriesInfo">BCP 69</span>, <span class="seriesInfo">RFC 5730</span>, <time datetime="2009-08" class="refDate">August 2009</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc5730">https://www.rfc-editor.org/info/rfc5730</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC5731">[RFC5731]</dt>
+        <dd>
+<span class="refAuthor">Hollenbeck, S.</span>, <span class="refTitle">"Extensible Provisioning Protocol (EPP) Domain Name Mapping"</span>, <span class="stream">IETF</span>, <span class="seriesInfo">STD 69</span>, <span class="seriesInfo">DOI 10.17487/RFC5731</span>, <span class="seriesInfo">BCP 69</span>, <span class="seriesInfo">RFC 5731</span>, <time datetime="2009-08" class="refDate">August 2009</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc5731">https://www.rfc-editor.org/info/rfc5731</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC5732">[RFC5732]</dt>
+        <dd>
+<span class="refAuthor">Hollenbeck, S.</span>, <span class="refTitle">"Extensible Provisioning Protocol (EPP) Host Mapping"</span>, <span class="stream">IETF</span>, <span class="seriesInfo">STD 69</span>, <span class="seriesInfo">DOI 10.17487/RFC5732</span>, <span class="seriesInfo">BCP 69</span>, <span class="seriesInfo">RFC 5732</span>, <time datetime="2009-08" class="refDate">August 2009</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc5732">https://www.rfc-editor.org/info/rfc5732</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC5733">[RFC5733]</dt>
+        <dd>
+<span class="refAuthor">Hollenbeck, S.</span>, <span class="refTitle">"Extensible Provisioning Protocol (EPP) Contact Mapping"</span>, <span class="stream">IETF</span>, <span class="seriesInfo">STD 69</span>, <span class="seriesInfo">DOI 10.17487/RFC5733</span>, <span class="seriesInfo">BCP 69</span>, <span class="seriesInfo">RFC 5733</span>, <time datetime="2009-08" class="refDate">August 2009</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc5733">https://www.rfc-editor.org/info/rfc5733</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC7231">[RFC7231]</dt>
+        <dd>
+<span class="refAuthor">Fielding, R.</span> and <span class="refAuthor">J. Reschke</span>, <span class="refTitle">"Hypertext Transfer Protocol (HTTP/1.1): Semantics and Content"</span>, <span class="stream">IETF</span>, <span class="seriesInfo">DOI 10.17487/RFC7231</span>, <span class="seriesInfo">RFC 7231</span>, <time datetime="2014-06" class="refDate">June 2014</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc7231">https://www.rfc-editor.org/info/rfc7231</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="REST">[REST]</dt>
+        <dd>
+<span class="refTitle">"Fielding, R., "Architectural Styles and the Design of Network-based Software Architectures", Doctoral Dissertation, University of California, Irvine, September 2000, &gt;."</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC7240">[RFC7240]</dt>
+        <dd>
+<span class="refAuthor">Snell, J.</span>, <span class="refTitle">"Prefer Header for HTTP"</span>, <span class="stream">IETF</span>, <span class="seriesInfo">DOI 10.17487/RFC7240</span>, <span class="seriesInfo">RFC 7240</span>, <time datetime="2014-06" class="refDate">June 2014</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc7240">https://www.rfc-editor.org/info/rfc7240</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC8259">[RFC8259]</dt>
+        <dd>
+<span class="refAuthor">Bray, T.</span>, <span class="refTitle">"The JavaScript Object Notation (JSON) Data Interchange Format"</span>, <span class="stream">IETF</span>, <span class="seriesInfo">STD 90</span>, <span class="seriesInfo">DOI 10.17487/RFC8259</span>, <span class="seriesInfo">BCP 90</span>, <span class="seriesInfo">RFC 8259</span>, <time datetime="2017-12" class="refDate">December 2017</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc8259">https://www.rfc-editor.org/info/rfc8259</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC6570">[RFC6570]</dt>
+        <dd>
+<span class="refAuthor">Gregorio, J.</span>, <span class="refAuthor">Fielding, R.</span>, <span class="refAuthor">Hadley, M.</span>, <span class="refAuthor">Nottingham, M.</span>, and <span class="refAuthor">D. Orchard</span>, <span class="refTitle">"URI Template"</span>, <span class="stream">IETF</span>, <span class="seriesInfo">DOI 10.17487/RFC6570</span>, <span class="seriesInfo">RFC 6570</span>, <time datetime="2012-03" class="refDate">March 2012</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc6570">https://www.rfc-editor.org/info/rfc6570</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RPPReq">[RPPReq]</dt>
+        <dd>
+<span class="refTitle">"RPP Requirements (Work in progress 20.2.2025) &gt;"</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC6749">[RFC6749]</dt>
+        <dd>
+<span class="refAuthor">Hardt, D.</span>, <span class="refTitle">"The OAuth 2.0 Authorization Framework"</span>, <span class="stream">IETF</span>, <span class="seriesInfo">DOI 10.17487/RFC6749</span>, <span class="seriesInfo">RFC 6749</span>, <time datetime="2012-10" class="refDate">October 2012</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc6749">https://www.rfc-editor.org/info/rfc6749</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC6750">[RFC6750]</dt>
+        <dd>
+<span class="refAuthor">Jones, M.</span> and <span class="refAuthor">D. Hardt</span>, <span class="refTitle">"The OAuth 2.0 Authorization Framework: Bearer Token Usage"</span>, <span class="stream">IETF</span>, <span class="seriesInfo">DOI 10.17487/RFC6750</span>, <span class="seriesInfo">RFC 6750</span>, <time datetime="2012-10" class="refDate">October 2012</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc6750">https://www.rfc-editor.org/info/rfc6750</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC7519">[RFC7519]</dt>
+        <dd>
+<span class="refAuthor">Jones, M.</span>, <span class="refAuthor">Bradley, J.</span>, and <span class="refAuthor">N. Sakimura</span>, <span class="refTitle">"JSON Web Token (JWT)"</span>, <span class="stream">IETF</span>, <span class="seriesInfo">DOI 10.17487/RFC7519</span>, <span class="seriesInfo">RFC 7519</span>, <time datetime="2015-05" class="refDate">May 2015</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc7519">https://www.rfc-editor.org/info/rfc7519</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC9082">[RFC9082]</dt>
+        <dd>
+<span class="refAuthor">Hollenbeck, S.</span> and <span class="refAuthor">A. Newton</span>, <span class="refTitle">"Registration Data Access Protocol (RDAP) Query Format"</span>, <span class="stream">IETF</span>, <span class="seriesInfo">STD 95</span>, <span class="seriesInfo">DOI 10.17487/RFC9082</span>, <span class="seriesInfo">BCP 95</span>, <span class="seriesInfo">RFC 9082</span>, <time datetime="2021-06" class="refDate">June 2021</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc9082">https://www.rfc-editor.org/info/rfc9082</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC3339">[RFC3339]</dt>
+        <dd>
+<span class="refAuthor">Klyne, G.</span> and <span class="refAuthor">C. Newman</span>, <span class="refTitle">"Date and Time on the Internet: Timestamps"</span>, <span class="stream">IETF</span>, <span class="seriesInfo">DOI 10.17487/RFC3339</span>, <span class="seriesInfo">RFC 3339</span>, <time datetime="2002-07" class="refDate">July 2002</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc3339">https://www.rfc-editor.org/info/rfc3339</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC6902">[RFC6902]</dt>
+        <dd>
+<span class="refAuthor">Bryan, P.</span> and <span class="refAuthor">M. Nottingham</span>, <span class="refTitle">"JavaScript Object Notation (JSON) Patch"</span>, <span class="stream">IETF</span>, <span class="seriesInfo">DOI 10.17487/RFC6902</span>, <span class="seriesInfo">RFC 6902</span>, <time datetime="2013-04" class="refDate">April 2013</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc6902">https://www.rfc-editor.org/info/rfc6902</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="XML">[XML]</dt>
+        <dd>
+<span class="refTitle">"Bray, T., Paoli, J., Sperberg-McQueen, C., Maler, E. and Yergeau, F., "Extensible Markup Language (XML) 1.0 (Fifth Edition)", World Wide Web Consortium Recommendation REC-xml-20081126, November 2008, []()."</span>. </dd>
+<dd class="break"></dd>
+<dt id="I-D.draft-ietf-oauth-selective-disclosure-jwt">[I-D.draft-ietf-oauth-selective-disclosure-jwt]</dt>
+        <dd>
+<span class="refTitle">"Fett D., Yasuda K. and Campbell B. , "Selective Disclosure for JWTs (SD-JWT)", Work in Progress, Internet-Draft, draft-ietf-oauth-selective-disclosure-jwt, 16 January 2025 &gt;"</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC9396">[RFC9396]</dt>
+      <dd>
+<span class="refAuthor">Lodderstedt, T.</span>, <span class="refAuthor">Richer, J.</span>, and <span class="refAuthor">B. Campbell</span>, <span class="refTitle">"OAuth 2.0 Rich Authorization Requests"</span>, <span class="stream">IETF</span>, <span class="seriesInfo">DOI 10.17487/RFC9396</span>, <span class="seriesInfo">RFC 9396</span>, <time datetime="2023-05" class="refDate">May 2023</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc9396">https://www.rfc-editor.org/info/rfc9396</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+</dl>
+</section>
+</div>
+</section>
+</div>
+<div id="authors-addresses">
+<section id="appendix-A">
+      <h2 id="name-authors-address">
+<a href="#name-authors-address" class="section-name selfRef">Author's Address</a>
+      </h2>
+<address class="vcard">
+        <div dir="auto" class="left"><span class="fn nameRole">P Kowalik</span></div>
+<div dir="auto" class="left"><span class="org">DENIC eG</span></div>
+<div dir="auto" class="left"><span class="street-address">Theodor-Stern-Kai 1</span></div>
+<div dir="auto" class="left"><span class="locality">Frankfurt am Main</span></div>
+<div dir="auto" class="left"><span class="country-name">Germany</span></div>
+<div class="email">
+<span>Email:</span>
+<a href="mailto:pawel.kowalik@denic.de" class="email">pawel.kowalik@denic.de</a>
+</div>
+<div class="url">
+<span>URI:</span>
+<a href="https://denic.de" class="url">https://denic.de</a>
+</div>
+</address>
+</section>
+</div>
+<script>const toc = document.getElementById("toc");
+toc.querySelector("h2").addEventListener("click", e => {
+  toc.classList.toggle("active");
+});
+toc.querySelector("nav").addEventListener("click", e => {
+  toc.classList.remove("active");
+});
+</script>
+</body>
+</html>
