@@ -4,12 +4,33 @@
 
 Network Working Group                                         P. Kowalik
 Internet-Draft                                                  DENIC eG
-Intended status: Informational                          28 February 2025
-Expires: 1 September 2025
+Intended status: Informational                              2 March 2025
+Expires: 3 September 2025
 
 
                             RPP Architecture
                    draft-kowalik-rpp-architecture-00
+
+Abstract
+
+   The Extensible Provisioning Protocol (EPP), standardized in 2009, has
+   served the domain name industry well for domain name management.
+   However, advancements in development, integration, and operational
+   paradigms have led to a desire for a provisioning protocol leveraging
+   the REST architectural style and JSON data-interchange format.  This
+   document defines the architecture for the RESTful Provisioning
+   Protocol (RPP), aiming to standardize a REST-based protocol for
+   provisioning services, initially focused on domain name, host, and
+   contact management, while allowing for future extensibility.  RPP is
+   intended to co-exist with EPP, offering a modern alternative
+   benefiting from the REST architectural style and widely adopted
+   technologies.  RPP aims for data model compatibility with EPP core
+   objects.
+
+Contributing
+
+   When contributing to this document, please use the following GitHub
+   project: https://github.com/pawel-kow/RPP-architecture.
 
 Status of This Memo
 
@@ -26,7 +47,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 1 September 2025.
+   This Internet-Draft will expire on 3 September 2025.
 
 Copyright Notice
 
@@ -44,59 +65,42 @@ Copyright Notice
 
 Table of Contents
 
-   1.  Abstract
-   2.  Introduction
-   3.  Terminology
-   4.  Requirements
-   5.  Architectural Overview
-     5.1.  Resource Oriented Architecture
-     5.2.  Architecture Layers
-       5.2.1.  HTTP Transport Layer
-       5.2.2.  Data Representation Layer
-       5.2.3.  Resource Definition Layer
-   6.  Protocol Details
-     6.1.  HTTP Transport Layer Details
-       6.1.1.  Authentication and Authorization
-       6.1.2.  Resource Addressing
-       6.1.3.  Mapping of basic operations to HTTP uniform interface
+   1.  Introduction
+   2.  Terminology
+   3.  Requirements
+   4.  Architectural Overview
+     4.1.  Resource Oriented Architecture
+     4.2.  Architecture Layers
+       4.2.1.  HTTP Transport Layer
+       4.2.2.  Data Representation Layer
+       4.2.3.  Resource Definition Layer
+   5.  Protocol Details
+     5.1.  HTTP Transport Layer Details
+       5.1.1.  Authentication and Authorization
+       5.1.2.  Resource Addressing
+       5.1.3.  Mapping of basic operations to HTTP uniform interface
                (verbs)
-       6.1.4.  RPP specific error codes and relation to HTTP error
+       5.1.4.  RPP specific error codes and relation to HTTP error
                codes
-       6.1.5.  Transaction tracing and idempotency
-       6.1.6.  Caching
-       6.1.7.  Content negotiation for media types
-       6.1.8.  Language negotiation for textual content
-       6.1.9.  Definition of special resources
-       6.1.10. Service discovery mechanisms
-     6.2.  Data Representation Layer
-       6.2.1.  Data structure
-       6.2.2.  Data format and encapsulation
-       6.2.3.  Media Type definition
-     6.3.  Resource Definition Layer
-       6.3.1.  Data Elements
-       6.3.2.  Mapping
-       6.3.3.  Operations
-   7.  References
-     7.1.  Informational References
+       5.1.5.  Transaction tracing and idempotency
+       5.1.6.  Caching
+       5.1.7.  Content negotiation for media types
+       5.1.8.  Language negotiation for textual content
+       5.1.9.  Definition of special resources
+       5.1.10. Service discovery mechanisms
+     5.2.  Data Representation Layer
+       5.2.1.  Data structure
+       5.2.2.  Data format and encapsulation
+       5.2.3.  Media Type definition
+     5.3.  Resource Definition Layer
+       5.3.1.  Data Elements
+       5.3.2.  Mapping
+       5.3.3.  Operations
+   6.  References
+     6.1.  Informational References
    Author's Address
 
-1.  Abstract
-
-   The Extensible Provisioning Protocol (EPP), standardized in 2009, has
-   served the domain name industry well for domain name management.
-   However, advancements in development, integration, and operational
-   paradigms have led to a desire for a provisioning protocol leveraging
-   the REST architectural style and JSON data-interchange format.  This
-   document defines the architecture for the RESTful Provisioning
-   Protocol (RPP), aiming to standardize a REST-based protocol for
-   provisioning services, initially focused on domain name, host, and
-   contact management, while allowing for future extensibility.  RPP is
-   intended to co-exist with EPP, offering a modern alternative
-   benefiting from the REST architectural style and widely adopted
-   technologies.  RPP aims for data model compatibility with EPP core
-   objects.
-
-2.  Introduction
+1.  Introduction
 
    The Extensible Provisioning Protocol (EPP) [RFC5730] has been a
    cornerstone protocol for domain name management.  Recognizing the
@@ -129,7 +133,7 @@ Table of Contents
    mapping and conversion, especially for core objects (domain, contact,
    host).
 
-3.  Terminology
+2.  Terminology
 
    This document uses terminology from RFC5730 [RFC5730] and broadly
    adopts the REST architectural principles as defined in [REST] and
@@ -153,7 +157,7 @@ Table of Contents
    *  *OpenAPI:* The OpenAPI Specification (OAS) (formerly known as
       Swagger Specification) is an API description format for REST APIs.
 
-4.  Requirements
+3.  Requirements
 
    Note: This list of requirements is based on the current (20.2.2025)
    state of discussion in RPP working group and may be changed in futher
@@ -240,7 +244,7 @@ Table of Contents
       generation, and provide implementer-friendly extension
       descriptions.
 
-5.  Architectural Overview
+4.  Architectural Overview
 
    This chapter provides an overview of the Resource Provisioning
    Protocol (RPP) architecture.  A key design principle is the maximal
@@ -274,7 +278,7 @@ Table of Contents
 
                                   Figure 1
 
-5.1.  Resource Oriented Architecture
+4.1.  Resource Oriented Architecture
 
    RPP adopts a Resource Oriented Architecture (ROA), aligning with
    RESTful principles.  This approach treats all manageable entities as
@@ -301,9 +305,9 @@ Table of Contents
 
    *  *Cacheability:* Responses can be cached to improve performance.
 
-5.2.  Architecture Layers
+4.2.  Architecture Layers
 
-5.2.1.  HTTP Transport Layer
+4.2.1.  HTTP Transport Layer
 
    This layer defines the transport mechanism for RPP messages,
    utilizing HTTP as the underlying protocol.
@@ -349,7 +353,7 @@ Table of Contents
    *  *Service discovery mechanisms:* Mechanisms for clients to discover
       available RPP services.
 
-5.2.2.  Data Representation Layer
+4.2.2.  Data Representation Layer
 
    This layer focuses on the encapsulation and data representation of
    RPP messages.  It defines the media type used to carry RPP data and
@@ -370,7 +374,7 @@ Table of Contents
       used in RPP, including any constraints on the data format and
       structure
 
-5.2.3.  Resource Definition Layer
+4.2.3.  Resource Definition Layer
 
    This layer defines the structure and operations for each resource
    type, independent of media type or representation.  It ensures
@@ -397,14 +401,14 @@ Table of Contents
       mechanisms for extending resource types with new data elements or
       operations.
 
-6.  Protocol Details
+5.  Protocol Details
 
    This section provides further details on each layer of the RPP
    architecture.
 
-6.1.  HTTP Transport Layer Details
+5.1.  HTTP Transport Layer Details
 
-6.1.1.  Authentication and Authorization
+5.1.1.  Authentication and Authorization
 
    RPP is aimed to leverage scalable and modern authorization standards,
    with a focus on OAuth 2.0 [RFC6749] and related frameworks, however
@@ -424,14 +428,14 @@ Table of Contents
    Implementations will be able to choose authentication and
    authorization methods appropriate for their security requirements.
 
-6.1.1.1.  Authorization Scopes
+5.1.1.1.  Authorization Scopes
 
    RPP specifications will standardize authorization scopes to define
    granular access control for different usage scenarios.  These scopes
    will be defined for various operations and resource types, ensuring
    that clients can be granted only the necessary permissions.
 
-6.1.1.2.  Fine-Grained Authorization
+5.1.1.2.  Fine-Grained Authorization
 
    RPP authorization models will be fine-grained, extending beyond
    simple auth-code based models used EPP.  Authorization decisions will
@@ -442,7 +446,7 @@ Table of Contents
    Here solutions like OAuth2 RAR [RFC9396] could be considered to
    provide fine-grained access control.
 
-6.1.2.  Resource Addressing
+5.1.2.  Resource Addressing
 
    RPP resources are addressed using URLs.  Considerations include:
 
@@ -466,7 +470,7 @@ Table of Contents
    additional path segments to be added to the URLs and be discoverable
    by clients.
 
-6.1.2.1.  Internationalized Domain Names (IDN)
+5.1.2.1.  Internationalized Domain Names (IDN)
 
    RPP will address the handling of Internationalized Domain Names
    (IDNs) in resource addressing.  Specifications will define whether to
@@ -477,7 +481,7 @@ Table of Contents
    use either URL.  Another way would be to always redirect to the
    canonical URL, which would be the IDN URL.
 
-6.1.3.  Mapping of basic operations to HTTP uniform interface (verbs)
+5.1.3.  Mapping of basic operations to HTTP uniform interface (verbs)
 
    RPP operations are mapped to standard HTTP methods to leverage the
    uniform interface and RESTful principles:
@@ -520,7 +524,7 @@ Table of Contents
    RPP specifications and give an universal toolset for extending RPP
    with new resources and commands.
 
-6.1.4.  RPP specific error codes and relation to HTTP error codes
+5.1.4.  RPP specific error codes and relation to HTTP error codes
 
    RPP utilizes both HTTP status codes and RPP-specific error codes
    within the response body for detailed error reporting.
@@ -540,7 +544,7 @@ Table of Contents
    *  Categorization of RPP error codes as temporary or permanent to
       guide client retry behavior.
 
-6.1.5.  Transaction tracing and idempotency
+5.1.5.  Transaction tracing and idempotency
 
    RPP shall support identification of requests and reponses on both
    client side and server side with use of client provided identifiers
@@ -551,7 +555,7 @@ Table of Contents
    representation from performed actions.  If possible existing
    mechanisms of HTTP shall be employed.
 
-6.1.6.  Caching
+5.1.6.  Caching
 
    RPP shall benefit from HTTP standard caching mechanisms to enable
    standard components like proxies and caches to improve performance
@@ -559,7 +563,7 @@ Table of Contents
    different resources and operations, including cache-control headers
    and ETag support.
 
-6.1.7.  Content negotiation for media types
+5.1.7.  Content negotiation for media types
 
    RPP supports content negotiation to allow clients to specify
    preferred media types for request and response payloads using the
@@ -570,7 +574,7 @@ Table of Contents
    *  Potential support for other media types defined in the Data
       Representation Layer
 
-6.1.7.1.  Prefer Header for Response Verbosity
+5.1.7.1.  Prefer Header for Response Verbosity
 
    RPP may utilize the HTTP Prefer header [RFC7240] with the "return"
    preference to allow clients to control the verbosity of responses.
@@ -581,7 +585,7 @@ Table of Contents
    resource representation, similar to object info responses in EPP,
    especially after compound requests are completed.
 
-6.1.8.  Language negotiation for textual content
+5.1.8.  Language negotiation for textual content
 
    RPP shall support language negotiation to enable clients to request
    responses in a preferred language using the HTTP 'Accept-Language'
@@ -600,18 +604,18 @@ Table of Contents
       provided content.  Other media types may have different mechanisms
       for language representation.
 
-6.1.9.  Definition of special resources
+5.1.9.  Definition of special resources
 
    RPP may define special resources for specific purposes:
 
    *  Service Discovery endpoints to advertise protocol capabilities and
-      supported features (see Section 6.1.10).
+      supported features (see Section 5.1.10).
 
    *  Metadata endpoints to provide schema information or other
       protocol-level metadata, potentially including OpenAPI definitions
       for documentation and code generation.
 
-6.1.10.  Service discovery mechanisms
+5.1.10.  Service discovery mechanisms
 
    RPP will define mechanisms for service discovery, allowing clients to
    dynamically discover RPP service endpoints and capabilities, reducing
@@ -636,13 +640,13 @@ Table of Contents
       templates [RFC6570] to allow easy navigation of resources and
       avoid hard-coding of URLs.
 
-6.2.  Data Representation Layer
+5.2.  Data Representation Layer
 
    This layer focuses on the encapsulation and data representation of
    RPP messages.  It defines the media type used to carry RPP data and
    supports various data representation formats.
 
-6.2.1.  Data structure
+5.2.1.  Data structure
 
    RPP will define the overall structure of the message payload carried
    by the chosen media type.  Options for the data structure include:
@@ -659,7 +663,7 @@ Table of Contents
       structures where appropriate, especially for representing identity
       or authorization information.
 
-6.2.2.  Data format and encapsulation
+5.2.2.  Data format and encapsulation
 
    The primary encapsulation for RPP data represetations shall be JSON,
    however RPP should be able to support extensions to support other
@@ -685,7 +689,7 @@ Table of Contents
    Change of encapsulation shall not affect the data structure, which
    should be defined independently of the encapsulation.
 
-6.2.3.  Media Type definition
+5.2.3.  Media Type definition
 
    Together encapsulation and data structure would define the whole
    media type.  So application/rpp+json would be the primary media type
@@ -699,7 +703,7 @@ Table of Contents
    messages on JSON instead of XML - rendering application/epp+jwt Media
    Type.
 
-6.3.  Resource Definition Layer
+5.3.  Resource Definition Layer
 
    Each resource type, no matter if on a top level, being an independent
    provisioning object, or a subresource, being a part of another
@@ -713,7 +717,7 @@ Table of Contents
    allows fully automated processing of the resource definition,
    including data elements, operations and media type representation.
 
-6.3.1.  Data Elements
+5.3.1.  Data Elements
 
    This part defines logical data elements for each resource type, which
    can also be re-used across resource types.  It is abstracted from the
@@ -738,7 +742,7 @@ Table of Contents
    for automated processing of the data element definition, including
    constraints and references to other data elements.
 
-6.3.2.  Mapping
+5.3.2.  Mapping
 
    This layer defines the mapping of Data Elements onto the Data
    Representation Layer.  For example in case of application/rpp+json
@@ -757,7 +761,7 @@ Table of Contents
    JavaScript Object Notation (JSON) Patch [RFC6902], may be used to
    define the mapping.
 
-6.3.3.  Operations
+5.3.3.  Operations
 
    Each resource type shall define operations possible on this resource
    type.  This may encompass any of the mechanism defined on the HTTP
@@ -771,9 +775,9 @@ Table of Contents
    - to define subsets of RPP for specific use cases or EPP
    compatibility.
 
-7.  References
+6.  References
 
-7.1.  Informational References
+6.1.  Informational References
 
    [RFC5730]  Hollenbeck, S., "Extensible Provisioning Protocol (EPP)",
               IETF, STD 69, DOI 10.17487/RFC5730, BCP 69, RFC 5730,
@@ -818,8 +822,6 @@ Table of Contents
               DOI 10.17487/RFC6570, RFC 6570, March 2012,
               <https://www.rfc-editor.org/info/rfc6570>.
 
-   [RPPReq]   "RPP Requirements (Work in progress 20.2.2025) >".
-
    [RFC6749]  Hardt, D., "The OAuth 2.0 Authorization Framework", IETF,
               DOI 10.17487/RFC6749, RFC 6749, October 2012,
               <https://www.rfc-editor.org/info/rfc6749>.
@@ -861,6 +863,11 @@ Table of Contents
               Rich Authorization Requests", IETF, DOI 10.17487/RFC9396,
               RFC 9396, May 2023,
               <https://www.rfc-editor.org/info/rfc9396>.
+
+   [RPPReq]   ""RPP Requirements (Work in progress 20.2.2025)",
+              github.com/SIDN/ietf-wg-rpp-
+              charter/blob/8f95f32ce22aee791a95f9c5399fec8035f5150a/
+              requirements.md".
 
 Author's Address
 
