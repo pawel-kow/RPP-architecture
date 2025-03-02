@@ -30,10 +30,15 @@
 :xrefstyle: short
 
 
-== Abstract
-
 The Extensible Provisioning Protocol (EPP), standardized in 2009, has served the domain name industry well for domain name management.
 However, advancements in development, integration, and operational paradigms have led to a desire for a provisioning protocol leveraging the REST architectural style and JSON data-interchange format.  This document defines the architecture for the RESTful Provisioning Protocol (RPP), aiming to standardize a REST-based protocol for provisioning services, initially focused on domain name, host, and contact management, while allowing for future extensibility.  RPP is intended to co-exist with EPP, offering a modern alternative benefiting from the REST architectural style and widely adopted technologies. RPP aims for data model compatibility with EPP core objects.
+
+[removeInRFC=true,numbered=false]
+[NOTE] 
+.Contributing
+==== 
+When contributing to this document, please use the following GitHub project: https://github.com/pawel-kow/RPP-architecture.
+====
 
 == Introduction
 
@@ -384,7 +389,6 @@ FIXME: find an appropriate section for this
 * [[[RFC7240, RFC 7240]]] Snell, J., "Prefer Header for HTTP", RFC 7240, DOI 10.17487/RFC7240, June 2014, <https://www.rfc-editor.org/info/rfc7240>.
 * [[[RFC8259,RFC 8259]]] Bray, T., Ed., "The JavaScript Object Notation (JSON) Data Interchange Format", STD 90, RFC 8259, DOI 10.17487/RFC8259, December 2017, <https://www.rfc-editor.org/info/rfc8259>.
 * [[[RFC6570, RFC 6570]]] Gregorio, J., Fielding, R., Hadley, M., Nottingham, M., and D. Orchard, "URI Template", RFC 6570, DOI 10.17487/RFC6570, March 2012, <https://www.rfc-editor.org/info/rfc6570>.
-* [[[RPPReq, RPP Requirements]]] RPP Requirements (Work in progress 20.2.2025) <https://github.com/SIDN/ietf-wg-rpp-charter/blob/8f95f32ce22aee791a95f9c5399fec8035f5150a/requirements.md>
 * [[[RFC6749,RFC 6749]]] Hardt, D., Ed., "The OAuth 2.0 Authorization Framework", RFC 6749, DOI 10.17487/RFC6749, October 2012, <https://www.rfc-editor.org/info/rfc6749>.
 * [[[RFC6750,RFC 6750]]] Jones, M. and D. Hardt, "The OAuth 2.0 Authorization Framework: Bearer Token Usage", RFC 6750, DOI 10.17487/RFC6750, October 2012, <https://www.rfc-editor.org/info/rfc6750>.
 * [[[RFC7519,RFC 7519]]] Jones, M., Bradley, J., and N. Sakimura, "JSON Web Token (JWT)", RFC 7519, DOI 10.17487/RFC7519, May 2015, <https://www.rfc-editor.org/info/rfc7519>.
@@ -395,3 +399,4 @@ FIXME: find an appropriate section for this
 * [[[I-D.draft-ietf-oauth-selective-disclosure-jwt, draft-ietf-oauth-selective-disclosure-jwt]]] Fett D., Yasuda K. and Campbell B. , "Selective Disclosure for JWTs (SD-JWT)", Work in Progress, Internet-Draft, draft-ietf-oauth-selective-disclosure-jwt, 16 January 2025 <https://datatracker.ietf.org/doc/draft-ietf-oauth-selective-disclosure-jwt/>
 * [[[RFC9396, RFC 9396]]] Lodderstedt, T., Richer, J., and B. Campbell, "OAuth 2.0 Rich Authorization Requests", RFC 9396, DOI 10.17487/RFC9396, May 2023, <https://www.rfc-editor.org/info/rfc9396>.
 [[[RFC6902, RFC 6902]]] Bryan, P., Ed., and M. Nottingham, Ed., "JavaScript Object Notation (JSON) Patch", RFC 6902, DOI 10.17487/RFC6902, April 2013, <https://www.rfc-editor.org/info/rfc6902>.
+* [[[RPPReq, RPP Requirements]]] "RPP Requirements (Work in progress 20.2.2025)", github.com/SIDN/ietf-wg-rpp-charter/blob/8f95f32ce22aee791a95f9c5399fec8035f5150a/requirements.md
