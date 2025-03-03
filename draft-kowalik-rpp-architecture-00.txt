@@ -4,8 +4,8 @@
 
 Network Working Group                                         P. Kowalik
 Internet-Draft                                                  DENIC eG
-Intended status: Informational                              2 March 2025
-Expires: 3 September 2025
+Intended status: Informational                              3 March 2025
+Expires: 4 September 2025
 
 
                             RPP Architecture
@@ -47,13 +47,13 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 3 September 2025.
+   This Internet-Draft will expire on 4 September 2025.
 
 
 
 
 
-Kowalik                 Expires 3 September 2025                [Page 1]
+Kowalik                 Expires 4 September 2025                [Page 1]
 
 Internet-Draft              rpp-architecture                  March 2025
 
@@ -78,44 +78,44 @@ Table of Contents
    2.  Terminology . . . . . . . . . . . . . . . . . . . . . . . . .   3
    3.  Requirements  . . . . . . . . . . . . . . . . . . . . . . . .   4
    4.  Architectural Overview  . . . . . . . . . . . . . . . . . . .   6
-     4.1.  Resource Oriented Architecture  . . . . . . . . . . . . .   6
-     4.2.  Architecture Layers . . . . . . . . . . . . . . . . . . .   7
-       4.2.1.  HTTP Transport Layer  . . . . . . . . . . . . . . . .   7
-       4.2.2.  Data Representation Layer . . . . . . . . . . . . . .   8
-       4.2.3.  Resource Definition Layer . . . . . . . . . . . . . .   8
-   5.  Protocol Details  . . . . . . . . . . . . . . . . . . . . . .   9
-     5.1.  HTTP Transport Layer Details  . . . . . . . . . . . . . .   9
-       5.1.1.  Authentication and Authorization  . . . . . . . . . .   9
-       5.1.2.  Resource Addressing . . . . . . . . . . . . . . . . .  10
+     4.1.  Resource Oriented Architecture  . . . . . . . . . . . . .   7
+     4.2.  Architecture Layers . . . . . . . . . . . . . . . . . . .   8
+       4.2.1.  HTTP Transport Layer  . . . . . . . . . . . . . . . .   8
+       4.2.2.  Data Representation Layer . . . . . . . . . . . . . .   9
+       4.2.3.  Resource Definition Layer . . . . . . . . . . . . . .   9
+   5.  Protocol Details  . . . . . . . . . . . . . . . . . . . . . .  10
+     5.1.  HTTP Transport Layer Details  . . . . . . . . . . . . . .  10
+       5.1.1.  Authentication and Authorization  . . . . . . . . . .  10
+       5.1.2.  Resource Addressing . . . . . . . . . . . . . . . . .  11
        5.1.3.  Mapping of basic operations to HTTP uniform interface
-               (verbs) . . . . . . . . . . . . . . . . . . . . . . .  11
+               (verbs) . . . . . . . . . . . . . . . . . . . . . . .  12
        5.1.4.  RPP specific error codes and relation to HTTP error
                codes . . . . . . . . . . . . . . . . . . . . . . . .  12
-       5.1.5.  Transaction tracing and idempotency . . . . . . . . .  12
-       5.1.6.  Caching . . . . . . . . . . . . . . . . . . . . . . .  12
+       5.1.5.  Transaction tracing and idempotency . . . . . . . . .  13
+       5.1.6.  Caching . . . . . . . . . . . . . . . . . . . . . . .  13
        5.1.7.  Content negotiation for media types . . . . . . . . .  13
-       5.1.8.  Language negotiation for textual content  . . . . . .  13
-       5.1.9.  Definition of special resources . . . . . . . . . . .  13
+       5.1.8.  Language negotiation for textual content  . . . . . .  14
+       5.1.9.  Definition of special resources . . . . . . . . . . .  14
        5.1.10. Service discovery mechanisms  . . . . . . . . . . . .  14
-     5.2.  Data Representation Layer . . . . . . . . . . . . . . . .  14
-       5.2.1.  Data structure  . . . . . . . . . . . . . . . . . . .  14
+     5.2.  Data Representation Layer . . . . . . . . . . . . . . . .  15
+       5.2.1.  Data structure  . . . . . . . . . . . . . . . . . . .  15
        5.2.2.  Data format and encapsulation . . . . . . . . . . . .  15
-       5.2.3.  Media Type definition . . . . . . . . . . . . . . . .  15
+       5.2.3.  Media Type definition . . . . . . . . . . . . . . . .  16
      5.3.  Resource Definition Layer . . . . . . . . . . . . . . . .  16
-       5.3.1.  Data Elements . . . . . . . . . . . . . . . . . . . .  16
-       5.3.2.  Mapping . . . . . . . . . . . . . . . . . . . . . . .  16
-       5.3.3.  Operations  . . . . . . . . . . . . . . . . . . . . .  17
-   6.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  17
+       5.3.1.  Data Elements . . . . . . . . . . . . . . . . . . . .  17
+       5.3.2.  Mapping . . . . . . . . . . . . . . . . . . . . . . .  17
+       5.3.3.  Operations  . . . . . . . . . . . . . . . . . . . . .  18
+   6.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  18
 
 
 
-Kowalik                 Expires 3 September 2025                [Page 2]
+Kowalik                 Expires 4 September 2025                [Page 2]
 
 Internet-Draft              rpp-architecture                  March 2025
 
 
-     6.1.  Informational References  . . . . . . . . . . . . . . . .  17
-   Author's Address  . . . . . . . . . . . . . . . . . . . . . . . .  19
+     6.1.  Informational References  . . . . . . . . . . . . . . . .  18
+   Author's Address  . . . . . . . . . . . . . . . . . . . . . . . .  20
 
 1.  Introduction
 
@@ -165,7 +165,7 @@ Internet-Draft              rpp-architecture                  March 2025
 
 
 
-Kowalik                 Expires 3 September 2025                [Page 3]
+Kowalik                 Expires 4 September 2025                [Page 3]
 
 Internet-Draft              rpp-architecture                  March 2025
 
@@ -221,7 +221,7 @@ Internet-Draft              rpp-architecture                  March 2025
 
 
 
-Kowalik                 Expires 3 September 2025                [Page 4]
+Kowalik                 Expires 4 September 2025                [Page 4]
 
 Internet-Draft              rpp-architecture                  March 2025
 
@@ -277,7 +277,7 @@ Internet-Draft              rpp-architecture                  March 2025
 
 
 
-Kowalik                 Expires 3 September 2025                [Page 5]
+Kowalik                 Expires 4 September 2025                [Page 5]
 
 Internet-Draft              rpp-architecture                  March 2025
 
@@ -317,9 +317,63 @@ Internet-Draft              rpp-architecture                  March 2025
    clear separation of concerns, enabling independent evolution and
    extensibility of each layer.
 
-   (Artwork only available as svg: ./assets/Architecture.drawio.svg)
 
-                                  Figure 1
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Kowalik                 Expires 4 September 2025                [Page 6]
+
+Internet-Draft              rpp-architecture                  March 2025
+
+
+     +---------------------------------------------------------+
+     |                      HTTP Transport                     |
+     |                                                         |
+     | +-----------------------------------------------------+ |
+     | |                 Data Representation                 | |
+     | |                                                     | |
+     | | +-------------------------------------------------+ | |
+     | | |                  Encapsulation                  | | |
+     | | |                                                 | | |
+     | | | +---------------------------------------------+ | | |
+     | | | |                Data Structure               | | | |
+     | | | |                                             | | | |
+     | | | | +-----------------------------------------+ | | | |
+     | | | | |           Resource Description          | | | | |
+     | | | | |                                         | | | | |
+     | | | | | +--------------+       +--------------+ | <--------+
+     | | | | | |              |       |              | | | | | |  |
+     | | | | | |     Data     |       |   Mapping    | | | | | |  |
+     | | | | | |   Elements   -------->              -------------+
+     | | | | | |              |       |              | | | | | |
+     | | | | | |              |       |              | | | | | |
+     | | | | | +---^----------+       +--------------+ | | | | |
+     | | | | |     |                                   | | | | |
+     | | | | |     |                                   | | | | |
+     | | | | |     |      +--------------+             | | | | |
+     | | | | |     |      |              |             | | | | |
+     | | | | |     |      |  Operations  |             | | | | |
+     | | | | |     +-------              |             | | | | |
+     | | | | |            |              |             | | | | |
+     | | | | |            +--------------+             | | | | |
+     | | | | |                                         | | | | |
+     | | | | +-----------------------------------------+ | | | |
+     | | | +---------------------------------------------+ | | |
+     | | +-------------------------------------------------+ | |
+     | +-----------------------------------------------------+ |
+     +---------------------------------------------------------+
 
 4.1.  Resource Oriented Architecture
 
@@ -330,16 +384,15 @@ Internet-Draft              rpp-architecture                  March 2025
    methods (GET, POST, PUT, DELETE, PATCH).  This contrasts with RPC-
    style protocols, which often define specific operations with custom
    parameters.  ROA promotes a more standardized and interoperable
+   approach, leveraging the existing web infrastructure and its well-
+   defined semantics.  Key aspects of ROA within RPP include:
 
 
 
-Kowalik                 Expires 3 September 2025                [Page 6]
+Kowalik                 Expires 4 September 2025                [Page 7]
 
 Internet-Draft              rpp-architecture                  March 2025
 
-
-   approach, leveraging the existing web infrastructure and its well-
-   defined semantics.  Key aspects of ROA within RPP include:
 
    *  *Resource Identification:* Each resource is uniquely identifiable
       by a URL.
@@ -387,15 +440,15 @@ Internet-Draft              rpp-architecture                  March 2025
    *  *Transaction tracing and idempotency:* Mechanisms for tracking
       requests and ensuring idempotent operations where appropriate.
 
+   *  *Caching:* Leveraging HTTP caching mechanisms to improve
+      performance.
 
 
-Kowalik                 Expires 3 September 2025                [Page 7]
+
+Kowalik                 Expires 4 September 2025                [Page 8]
 
 Internet-Draft              rpp-architecture                  March 2025
 
-
-   *  *Caching:* Leveraging HTTP caching mechanisms to improve
-      performance.
 
    *  *Content negotiation for media types:* Supporting multiple data
       representation formats and using content negotiation to select the
@@ -441,18 +494,17 @@ Internet-Draft              rpp-architecture                  March 2025
 
    It encompasses aspects such as:
 
-
-
-
-
-Kowalik                 Expires 3 September 2025                [Page 8]
-
-Internet-Draft              rpp-architecture                  March 2025
-
-
    *  *Data elements:* Defining the individual data elements that make
       up a resource, including their data types, formats, and any
       constraints.
+
+
+
+
+Kowalik                 Expires 4 September 2025                [Page 9]
+
+Internet-Draft              rpp-architecture                  March 2025
+
 
    *  *Resource type definitions:* Defining the structure of specific
       resource types by combining data elements.
@@ -495,23 +547,20 @@ Internet-Draft              rpp-architecture                  March 2025
    Implementations will be able to choose authentication and
    authorization methods appropriate for their security requirements.
 
-
-
-
-
-
-
-Kowalik                 Expires 3 September 2025                [Page 9]
-
-Internet-Draft              rpp-architecture                  March 2025
-
-
 5.1.1.1.  Authorization Scopes
 
    RPP specifications will standardize authorization scopes to define
    granular access control for different usage scenarios.  These scopes
    will be defined for various operations and resource types, ensuring
    that clients can be granted only the necessary permissions.
+
+
+
+
+Kowalik                 Expires 4 September 2025               [Page 10]
+
+Internet-Draft              rpp-architecture                  March 2025
+
 
 5.1.1.2.  Fine-Grained Authorization
 
@@ -548,20 +597,6 @@ Internet-Draft              rpp-architecture                  March 2025
    additional path segments to be added to the URLs and be discoverable
    by clients.
 
-
-
-
-
-
-
-
-
-
-Kowalik                 Expires 3 September 2025               [Page 10]
-
-Internet-Draft              rpp-architecture                  March 2025
-
-
 5.1.2.1.  Internationalized Domain Names (IDN)
 
    RPP will address the handling of Internationalized Domain Names
@@ -572,6 +607,16 @@ Internet-Draft              rpp-architecture                  March 2025
    UTF-8 encoded URL to an IDN URL and vice versa, allowing clients to
    use either URL.  Another way would be to always redirect to the
    canonical URL, which would be the IDN URL.
+
+
+
+
+
+
+Kowalik                 Expires 4 September 2025               [Page 11]
+
+Internet-Draft              rpp-architecture                  March 2025
+
 
 5.1.3.  Mapping of basic operations to HTTP uniform interface (verbs)
 
@@ -606,18 +651,6 @@ Internet-Draft              rpp-architecture                  March 2025
    dedicated media type, a POST operation with Expect header or a HEAD
    verb - depending on the specific requirements of the check operation.
 
-
-
-
-
-
-
-
-Kowalik                 Expires 3 September 2025               [Page 11]
-
-Internet-Draft              rpp-architecture                  March 2025
-
-
    Other transform operations like renew, or restore which are not
    addressable resources in terms of REST may be either also modelled as
    POST requests with a dedicated media type, or be a convention of URLs
@@ -632,6 +665,14 @@ Internet-Draft              rpp-architecture                  March 2025
 
    RPP utilizes both HTTP status codes and RPP-specific error codes
    within the response body for detailed error reporting.
+
+
+
+
+Kowalik                 Expires 4 September 2025               [Page 12]
+
+Internet-Draft              rpp-architecture                  March 2025
+
 
    *  Use of HTTP status codes to indicate general categories of errors
       (e.g., 2xx success responses, 4xx for client errors, 5xx for
@@ -667,13 +708,6 @@ Internet-Draft              rpp-architecture                  March 2025
    different resources and operations, including cache-control headers
    and ETag support.
 
-
-
-Kowalik                 Expires 3 September 2025               [Page 12]
-
-Internet-Draft              rpp-architecture                  March 2025
-
-
 5.1.7.  Content negotiation for media types
 
    RPP supports content negotiation to allow clients to specify
@@ -684,6 +718,17 @@ Internet-Draft              rpp-architecture                  March 2025
 
    *  Potential support for other media types defined in the Data
       Representation Layer
+
+
+
+
+
+
+
+Kowalik                 Expires 4 September 2025               [Page 13]
+
+Internet-Draft              rpp-architecture                  March 2025
+
 
 5.1.7.1.  Prefer Header for Response Verbosity
 
@@ -722,14 +767,6 @@ Internet-Draft              rpp-architecture                  March 2025
    *  Service Discovery endpoints to advertise protocol capabilities and
       supported features (see Section 5.1.10).
 
-
-
-
-Kowalik                 Expires 3 September 2025               [Page 13]
-
-Internet-Draft              rpp-architecture                  March 2025
-
-
    *  Metadata endpoints to provide schema information or other
       protocol-level metadata, potentially including OpenAPI definitions
       for documentation and code generation.
@@ -739,6 +776,15 @@ Internet-Draft              rpp-architecture                  March 2025
    RPP will define mechanisms for service discovery, allowing clients to
    dynamically discover RPP service endpoints and capabilities, reducing
    coupling between clients and servers.
+
+
+
+
+
+Kowalik                 Expires 4 September 2025               [Page 14]
+
+Internet-Draft              rpp-architecture                  March 2025
+
 
    *  Potential use of well-known URIs (e.g., /.well-known/rpp-
       capabilities) for service discovery.
@@ -778,14 +824,6 @@ Internet-Draft              rpp-architecture                  March 2025
       schemas, to maintain data model compatibility with EPP core
       objects and simplify mapping from EPP.
 
-
-
-
-Kowalik                 Expires 3 September 2025               [Page 14]
-
-Internet-Draft              rpp-architecture                  March 2025
-
-
    *  *'vc' Structure Leverage:* Utilizing Verifiable Credentials data
       structures where appropriate, especially for representing identity
       or authorization information.
@@ -795,6 +833,14 @@ Internet-Draft              rpp-architecture                  March 2025
    The primary encapsulation for RPP data represetations shall be JSON,
    however RPP should be able to support extensions to support other
    formats like XML, JWT, JWT-SD or CBOR.
+
+
+
+
+Kowalik                 Expires 4 September 2025               [Page 15]
+
+Internet-Draft              rpp-architecture                  March 2025
+
 
    *  *Plain JSON:* Standard JSON format [RFC8259] for simplicity and
       broad compatibility.
@@ -830,18 +876,6 @@ Internet-Draft              rpp-architecture                  March 2025
    messages on JSON instead of XML - rendering application/epp+jwt Media
    Type.
 
-
-
-
-
-
-
-
-Kowalik                 Expires 3 September 2025               [Page 15]
-
-Internet-Draft              rpp-architecture                  March 2025
-
-
 5.3.  Resource Definition Layer
 
    Each resource type, no matter if on a top level, being an independent
@@ -855,6 +889,14 @@ Internet-Draft              rpp-architecture                  March 2025
    All resource types shall be defined in IANA registry in a way that
    allows fully automated processing of the resource definition,
    including data elements, operations and media type representation.
+
+
+
+
+Kowalik                 Expires 4 September 2025               [Page 16]
+
+Internet-Draft              rpp-architecture                  March 2025
+
 
 5.3.1.  Data Elements
 
@@ -888,16 +930,6 @@ Internet-Draft              rpp-architecture                  March 2025
    media type, the mapping layer would define how the logical data units
    are represented in JSON format.
 
-
-
-
-
-
-Kowalik                 Expires 3 September 2025               [Page 16]
-
-Internet-Draft              rpp-architecture                  March 2025
-
-
    This additional level of indirection would allow usage of data
    formats defined outside of rpp specifications - for example usage of
    Verifiable Credentials or Verifiable Presentations as first class
@@ -909,6 +941,18 @@ Internet-Draft              rpp-architecture                  March 2025
    reading and writing operations.  Mechanisms, such as defined for
    JavaScript Object Notation (JSON) Patch [RFC6902], may be used to
    define the mapping.
+
+
+
+
+
+
+
+
+Kowalik                 Expires 4 September 2025               [Page 17]
+
+Internet-Draft              rpp-architecture                  March 2025
+
 
 5.3.3.  Operations
 
@@ -947,13 +991,6 @@ Internet-Draft              rpp-architecture                  March 2025
               BCP 69, RFC 5733, August 2009,
               <https://www.rfc-editor.org/info/rfc5733>.
 
-
-
-Kowalik                 Expires 3 September 2025               [Page 17]
-
-Internet-Draft              rpp-architecture                  March 2025
-
-
    [RFC7231]  Fielding, R. and J. Reschke, "Hypertext Transfer Protocol
               (HTTP/1.1): Semantics and Content", IETF,
               DOI 10.17487/RFC7231, RFC 7231, June 2014,
@@ -963,6 +1000,15 @@ Internet-Draft              rpp-architecture                  March 2025
               Network-based Software Architectures", Doctoral
               Dissertation, University of California, Irvine, September
               2000, >.".
+
+
+
+
+
+Kowalik                 Expires 4 September 2025               [Page 18]
+
+Internet-Draft              rpp-architecture                  March 2025
+
 
    [RFC7240]  Snell, J., "Prefer Header for HTTP", IETF,
               DOI 10.17487/RFC7240, RFC 7240, June 2014,
@@ -996,20 +1042,6 @@ Internet-Draft              rpp-architecture                  March 2025
               DOI 10.17487/RFC9082, BCP 95, RFC 9082, June 2021,
               <https://www.rfc-editor.org/info/rfc9082>.
 
-   [RFC3339]  Klyne, G. and C. Newman, "Date and Time on the Internet:
-              Timestamps", IETF, DOI 10.17487/RFC3339, RFC 3339, July
-              2002, <https://www.rfc-editor.org/info/rfc3339>.
-
-
-
-
-
-
-Kowalik                 Expires 3 September 2025               [Page 18]
-
-Internet-Draft              rpp-architecture                  March 2025
-
-
    [RFC6902]  Bryan, P. and M. Nottingham, "JavaScript Object Notation
               (JSON) Patch", IETF, DOI 10.17487/RFC6902, RFC 6902, April
               2013, <https://www.rfc-editor.org/info/rfc6902>.
@@ -1024,6 +1056,15 @@ Internet-Draft              rpp-architecture                  March 2025
               Disclosure for JWTs (SD-JWT)", Work in Progress, Internet-
               Draft, draft-ietf-oauth-selective-disclosure-jwt, 16
               January 2025 >".
+
+
+
+
+
+Kowalik                 Expires 4 September 2025               [Page 19]
+
+Internet-Draft              rpp-architecture                  March 2025
+
 
    [RFC9396]  Lodderstedt, T., Richer, J., and B. Campbell, "OAuth 2.0
               Rich Authorization Requests", IETF, DOI 10.17487/RFC9396,
@@ -1061,4 +1102,19 @@ Author's Address
 
 
 
-Kowalik                 Expires 3 September 2025               [Page 19]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Kowalik                 Expires 4 September 2025               [Page 20]

@@ -4,8 +4,8 @@
 
 Network Working Group                                         P. Kowalik
 Internet-Draft                                                  DENIC eG
-Intended status: Informational                              2 March 2025
-Expires: 3 September 2025
+Intended status: Informational                              3 March 2025
+Expires: 4 September 2025
 
 
                             RPP Architecture
@@ -47,7 +47,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 3 September 2025.
+   This Internet-Draft will expire on 4 September 2025.
 
 Copyright Notice
 
@@ -274,9 +274,42 @@ Table of Contents
    clear separation of concerns, enabling independent evolution and
    extensibility of each layer.
 
-   (Artwork only available as svg: ./assets/Architecture.drawio.svg)
-
-                                  Figure 1
+     +---------------------------------------------------------+
+     |                      HTTP Transport                     |
+     |                                                         |
+     | +-----------------------------------------------------+ |
+     | |                 Data Representation                 | |
+     | |                                                     | |
+     | | +-------------------------------------------------+ | |
+     | | |                  Encapsulation                  | | |
+     | | |                                                 | | |
+     | | | +---------------------------------------------+ | | |
+     | | | |                Data Structure               | | | |
+     | | | |                                             | | | |
+     | | | | +-----------------------------------------+ | | | |
+     | | | | |           Resource Description          | | | | |
+     | | | | |                                         | | | | |
+     | | | | | +--------------+       +--------------+ | <--------+
+     | | | | | |              |       |              | | | | | |  |
+     | | | | | |     Data     |       |   Mapping    | | | | | |  |
+     | | | | | |   Elements   -------->              -------------+
+     | | | | | |              |       |              | | | | | |
+     | | | | | |              |       |              | | | | | |
+     | | | | | +---^----------+       +--------------+ | | | | |
+     | | | | |     |                                   | | | | |
+     | | | | |     |                                   | | | | |
+     | | | | |     |      +--------------+             | | | | |
+     | | | | |     |      |              |             | | | | |
+     | | | | |     |      |  Operations  |             | | | | |
+     | | | | |     +-------              |             | | | | |
+     | | | | |            |              |             | | | | |
+     | | | | |            +--------------+             | | | | |
+     | | | | |                                         | | | | |
+     | | | | +-----------------------------------------+ | | | |
+     | | | +---------------------------------------------+ | | |
+     | | +-------------------------------------------------+ | |
+     | +-----------------------------------------------------+ |
+     +---------------------------------------------------------+
 
 4.1.  Resource Oriented Architecture
 
@@ -839,10 +872,6 @@ Table of Contents
               Protocol (RDAP) Query Format", IETF, STD 95,
               DOI 10.17487/RFC9082, BCP 95, RFC 9082, June 2021,
               <https://www.rfc-editor.org/info/rfc9082>.
-
-   [RFC3339]  Klyne, G. and C. Newman, "Date and Time on the Internet:
-              Timestamps", IETF, DOI 10.17487/RFC3339, RFC 3339, July
-              2002, <https://www.rfc-editor.org/info/rfc3339>.
 
    [RFC6902]  Bryan, P. and M. Nottingham, "JavaScript Object Notation
               (JSON) Patch", IETF, DOI 10.17487/RFC6902, RFC 6902, April

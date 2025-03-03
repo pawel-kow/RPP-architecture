@@ -136,7 +136,45 @@ This chapter provides an overview of the Resource Provisioning Protocol (RPP) ar
 
 The architecture is divided into three main layers: **HTTP Transport**, **Data Representation**, and **Resource Definition**. Each layer defines specific aspects of the protocol. This layered approach allows for clear separation of concerns, enabling independent evolution and extensibility of each layer.
 
-image::./assets/Architecture.drawio.svg[Static,300]
+----
+  +---------------------------------------------------------+
+  |                      HTTP Transport                     |
+  |                                                         |
+  | +-----------------------------------------------------+ |
+  | |                 Data Representation                 | |
+  | |                                                     | |
+  | | +-------------------------------------------------+ | |
+  | | |                  Encapsulation                  | | |
+  | | |                                                 | | |
+  | | | +---------------------------------------------+ | | |
+  | | | |                Data Structure               | | | |
+  | | | |                                             | | | |
+  | | | | +-----------------------------------------+ | | | |
+  | | | | |           Resource Description          | | | | |
+  | | | | |                                         | | | | |
+  | | | | | +--------------+       +--------------+ | <--------+
+  | | | | | |              |       |              | | | | | |  |
+  | | | | | |     Data     |       |   Mapping    | | | | | |  |
+  | | | | | |   Elements   -------->              -------------+
+  | | | | | |              |       |              | | | | | |
+  | | | | | |              |       |              | | | | | |
+  | | | | | +---^----------+       +--------------+ | | | | |
+  | | | | |     |                                   | | | | |
+  | | | | |     |                                   | | | | |
+  | | | | |     |      +--------------+             | | | | |
+  | | | | |     |      |              |             | | | | |
+  | | | | |     |      |  Operations  |             | | | | |
+  | | | | |     +-------              |             | | | | |
+  | | | | |            |              |             | | | | |
+  | | | | |            +--------------+             | | | | |
+  | | | | |                                         | | | | |
+  | | | | +-----------------------------------------+ | | | |
+  | | | +---------------------------------------------+ | | |
+  | | +-------------------------------------------------+ | |
+  | +-----------------------------------------------------+ |
+  +---------------------------------------------------------+
+
+----
 
 === Resource Oriented Architecture
 RPP adopts a Resource Oriented Architecture (ROA), aligning with RESTful principles.  This approach treats all manageable entities as "resources," identified by unique URLs.  Operations on these resources are performed through a uniform interface using HTTP methods (GET, POST, PUT, DELETE, PATCH).  This contrasts with RPC-style protocols, which often define specific operations with custom parameters.  ROA promotes a more standardized and interoperable approach, leveraging the existing web infrastructure and its well-defined semantics.  Key aspects of ROA within RPP include:
@@ -393,7 +431,6 @@ FIXME: find an appropriate section for this
 * [[[RFC6750,RFC 6750]]] Jones, M. and D. Hardt, "The OAuth 2.0 Authorization Framework: Bearer Token Usage", RFC 6750, DOI 10.17487/RFC6750, October 2012, <https://www.rfc-editor.org/info/rfc6750>.
 * [[[RFC7519,RFC 7519]]] Jones, M., Bradley, J., and N. Sakimura, "JSON Web Token (JWT)", RFC 7519, DOI 10.17487/RFC7519, May 2015, <https://www.rfc-editor.org/info/rfc7519>.
 * [[[RFC9082,RFC 9082]]] Hollenbeck, S. and A. Newton, "Registration Data Access Protocol (RDAP) Query Format", STD 95, RFC 9082, DOI 10.17487/RFC9082, June 2021, <https://www.rfc-editor.org/info/rfc9082>.
-* [[[RFC3339,RFC 3339]]] Klyne, G. and C. Newman, "Date and Time on the Internet: Timestamps", RFC 3339, DOI 10.17487/RFC3339, July 2002, <https://www.rfc-editor.org/info/rfc3339>.
 * [[[RFC6902, RFC 6902]]] Bryan, P. and M. Nottingham, "JavaScript Object Notation (JSON) Patch", IETF, DOI 10.17487/RFC6902, RFC 6902, April 2013, <https://www.rfc-editor.org/info/rfc6902>.
 * [[[XML, XML]]] Bray, T., Paoli, J., Sperberg-McQueen, C., Maler, E. and Yergeau, F., "Extensible Markup Language (XML) 1.0 (Fifth Edition)", World Wide Web Consortium Recommendation REC-xml-20081126, November 2008, [https://www.w3.org/TR/2008/REC-xml-20081126/](https://www.w3.org/TR/2008/REC-xml-20081126/). 
 * [[[I-D.draft-ietf-oauth-selective-disclosure-jwt, draft-ietf-oauth-selective-disclosure-jwt]]] Fett D., Yasuda K. and Campbell B. , "Selective Disclosure for JWTs (SD-JWT)", Work in Progress, Internet-Draft, draft-ietf-oauth-selective-disclosure-jwt, 16 January 2025 <https://datatracker.ietf.org/doc/draft-ietf-oauth-selective-disclosure-jwt/>
