@@ -1,0 +1,21 @@
+@startuml
+skinparam BackgroundColor transparent
+skinparam componentStyle rectangle
+component "HTTP Transport" #F5F5F5 {
+   component "Data Representation" #DAE8FC {
+      component "Encapsulation" #DAE8FC;line.dashed {
+         component "Data Structure" as struct #DAE8FC;line.dashed {
+            component "Resource Description" #D5E8D4 {
+              ["Data Elements"] as datel
+              ["Mapping"] as map
+              ["Operations"] as ops
+              datel -right-> map
+              datel -down[hidden]- ops
+              map -down[hidden]- ops
+              map -right-> struct
+            }
+         }
+      }
+   }
+}
+@enduml
