@@ -30,8 +30,8 @@
 :xrefstyle: short
 
 
-The Extensible Provisioning Protocol (EPP), standardized in 2009, has served the domain name industry well for domain name management.
-However, advancements in development, integration, and operational paradigms have led to a desire for a provisioning protocol leveraging the REST architectural style and JSON data-interchange format.  This document defines the architecture for the RESTful Provisioning Protocol (RPP), aiming to standardize a REST-based protocol for provisioning services, initially focused on domain name, host, and contact management, while allowing for future extensibility.  RPP is intended to co-exist with EPP, offering a modern alternative benefiting from the REST architectural style and widely adopted technologies. RPP aims for data model compatibility with EPP core objects.
+Advancements in development, integration, deployment environments and operational paradigms have led to a desire for an alternatve for the Extensible Provisioning Protocol (EPP). 
+This document defines the architecture for the RESTful Provisioning Protocol (RPP) an HTTP based provisioning protocol leveraging the REST architectural style and JSON data-interchange format, aiming to standardize a RESTful protocol for provisioning database objects. The architecture includes support for extensibility, allowing for multiple possible use cases. RPP is intended to co-exist with EPP, offering an alternative protocol including data model compatibility with EPP core objects and the benefits associated with the REST architectural style and widely adopted HTTP-based technologies. 
 
 [removeInRFC=true,numbered=false]
 [NOTE] 
@@ -44,9 +44,9 @@ When contributing to this document, please use the following GitHub project: htt
 
 The Extensible Provisioning Protocol (EPP) <<RFC5730>> has been a cornerstone protocol for domain name management.  Recognizing the shift towards RESTful architectures and the widespread adoption of JSON, this document outlines the architecture of the RESTful Provisioning Protocol (RPP). RPP aims to provide a modern, standardized, and developer-friendly protocol for provisioning services, initially focusing on functional equivalents of EPP for domain names <<RFC5731>>, hosts <<RFC5732>>, and contacts <<RFC5733>>. RPP also considers DNS provisioning as a potential use case, aiming for a uniform API layer for various registry operations.
 
-RPP is designed to leverage the benefits of REST, including statelessness, ease of integration, and compatibility with existing web infrastructure and tools such as OpenAPI, API gateways, and web application firewalls.  By adopting JSON as the data-interchange format, RPP seeks to align with current development practices and the successful deployment patterns observed in protocols like RDAP <<RFC9082>>.  The choice of REST and JSON also facilitates direct browser and mobile application integration.
+RPP is designed to leverage the benefits of REST, including statelessness, ease of integration, and compatibility with existing web infrastructure and tooling such as OpenAPI, API gateways, and web application firewalls.  By adopting JSON as the data-interchange format, RPP seeks to align with current development practices and the successful deployment patterns observed in protocols such as RDAP <<RFC9082>>.  The choice for REST and JSON also facilitates direct browser and mobile application integration including modern security mechanisms such as OAuth2.0.
 
-This architecture document serves as a foundation for a series of specifications that will collectively define RPP.  It details the layered approach, core components, and design considerations for building an interoperable and extensible provisioning protocol.  RPP is intended to coexist with EPP, offering an alternative for implementers seeking a RESTful approach without aiming to replace EPP or define migration paths from EPP. RPP aims for data model compatibility with EPP core objects to allow automatic and mechanical mapping and conversion, especially for core objects (domain, contact, host).
+This architecture document serves as a foundation for a series of specifications that will collectively define RPP.  It details the layered approach, core components, and design considerations for building an interoperable and extensible provisioning protocol. RPP is intended to coexist with EPP, offering an alternative for implementers seeking a RESTful approach without aiming to replace EPP or define migration paths from EPP. RPP aims for data model compatibility with EPP core objects to allow automatic and mechanical mapping and conversion, especially for core objects (domain, contact, host).
 
 == Terminology
 
@@ -56,8 +56,7 @@ This document uses terminology from RFC5730 <<RFC5730>> and broadly adopts the R
 
 *  **EPP:** Extensible Provisioning Protocol as defined in <<RFC5730>>.
 
-*  **REST:** REpresentational State Transfer architectural style
-<<REST>>.
+*  **REST:** REpresentational State Transfer architectural style <<REST>>.
 
 *  **JSON:** JavaScript Object Notation <<RFC8259>>.
 
