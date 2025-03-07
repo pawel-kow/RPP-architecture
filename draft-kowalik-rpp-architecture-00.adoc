@@ -20,6 +20,12 @@
 :code: 60596
 :country: DE
 :contributor-uri: https://denic.de
+:givenname_2: Maarten
+:surname_2: Wullink
+:email_2: maarten.wullink@sidn.nl
+:affiliation_2: SIDN Labs
+:country_2: NL
+:contributor-uri_2: https://sidn.nl/
 :source-highlighter: prettify
 :sectnums:
 :apply-image-size:
@@ -141,6 +147,7 @@ RPP adopts a Resource Oriented Architecture (ROA), aligning with RESTful princip
 This layer defines the transport mechanism for RPP messages, utilizing HTTP as the underlying protocol. 
 
 It encompasses aspects such as:
+
 * **Authentication and Authorization:** Mechanisms for verifying the identity of clients and controlling access to resources.
 * **Resource Addressing using URLs:** Consistent and meaningful URL structures for identifying and accessing resources.
 * **Mapping of basic operations to HTTP uniform interface (verbs):** Mapping CRUD (Create, Read, Update, Delete) operations to POST, HEAD/GET, PUT/PATCH, and DELETE respectively.
@@ -414,4 +421,4 @@ FIXME: find an appropriate section for this
 * [[[RFC9396, RFC 9396]]] Lodderstedt, T., Richer, J., and B. Campbell, "OAuth 2.0 Rich Authorization Requests", RFC 9396, DOI 10.17487/RFC9396, May 2023, <https://www.rfc-editor.org/info/rfc9396>.
 [[[RFC6902, RFC 6902]]] Bryan, P., Ed., and M. Nottingham, Ed., "JavaScript Object Notation (JSON) Patch", RFC 6902, DOI 10.17487/RFC6902, April 2013, <https://www.rfc-editor.org/info/rfc6902>.
 * [[[RFC9205, RFC 9205]]] Nottingham, M., "Building Protocols with HTTP", BCP 56, RFC 9205, DOI 10.17487/RFC9205, June 2022, <https://www.rfc-editor.org/info/rfc9205>.
-* [[[RPPReq, RPP Requirements]]] "RPP Requirements (Work in progress 7.3.2025)", https://github.com/ietf/wiki.ietf.org/blob/157294ff0fdfb2715da5a287dfba6c641a1bad67/group/rpp/requirements.md
+* [[[RPPReq, RPP Requirements]]] "RPP Requirements (Work in progress 7.3.2025)", https:/ /github.com/ietf/wiki.ietf.org/blob/157294ff0fdfb2715da5a287dfba6c641a1bad67/group/rpp/requirements.md
