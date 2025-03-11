@@ -48,8 +48,7 @@ When contributing to this document, please use the following GitHub project: htt
 
 == Introduction
 
-This document outlines the architecture of the RESTful Provisioning Protocol (RPP). RPP aims to provide a modern, standardized, and developer-friendly protocol for provisioning and managing objects in a shared database or registry, initially focusing on functional equivalents of EPP object mappings for domain names <<RFC5731>>, hosts <<RFC5732>>, and contacts <<RFC5733>>. RPP also considers DNS provisioning as a potential use case, aiming for a uniform API layer for various registry operations.
-//MWU: probably not use text such as "initially focusing..." the doc should describe only whats being done now and not what may be added in the future (or not)  
+This document outlines the architecture of the RESTful Provisioning Protocol (RPP). RPP aims to provide a modern, standardized, and developer-friendly protocol for provisioning and managing objects in a shared database or registry, initially focusing on functional equivalents of EPP object mappings for domain names <<RFC5731>>, hosts <<RFC5732>>, and contacts <<RFC5733>>. RPP also considers provisioning of other object as a potential use case, aiming for a uniform API layer for various registry operations.
 
 RPP is designed to leverage the benefits of REST, including statelessness, ease of integration, and compatibility with existing web infrastructure and tooling such as OpenAPI, API gateways, and web application firewalls.  By adopting JSON as the data-interchange format, RPP seeks to align with current development practices and the successful deployment patterns observed in protocols such as RDAP <<RFC9082>>.  The choice for REST and JSON also facilitates direct browser and mobile application integration including modern security mechanisms such as OAuth2.0.
 
@@ -149,15 +148,10 @@ This layer defines the transport mechanism for RPP messages, utilizing HTTP as t
 It encompasses aspects such as:
 
 * **Authentication and Authorization:** Mechanisms for verifying the identity of clients and controlling access to resources.
-* **Resource Addressing using URLs:** Consistent and meaningful URL structures for identifying and accessing resources.
+* **Resource Addressing using URLs:** Consistent and meaningful URL structures for identifying, accessing resources and enable request routing.
 * **Mapping of basic operations to HTTP uniform interface (verbs):** Mapping CRUD (Create, Read, Update, Delete) operations to POST, HEAD/GET, PUT/PATCH, and DELETE respectively.
 * **Mapping of operations beyond HTTP uniform interface to URLs and verbs:** Handling more complex operations through appropriate URL structures and HTTP methods.
-* **Request routing:** Routing of an RPP request to the correct endpoint based on HTTP attributes and URL structure.
-//PK: How would routing be reflected in the protocol architecture? I think it is more of an implementation detail.
 * **RPP specific error codes and relation to HTTP error codes:** Defining RPP-specific error codes while relating them to standard HTTP error codes for consistency.
-//MWU: we must prevent mixing of status/error codes beteween rpp and http
-//each must maintain distinct set of error/status codes
-//PK: Not sure what you mean by "mixing"? I think we should define RPP-specific error codes and relate them to HTTP error codes for consistency. What I would like to avoid is that GET for a domain which does not exist returns 200 and a different RPP-Error header with specific error code. I would rather see 404 with a specific RPP-Error header.
 * **Transaction tracing and idempotency:** Mechanisms for tracking requests and ensuring idempotent operations where appropriate.
 * **Caching:** Leveraging HTTP caching mechanisms to improve performance.
 * **Content negotiation for media types:** Supporting multiple data representation formats and using content negotiation to select the appropriate format.
@@ -167,8 +161,6 @@ It encompasses aspects such as:
 
 ==== Data Representation Layer
 
-//MWU: why do we need additional encapsulation? ik would remove this as it does not add anything except complexity?
-//PK: I think encapsulation is important as it defines how the data is wrapped and transported. It is a separate concern from the data structure. As mentioned in the E-mail the same structure and format may be represented in different encapsulations for (future) use-cases so keeping it as extension point may be beneficial. On the other side it may be all compressed into Data Format definition. I don't have super strong feelings here.
 This layer focuses on the encapsulation and data representation of RPP messages. It defines the media type used to carry RPP data and supports various data representation formats.
 
 It encompasses aspects such as:
@@ -203,23 +195,18 @@ The RPP architecture uses the best practices described in <<RFC9205>> for the HT
 RPP is aimed to leverage scalable and modern authorization standards, with a focus on OAuth 2.0 <<RFC6749>> and related frameworks, however it should also support other authentication schemes defined for HTTP, an example would be HTTP Basic Authentication which might be required for compatibility with existing EPP systems. RPP should be able to support future authentication and authorization standards defined for HTTP.
 
 Specifications will define profiles for:
-//MWU but not limited to
-//PK: What do you mean here?
-*  HTTP Authentication schemes (e.g., HTTP Basic Authentication, Bearer Token <<RFC6750>>)
+*  HTTP Authentication schemes (e.g., HTTP Basic Authentication, Bearer Token <<RFC6750>> etc.)
 *  Authorization frameworks (e.g., OAuth 2.0 <<RFC6749>>)
 
 Implementations will be able to choose authentication and authorization methods appropriate for their security requirements.
 
 ===== Authorization Scopes
 
-//MWU: are we sure this is something we want? we can maybe define some gramework but in the end the authrization is something that the registry backend should probably handle
-//PK: we discussed this in context of OAuth. There would be a value to define some common scopes for RPP, so that interoperability would be easier. Even if we just say we have rpp:read and rpp:write scopes.
-
-RPP specifications will standardize authorization scopes to define granular access control for different usage scenarios. These scopes will be defined for various operations and resource types, ensuring that clients can be granted only the necessary permissions.
+RPP specifications will standardize authorization scopes (like rpp:read or rpp:write) to define granular access control for different usage scenarios. These scopes will be defined for various operations and resource types, ensuring that clients can be granted only the necessary permissions.
 
 ===== Fine-Grained Authorization
 
-RPP authorization models will be fine-grained, extending beyond simple auth-code based models used EPP.  Authorization decisions will be able to consider the specific operation being performed (e.g., update vs. read), the resource being accessed (e.g., a specific domain name), and potentially even attributes within the resource. 
+RPP authorization models may become fine-grained, extending beyond simple auth-code based models used EPP. Authorization decisions will be able to consider the specific operation being performed (e.g., update vs. read), the resource being accessed (e.g., a specific domain name), and potentially even attributes within the resource. 
 
 Here solutions like OAuth2 RAR <<RFC9396>> could be considered to provide fine-grained access control.
 
@@ -329,8 +316,7 @@ protocol-level metadata, potentially including OpenAPI definitions for documenta
 RPP will define mechanisms for service discovery, allowing clients
 to dynamically discover RPP service endpoints and capabilities, reducing coupling between clients and servers.
 
-//MWU: maybe also consider IANA bootstrapppign document or a special DNS TXT RR with location of RPP service for the tld?
-
+*  Potential discovery of RPP server location, like  IANA bootstrapppign document or a special DNS TXT RR with location of RPP service for the tld.
 *  Potential use of well-known URIs (e.g., `/.well-known/rpp-capabilities`) for service discovery.
 *  Options for advertising supported protocol versions,
 extensions, available resource types, authentication methods, and supported features.
