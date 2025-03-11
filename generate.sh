@@ -26,7 +26,7 @@ if [ ! -f "$filename.adoc" ]; then
     display_help
 fi
 
-cd output
+cd ./docs
 
 # Run the metanorma command
 metanorma -t ietf "../$filename.adoc"
