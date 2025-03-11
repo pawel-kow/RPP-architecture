@@ -26,11 +26,13 @@ if [ ! -f "$filename.adoc" ]; then
     display_help
 fi
 
+cd output
+
 # Run the metanorma command
-metanorma -t ietf "$filename.adoc"
+metanorma -t ietf "../$filename.adoc"
 
 # Rename and update the xml file
-mv "$filename.rfc.xml" "$filename.xml"
+mv "../$filename.rfc.xml" "$filename.xml"
 
 # Fixup content
 sed -i 's|<stream>Legacy</stream>|<stream>IETF</stream>|g' "$filename.xml"
