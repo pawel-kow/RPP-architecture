@@ -384,6 +384,7 @@ FIXME: find an appropriate section for this
 
 === -00 to -01
 
+* Removed requirements and replaced with a reference to RPP WG Wiki
 * Encapsulation removed as a primary extension point and part of architecture
 
 == References

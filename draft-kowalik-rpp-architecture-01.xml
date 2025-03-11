@@ -421,7 +421,8 @@ data structures, especially for representing identity or authorization informati
 
 <section anchor="_00_to_01"><name>-00 to -01</name>
 
-<ul anchor="_7a21ab8b-bc59-e80b-34c0-09d86e47307a"><li>Encapsulation removed as a primary extension point and part of architecture</li>
+<ul anchor="_ab749149-7eff-38c0-a923-3139b505cd93"><li>Removed requirements and replaced with a reference to RPP WG Wiki</li>
+<li>Encapsulation removed as a primary extension point and part of architecture</li>
 </ul>
 </section>
 </section>

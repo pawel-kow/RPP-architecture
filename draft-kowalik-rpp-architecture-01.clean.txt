@@ -748,6 +748,8 @@ Table of Contents
 
 6.1.  -00 to -01
 
+   *  Removed requirements and replaced with a reference to RPP WG Wiki
+
    *  Encapsulation removed as a primary extension point and part of
       architecture
 
