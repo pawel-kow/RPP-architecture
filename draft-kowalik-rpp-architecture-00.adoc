@@ -87,7 +87,7 @@ This chapter provides an overview of the RESTful Provisioning Protocol (RPP) arc
 
 The architecture is divided into three main layers: **HTTP Transport**, **Data Representation**, and **Resource Definition**. Each layer defines specific aspects of the protocol. This layered approach allows for clear separation of concerns.
 
-**Encapsulation** and **Data Structure** are sub-layers of Data Representation and described later in this document. They focus on the encapsulation and structure of RPP messages, respectively.
+**Data Structure** is a sub-layer of Data Representation and described later in this document. It focuses on the structure of RPP messages.
 
 Similarily **Data Elements**, their **Mapping** onto Data Structure and **Operations** are elements of Resource Definition. They focus on the semantic structure of RPP resources and transformation of those resources.
 
@@ -98,34 +98,30 @@ Similarily **Data Elements**, their **Mapping** onto Data Structure and **Operat
   | +-----------------------------------------------------+ |
   | |                 Data Representation                 | |
   | |                                                     | |
-  | | +- - - - - - - - - - - - - - - - - - - - - - - - -+ | |
-  | | |                  Encapsulation                  | | |
-  | |                                                     | |
-  | | | +- - - - - - - - - - - - - - - - - - - - - - -+ | | |
-  | |   |                Data Structure               |   | |
-  | | |                                                 | | |
-  | |   | +-----------------------------------------+ |   | |
-  | | |   |           Resource Description          |   | | |
-  | |   | |                                         | |   | |
-  | | |   | +--------------+       +--------------+ | <--------+
-  | |   | | |              |       |              | | |   | |  |
-  | | |   | |     Data     |       |   Mapping    | |   | | |  |
-  | |   | | |   Elements   -------->              -------------+
-  | | |   | |              |       |              | |   | | |
-  | |   | | |              |       |              | | |   | |
-  | | |   | +---^----------+       +--------------+ |   | | |
-  | |   | |     |                                   | |   | |
-  | | |   |     |                                   |   | | |
-  | |   | |     |      +--------------+             | |   | |
-  | | |   |     |      |              |             |   | | |
-  | |   | |     |      |  Operations  |             | |   | |
-  | | |   |     +-------              |             |   | | |
-  | |   | |            |              |             | |   | |
-  | | |   |            +--------------+             |   | | |
-  | |   | |                                         | |   | |
-  | | |   +-----------------------------------------+ | | | |
   | |   +- - - - - - - - - - - - - - - - - - - - - - -+   | |
-  | | +- - - - - - - - - - - - - - - - - - - - - - - - -+ | |
+  | |   |                Data Structure               |<-------+
+  | |                                                     | |  |
+  | |   | +-----------------------------------------+ |   | |  |
+  | |     |           Resource Description          |     | |  |
+  | |   | |                                         | |   | |  |
+  | |     | +--------------+       +--------------+ |     | |  |
+  | |   | | |              |       |              | | |   | |  |
+  | |     | |     Data     |       |   Mapping    | |     | |  |
+  | |   | | |   Elements   |------>|              |------------+
+  | |     | |              |       |              | |     | |
+  | |   | | |              |       |              | | |   | |
+  | |     | +--------------+       +--------------+ |     | |
+  | |   | |     ^                                   | |   | |
+  | |     |     |                                   |     | |
+  | |   | |     |      +--------------+             | |   | |
+  | |     |     |      |              |             |     | |
+  | |   | |     |      |  Operations  |             | |   | |
+  | |     |     +------|              |             |     | |
+  | |   | |            |              |             | |   | |
+  | |     |            +--------------+             |     | |
+  | |   | |                                         | |   | |
+  | |     +-----------------------------------------+ |   | |
+  | |   +- - - - - - - - - - - - - - - - - - - - - - -+   | |
   | +-----------------------------------------------------+ |
   +---------------------------------------------------------+
 
@@ -161,13 +157,12 @@ It encompasses aspects such as:
 
 ==== Data Representation Layer
 
-This layer focuses on the encapsulation and data representation of RPP messages. It defines the media type used to carry RPP data and supports various data representation formats.
+This layer focuses on the data representation of RPP messages. It defines the media type used to carry RPP data and supports various data representation formats.
 
 It encompasses aspects such as:
 
 * **Data structure:** Defining the structure and schema of the RPP data, potentially using a specific schema language.
-* **Data format:** Defining the specific format used to represent RPP data within the representation(e.g., JSON, XML).
-* **Data encapsulation:** Optionally defining encapsulation mechanisms for the data format (e.g., JWT, CBOR).
+* **Data format:** Defining the specific format used to represent RPP data within the representation (e.g., JSON, XML or JWT).
 * **Media Type definition:** Defining the specific media type to be used in RPP, including any constraints on the data format and structure
 
 ==== Resource Definition Layer
@@ -325,32 +320,34 @@ extensions, available resource types, authentication methods, and supported feat
 
 === Data Representation Layer
 
-This layer focuses on the encapsulation and data representation of RPP messages. It defines the media type used to carry RPP data and supports various data representation formats.
+This layer focuses on the data representation of RPP messages. It defines the media type used to carry RPP data and supports various data representation formats.
 
 ==== Data structure
 RPP will define the overall structure of the message payload carried
-by the chosen media type.  Options for the data structure include:
+by the chosen media type. By default one data structure will be defined, however RPP should be able to support multiple data structures, especially for compatibility with EPP and other standards.
 
 *  **'rpp' Structure:**  Defining a new, dedicated data structure
 specifically for RPP messages. This would be the default in core specifications.
-*  **'epp' Structure Adaptation:**  Reusing the existing EPP XML schemas, to maintain data model compatibility with EPP core objects and simplify mapping from EPP.
-*  **'vc' Structure Leverage:**  Utilizing Verifiable Credentials
-data structures where appropriate, especially for representing
-identity or authorization information.
 
-==== Data format and encapsulation
+Other future possibilities:
+
+*  **'epp' Structure Adaptation:**  Reusing the existing EPP XML schemas, to maintain data model compatibility with EPP core objects and simplify mapping from EPP.
+*  **'vc' Structure Adaptation:**  Reusing Verifiable Credentials
+data structures, especially for representing identity or authorization information, allowing for integration with external identity systems.
+
+==== Data format
 The primary format for RPP data represetations shall be JSON, however RPP should be able to be extended to support other formats like XML, JWT, JWT-SD or CBOR.
 
-* **Plain JSON:** Standard JSON format <<RFC8259>>. 
+* **JSON:** Standard JSON format <<RFC8259>>. 
 * **XML:** Extensible Markup Language <<XML>> (considered for potential compatibility with EPP).
 * **JWT:** JSON data encapsulated within a JSON Web Token <<RFC7519>> for potential use-cases when verifiable data consistency is required 
 * **JWT-SD:** JSON data with Selective Disclosure using JWTs <<I-D.draft-ietf-oauth-selective-disclosure-jwt>> for minimisation of exposed data. 
 * **CBOR:** Concise Binary Object Representation for specific use cases requiring compact binary encoding.
 
-Some data formats can be represented in mutiple encapsulations, for example JSON data can be represented in plain JSON, JWT or CBOR. Change of encapsulation shall not affect the data structure. This might be beneficial if RPP is to be extended to support different data formats in the future that only require additional properties provided by encapsulation, like signing, encryption or binary representation.
+Some data formats can be optionally represented in other encapsulations, for example JSON data can be represented also in JWT or CBOR. Change of encapsulation shall not affect the data structure. This might be beneficial if RPP is to be extended to support different data formats in the future that only require additional properties provided by encapsulation, like signing, encryption or binary representation.
 
 ==== Media Type definition
-Together encapsulation and data structure would define the whole media type. So application/rpp+json would be the primary media type with "rpp" payloads in plain json format. application/epp+xml would be epp payload as per <<RFC5730>>. The Encapsulation and Data Structure can be also othewise combined as far as it is possible to represent the Data Structure in a given encapsulation. For example it would be straightforward to represent "rpp" structure in JWT format and application/rpp+jwt Media Type, but in order to represent epp structure in JWT format it would require first a mapping of epp messages on JSON instead of XML - rendering application/epp+jwt Media Type. 
+Together data structure and data format would define the whole media type. So application/rpp+json would be the primary media type with "rpp" payloads in plain json format. application/epp+xml would be epp payload as per <<RFC5730>>. 
 
 === Resource Definition Layer
 Each resource type, no matter if on a top level, being an independent provisioning object, or a subresource, being a part of another resource, shall be well defined including data elements and possible operations. A respource definition shall on the first level of abstraction be composable out of data elements, without any reference to the media type or representation. This will allow for easy extensibility and compatibility with different media types.
@@ -383,6 +380,11 @@ Operations shall be defined in IANA registry in a way that allows for automated 
 FIXME: find an appropriate section for this
 *  Compatibility Profiles - to define subsets of RPP for specific use cases or EPP compatibility.
 
+== Change History
+
+=== -00 to -01
+
+* Encapsulation removed as a primary extension point and part of architecture
 
 == References
 
