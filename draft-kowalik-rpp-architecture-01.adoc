@@ -225,22 +225,9 @@ RPP will address the handling of Internationalized Domain Names (IDNs) in resour
 RPP operations are mapped to standard HTTP methods to leverage the
 uniform interface and RESTful principles:
 
-*  **HEAD:**  Retrieve resource state (e.g., retrieving domain existence information) - EPP check command
-// PK: after some more in-depth lecture I have my doubts if overloading HEAD is a good idea. Semantically in EPP CHECK is not same as INFO without body. rfc2616 says that HEAD should be identical to GET except for the body. My concern is that many frameworks in fact do an implicit implementation of HEAD and also the responses to HEAD may influence the caching mechanisms and middle boxes.
-// What about thinking of an alternative for check command? Maybe a POST/PUT with Expect header? It also does not return any body.
-
-////
-9.4 HEAD
-
-   The HEAD method is identical to GET except that the server MUST NOT
-   return a message-body in the response. The metainformation contained
-   in the HTTP headers in response to a HEAD request SHOULD be identical
-   to the information sent in response to a GET request. This method can
-   be used for obtaining metainformation about the entity implied by the
-   request without transferring the entity-body itself. This method is
-   often used for testing hypertext links for validity, accessibility,
-   and recent modification.
-////
+*  **HEAD:**  Retrieve resource state (e.g., retrieving domain existence information). This may be a candidate for equivalence of EPP check command, however it may come with few caveats to consider:
+  -  EPP check is intended to check whether domain registration is possible. This is not semantically the same as resource state. Overloading HEAD with EPP semantics may lead to confusion, especially that some frameworks implicitely implement HEAD out or GET handling.
+  -  a better equivalence of EPP check would be a POST with Expect header
 *  **GET:**  Retrieve resource state (e.g., retrieving domain or contact information) - EPP info command
 *  **POST:** Create a new resource (e.g., registering a domain or create contact object) - EPP create command
 *  **PUT:**  Update an existing resource in its entirety (e.g., updating domain registration details) - not 100% equivalent of EPP update command
@@ -385,6 +372,7 @@ FIXME: find an appropriate section for this
 * Removed requirements and replaced with a reference to RPP WG
 * Encapsulation removed as a primary extension point and part of architecture
 * Added reference to JSContact as a possible contact representation
+* Added HEAD verb to basic operations
 
 == References
 
