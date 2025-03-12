@@ -68,9 +68,7 @@ This document uses terminology from RFC5730 <<RFC5730>> and broadly adopts the R
 
 *  **JWT:** JSON Web Token <<RFC7519>>.
 
-*  **JWT-SD:** JWT with Selective Disclosure  <<I-D.draft-ietf-oauth-selective-disclosure-jwt>>.
-
-* **OpenAPI:** The OpenAPI Specification (OAS) (formerly known as Swagger Specification) is an API description format for REST APIs.
+* **OpenAPI:** The OpenAPI Specification (OAS) (formerly known as Swagger Specification) is an API description format for REST APIs <<OpenAPI>>.
 
 == Requirements
 This document is based on the requirements defined by RPP WG in state from 7.3.2025 <<RPPReq>>.
@@ -326,14 +324,14 @@ This layer focuses on the data representation of RPP messages. It defines the me
 RPP will define the overall structure of the message payload carried
 by the chosen media type. By default one data structure will be defined, however RPP should be able to support multiple data structures, especially for compatibility with EPP and other standards.
 
-*  **'rpp' Structure:**  Defining a new, dedicated data structure
+*  **'RPP' Structure:**  Defining a new, dedicated data structure
 specifically for RPP messages. This would be the default in core specifications.
 
 Other future possibilities:
 
-*  **'epp' Structure Adaptation:**  Reusing the existing EPP XML schemas, to maintain data model compatibility with EPP core objects and simplify mapping from EPP.
-*  **'vc' Structure Adaptation:**  Reusing Verifiable Credentials
-data structures, especially for representing identity or authorization information, allowing for integration with external identity systems.
+*  **'EPP' Structure Adaptation:**  Reusing or adapting to the existing EPP XML schemas, to maintain data model compatibility with EPP core objects and simplify mapping from EPP.
+*  **'JSContact' Structure Adaptation:**  Adapting to the existing JSON representation for Contact Information <<RFC9553>>, to maintain alignment with RDAP.
+*  **'VC' Structure Adaptation:**  Adapting to existing Verifiable Credentials (<<W3C-VC>>, <<I-D.draft-ietf-oauth-sd-jwt-vc>>) data structures, especially for representing identity or authorization information, allowing for integration with external identity systems.
 
 ==== Data format
 The primary format for RPP data represetations shall be JSON, however RPP should be able to be extended to support other formats like XML, JWT, JWT-SD or CBOR.
@@ -342,7 +340,7 @@ The primary format for RPP data represetations shall be JSON, however RPP should
 * **XML:** Extensible Markup Language <<XML>> (considered for potential compatibility with EPP).
 * **JWT:** JSON data encapsulated within a JSON Web Token <<RFC7519>> for potential use-cases when verifiable data consistency is required 
 * **JWT-SD:** JSON data with Selective Disclosure using JWTs <<I-D.draft-ietf-oauth-selective-disclosure-jwt>> for minimisation of exposed data. 
-* **CBOR:** Concise Binary Object Representation for specific use cases requiring compact binary encoding.
+* **CBOR:** Concise Binary Object Representation for specific use cases requiring compact binary encoding <<RFC8949>>.
 
 Some data formats can be optionally represented in other encapsulations, for example JSON data can be represented also in JWT or CBOR. Change of encapsulation shall not affect the data structure. This might be beneficial if RPP is to be extended to support different data formats in the future that only require additional properties provided by encapsulation, like signing, encryption or binary representation.
 
@@ -384,8 +382,9 @@ FIXME: find an appropriate section for this
 
 === -00 to -01
 
-* Removed requirements and replaced with a reference to RPP WG Wiki
+* Removed requirements and replaced with a reference to RPP WG
 * Encapsulation removed as a primary extension point and part of architecture
+* Added reference to JSContact as a possible contact representation
 
 == References
 
@@ -411,3 +410,8 @@ FIXME: find an appropriate section for this
 [[[RFC6902, RFC 6902]]] Bryan, P., Ed., and M. Nottingham, Ed., "JavaScript Object Notation (JSON) Patch", RFC 6902, DOI 10.17487/RFC6902, April 2013, <https://www.rfc-editor.org/info/rfc6902>.
 * [[[RFC9205, RFC 9205]]] Nottingham, M., "Building Protocols with HTTP", BCP 56, RFC 9205, DOI 10.17487/RFC9205, June 2022, <https://www.rfc-editor.org/info/rfc9205>.
 * [[[RPPReq, RPP Requirements]]] "RPP Requirements (Work in progress 7.3.2025)", https:/ /github.com/ietf/wiki.ietf.org/blob/157294ff0fdfb2715da5a287dfba6c641a1bad67/group/rpp/requirements.md
+* [[[RFC8949, RFC 8949]]] Bormann, C. and P. Hoffman, "Concise Binary Object Representation (CBOR)", IETF, STD 94, DOI 10.17487/RFC8949, BCP 94, RFC 8949, December 2020, <https://www.rfc-editor.org/info/rfc8949>.
+* [[[OpenAPI, OpenAPI]]] "OpenAPI Specification", https://swagger.io/specification/
+* [[[W3C-VC, W3C VC]]] Verifiable Credentials Data Model v2.0, https://www.w3.org/TR/vc-data-model-2.0/
+* [[[I-D.draft-ietf-oauth-sd-jwt-vc, draft-ietf-oauth-sd-jwt-vc]]] SD-JWT-based Verifiable Credentials (SD-JWT VC) <https://datatracker.ietf.org/doc/draft-ietf-oauth-sd-jwt-vc/>
+* [[[RFC9553, RFC 9553]]] Stepanek, R. and M. Loffredo, "JSContact: A JSON Representation of Contact Data", IETF, DOI 10.17487/RFC9553, RFC 9553, May 2024, <https://www.rfc-editor.org/info/rfc9553>.
