@@ -113,15 +113,15 @@ Table of Contents
    of other object as a potential use case, aiming for a uniform API
    layer for various registry operations.
 
-   RPP is designed to leverage the benefits of REST, including
-   statelessness, ease of integration, and compatibility with existing
-   web infrastructure and tooling such as OpenAPI, API gateways, and web
-   application firewalls.  By adopting JSON as the data-interchange
-   format, RPP seeks to align with current development practices and the
-   successful deployment patterns observed in protocols such as RDAP
-   [RFC9082].  The choice for REST and JSON also facilitates direct
-   browser and mobile application integration including modern security
-   mechanisms such as OAuth2.0.
+   RPP is designed to leverage the benefits of REST (REpresentational
+   State Transfer), including statelessness, ease of integration, and
+   compatibility with existing web infrastructure and tooling such as
+   OpenAPI, API gateways, and web application firewalls.  By adopting
+   JSON as the data-interchange format, RPP seeks to align with current
+   development practices and the successful deployment patterns observed
+   in protocols such as RDAP [RFC9082].  The choice for REST and JSON
+   also facilitates direct browser and mobile application integration
+   including modern security mechanisms such as OAuth2.0.
 
    This architecture document serves as a foundation for a series of
    specifications that will collectively define RPP.  It details the
@@ -656,7 +656,7 @@ Table of Contents
 
    *  *JSON:* Standard JSON format [RFC8259].
 
-   *  *XML:* Extensible Markup Language [XML] (considered for potential
+   *  *XML:* eXtensible Markup Language [XML] (considered for potential
       compatibility with EPP).
 
    *  *JWT:* JSON data encapsulated within a JSON Web Token [RFC7519]
