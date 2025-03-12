@@ -61,13 +61,12 @@ This document defines the architecture for the RESTful Provisioning Protocol (RP
 
 <t anchor="_85eb04b1-12c5-80eb-8882-5b51a5e95721">This document uses terminology from RFC5730 <xref target="RFC5730" section="" relative=""></xref> and broadly adopts the REST architectural principles as defined in [REST] and related RFCs.</t>
 
-<ul anchor="_43a260d9-c57a-0988-63b1-43c77a897712"><li><strong>RPP:</strong> RESTful Provisioning Protocol. The protocol being defined by the RPP working group.</li>
+<ul anchor="_85f56869-b7f0-7215-9abd-80e21c2aba26"><li><strong>RPP:</strong> RESTful Provisioning Protocol. The protocol being defined by the RPP working group.</li>
 <li><strong>EPP:</strong> Extensible Provisioning Protocol as defined in <xref target="RFC5730" section="" relative=""></xref>.</li>
 <li><strong>REST:</strong> REpresentational State Transfer architectural style <xref target="REST" section="" relative=""></xref>.</li>
 <li><strong>JSON:</strong> JavaScript Object Notation <xref target="RFC8259" section="" relative=""></xref>.</li>
 <li><strong>JWT:</strong> JSON Web Token <xref target="RFC7519" section="" relative=""></xref>.</li>
-<li><strong>JWT-SD:</strong> JWT with Selective Disclosure  <xref target="I-D.draft-ietf-oauth-selective-disclosure-jwt" section="" relative=""></xref>.</li>
-<li><strong>OpenAPI:</strong> The OpenAPI Specification (OAS) (formerly known as Swagger Specification) is an API description format for REST APIs.</li>
+<li><strong>OpenAPI:</strong> The OpenAPI Specification (OAS) (formerly known as Swagger Specification) is an API description format for REST APIs <xref target="OpenAPI" section="" relative=""></xref>.</li>
 </ul>
 </section>
     <section anchor="_requirements"><name>Requirements</name>
@@ -242,10 +241,12 @@ This document defines the architecture for the RESTful Provisioning Protocol (RP
 <t anchor="_00acacd2-fcd0-837d-361c-fecc3edd08a2">RPP operations are mapped to standard HTTP methods to leverage the
 uniform interface and RESTful principles:</t>
 
-<ul anchor="_0dc1aecd-ce6d-4c31-d6a1-a4fd11f34632"><li><strong>HEAD:</strong>  Retrieve resource state (e.g., retrieving domain existence information) - EPP check command</li>
+<ul anchor="_fca79b72-e2c9-1312-6d82-164b269d3b1a"><li><t anchor="_be57097b-8ece-385d-11a4-92864ad194c3"><strong>HEAD:</strong>  Retrieve resource state (e.g., retrieving domain existence information). This may be a candidate for equivalence of EPP check command, however it may come with few caveats to consider:</t>
+<ul anchor="_994e2762-cbec-601f-b27d-4d80b48dfdd6"><li>EPP check is intended to check whether domain registration is possible. This is not semantically the same as resource state. Overloading HEAD with EPP semantics may lead to confusion, especially that some frameworks implicitely implement HEAD out or GET handling.</li>
+<li>a better equivalence of EPP check would be a POST with Expect header</li>
 </ul>
-
-<ul anchor="_0ad96bf2-eb05-320b-303f-83c93f7e36ba"><li><strong>GET:</strong>  Retrieve resource state (e.g., retrieving domain or contact information) - EPP info command</li>
+</li>
+<li><strong>GET:</strong>  Retrieve resource state (e.g., retrieving domain or contact information) - EPP info command</li>
 <li><strong>POST:</strong> Create a new resource (e.g., registering a domain or create contact object) - EPP create command</li>
 <li><strong>PUT:</strong>  Update an existing resource in its entirety (e.g., updating domain registration details) - not 100% equivalent of EPP update command</li>
 <li><strong>DELETE:</strong> Delete a resource (e.g., deleting a domain registration) - EPP delete command</li>
@@ -345,15 +346,15 @@ extensions, available resource types, authentication methods, and supported feat
 <t anchor="_300f43c3-e817-33f6-03d4-d970a483e95b">RPP will define the overall structure of the message payload carried
 by the chosen media type. By default one data structure will be defined, however RPP should be able to support multiple data structures, especially for compatibility with EPP and other standards.</t>
 
-<ul anchor="_4671240e-6751-c75c-7a36-53e9390b0170"><li><strong>'rpp' Structure:</strong>  Defining a new, dedicated data structure
+<ul anchor="_0b081cd4-a307-ff61-d080-aa315a7e5142"><li><strong>'RPP' Structure:</strong>  Defining a new, dedicated data structure
 specifically for RPP messages. This would be the default in core specifications.</li>
 </ul>
 
 <t anchor="_f1939749-50b8-b2ec-2e59-b693229cff3c">Other future possibilities:</t>
 
-<ul anchor="_e81274ef-7573-e34c-e71d-3b79c6c6286e"><li><strong>'epp' Structure Adaptation:</strong>  Reusing the existing EPP XML schemas, to maintain data model compatibility with EPP core objects and simplify mapping from EPP.</li>
-<li><strong>'vc' Structure Adaptation:</strong>  Reusing Verifiable Credentials
-data structures, especially for representing identity or authorization information, allowing for integration with external identity systems.</li>
+<ul anchor="_d7484cd9-f226-7d6c-21cf-a7cf9edc825e"><li><strong>'EPP' Structure Adaptation:</strong>  Reusing or adapting to the existing EPP XML schemas, to maintain data model compatibility with EPP core objects and simplify mapping from EPP.</li>
+<li><strong>'JSContact' Structure Adaptation:</strong>  Adapting to the existing JSON representation for Contact Information <xref target="RFC9553" section="" relative=""></xref>, to maintain alignment with RDAP.</li>
+<li><strong>'VC' Structure Adaptation:</strong>  Adapting to existing Verifiable Credentials (<xref target="W3C-VC" section="" relative=""></xref>, <xref target="I-D.draft-ietf-oauth-sd-jwt-vc" section="" relative=""></xref>) data structures, especially for representing identity or authorization information, allowing for integration with external identity systems.</li>
 </ul>
 </section>
 
@@ -361,11 +362,11 @@ data structures, especially for representing identity or authorization informati
 
 <t anchor="_0bb7b854-4698-a5a0-161b-11d754b0a3f3">The primary format for RPP data represetations shall be JSON, however RPP should be able to be extended to support other formats like XML, JWT, JWT-SD or CBOR.</t>
 
-<ul anchor="_81d54765-e5fd-8313-6cc7-d99300f2ea89"><li><strong>JSON:</strong> Standard JSON format <xref target="RFC8259" section="" relative=""></xref>.</li>
+<ul anchor="_73a622d2-6cb2-de8e-be17-579f7d20cb0b"><li><strong>JSON:</strong> Standard JSON format <xref target="RFC8259" section="" relative=""></xref>.</li>
 <li><strong>XML:</strong> Extensible Markup Language <xref target="XML" section="" relative=""></xref> (considered for potential compatibility with EPP).</li>
 <li><strong>JWT:</strong> JSON data encapsulated within a JSON Web Token <xref target="RFC7519" section="" relative=""></xref> for potential use-cases when verifiable data consistency is required</li>
 <li><strong>JWT-SD:</strong> JSON data with Selective Disclosure using JWTs <xref target="I-D.draft-ietf-oauth-selective-disclosure-jwt" section="" relative=""></xref> for minimisation of exposed data.</li>
-<li><strong>CBOR:</strong> Concise Binary Object Representation for specific use cases requiring compact binary encoding.</li>
+<li><strong>CBOR:</strong> Concise Binary Object Representation for specific use cases requiring compact binary encoding <xref target="RFC8949" section="" relative=""></xref>.</li>
 </ul>
 
 <t anchor="_e0b16fe5-774d-9d89-3e9c-4695616e2025">Some data formats can be optionally represented in other encapsulations, for example JSON data can be represented also in JWT or CBOR. Change of encapsulation shall not affect the data structure. This might be beneficial if RPP is to be extended to support different data formats in the future that only require additional properties provided by encapsulation, like signing, encryption or binary representation.</t>
@@ -421,8 +422,10 @@ data structures, especially for representing identity or authorization informati
 
 <section anchor="_00_to_01"><name>-00 to -01</name>
 
-<ul anchor="_ab749149-7eff-38c0-a923-3139b505cd93"><li>Removed requirements and replaced with a reference to RPP WG Wiki</li>
+<ul anchor="_61618e31-a9bf-c31d-6b28-ad7334978512"><li>Removed requirements and replaced with a reference to RPP WG</li>
 <li>Encapsulation removed as a primary extension point and part of architecture</li>
+<li>Added reference to JSContact as a possible contact representation</li>
+<li>Added HEAD verb to basic operations</li>
 </ul>
 </section>
 </section>
@@ -467,6 +470,23 @@ data structures, especially for representing identity or authorization informati
             <title>"RPP Requirements (Work in progress 7.3.2025)", https:/ /github.com/ietf/wiki.ietf.org/blob/157294ff0fdfb2715da5a287dfba6c641a1bad67/group/rpp/requirements.md</title><author surname="Unknown"></author>
           </front>
         </reference>
+        <reference target="https://www.rfc-editor.org/info/rfc8949" anchor="RFC8949"><stream>IETF</stream> <front> <title>Concise Binary Object Representation (CBOR)</title> <author fullname="C. Bormann" asciiFullname="C. Bormann"></author> <author fullname="P. Hoffman" asciiFullname="P. Hoffman"></author> <date month="December" year="2020"></date> <keyword>parser</keyword><keyword>decoder</keyword><keyword>encoder</keyword><keyword>binary format</keyword><keyword>data interchange format</keyword><keyword>JSON</keyword> <abstract>  <t anchor="_e3233b40-fef1-8f39-e542-7d206a9671fe">The Concise Binary Object Representation (CBOR) is a data format whose design goals include the possibility of extremely small code size, fairly small message size, and extensibility without the need for version negotiation. These design goals make it different from earlier binary serializations such as ASN.1 and MessagePack.</t>  <t anchor="_6ae4ee2c-6ac7-1248-7fe4-0de1ad431619">This document obsoletes RFC 7049, providing editorial improvements, new details, and errata fixes while keeping full compatibility with the interchange format of RFC 7049. It does not create a new version of the format.</t></abstract> </front> <format target="https://www.rfc-editor.org/info/rfc8949" type="src"></format> <seriesInfo name="STD" value="94"></seriesInfo> <seriesInfo value=" 10.17487/RFC8949" name="DOI"></seriesInfo> <seriesInfo value="94" name="BCP"></seriesInfo> <seriesInfo value="8949" name="RFC"></seriesInfo></reference>
+        <reference anchor="OpenAPI">
+          <front>
+            <title>"OpenAPI Specification", </title><author surname="Unknown"></author>
+          </front>
+        </reference>
+        <reference anchor="W3C-VC">
+          <front>
+            <title>Verifiable Credentials Data Model v2.0, </title><author surname="Unknown"></author>
+          </front>
+        </reference>
+        <reference anchor="I-D.draft-ietf-oauth-sd-jwt-vc">
+          <front>
+            <title>SD-JWT-based Verifiable Credentials (SD-JWT VC) &#x3e;</title><author surname="Unknown"></author>
+          </front>
+        </reference>
+        <reference target="https://www.rfc-editor.org/info/rfc9553" anchor="RFC9553"><stream>IETF</stream> <front> <title>JSContact: A JSON Representation of Contact Data</title> <author fullname="R. Stepanek" asciiFullname="R. Stepanek"></author> <author fullname="M. Loffredo" asciiFullname="M. Loffredo"></author> <date month="May" year="2024"></date> <keyword>JSON</keyword><keyword>addressbook</keyword><keyword>contacts</keyword><keyword>cards</keyword><keyword>VCARD</keyword> <abstract>  <t anchor="_eecf9d6a-d0af-ffe2-933f-93f16ce5eb5d">This specification defines a data model and JavaScript Object Notation (JSON) representation of contact card information that can be used for data storage and exchange in address book or directory applications. It aims to be an alternative to the vCard data format and to be unambiguous, extendable, and simple to process. In contrast to the JSON-based jCard format, it is not a direct mapping from the vCard data model and expands semantics where appropriate. Two additional specifications define new vCard elements and how to convert between JSContact and vCard.</t></abstract> </front> <format target="https://www.rfc-editor.org/info/rfc9553" type="src"></format> <seriesInfo value=" 10.17487/RFC9553" name="DOI"></seriesInfo> <seriesInfo value="9553" name="RFC"></seriesInfo></reference>
       </references>
     </references>
   </back>
