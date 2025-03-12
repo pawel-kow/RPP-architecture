@@ -50,9 +50,9 @@ When contributing to this document, please use the following GitHub project: htt
 
 This document outlines the architecture of the RESTful Provisioning Protocol (RPP). RPP aims to provide a modern, standardized, and developer-friendly protocol for provisioning and managing objects in a shared database or registry, initially focusing on functional equivalents of EPP object mappings for domain names <<RFC5731>>, hosts <<RFC5732>>, and contacts <<RFC5733>>. RPP also considers provisioning of other object as a potential use case, aiming for a uniform API layer for various registry operations.
 
-RPP is designed to leverage the benefits of REST, including statelessness, ease of integration, and compatibility with existing web infrastructure and tooling such as OpenAPI, API gateways, and web application firewalls.  By adopting JSON as the data-interchange format, RPP seeks to align with current development practices and the successful deployment patterns observed in protocols such as RDAP <<RFC9082>>.  The choice for REST and JSON also facilitates direct browser and mobile application integration including modern security mechanisms such as OAuth2.0.
+RPP is designed to leverage the benefits of REST (REpresentational State Transfer), including statelessness, ease of integration, and compatibility with existing web infrastructure and tooling such as OpenAPI, API gateways, and web application firewalls. By adopting JSON as the data-interchange format, RPP seeks to align with current development practices and the successful deployment patterns observed in protocols such as RDAP <<RFC9082>>. The choice for REST and JSON also facilitates direct browser and mobile application integration including modern security mechanisms such as OAuth2.0.
 
-This architecture document serves as a foundation for a series of specifications that will collectively define RPP.  It details the layered approach, core components, and design considerations for building an interoperable and extensible provisioning protocol. RPP is intended to coexist with EPP, offering an alternative for implementers seeking a RESTful approach without aiming to replace EPP or define migration paths from EPP. RPP aims for data model compatibility with EPP core objects to allow automatic and mechanical mapping and conversion, especially for core objects (domain, contact, host).
+This architecture document serves as a foundation for a series of specifications that will collectively define RPP. It details the layered approach, core components, and design considerations for building an interoperable and extensible provisioning protocol. RPP is intended to coexist with EPP, offering an alternative for implementers seeking a RESTful approach without aiming to replace EPP or define migration paths from EPP. RPP aims for data model compatibility with EPP core objects to allow automatic and mechanical mapping and conversion, especially for core objects (domain, contact, host).
 
 == Terminology
 
@@ -77,7 +77,7 @@ The actual state of the requirements is present on WG Wiki https://wiki.ietf.org
 
 
 == Architectural Overview
-This chapter provides an overview of the RESTful Provisioning Protocol (RPP) architecture.  A key design principle is to leverage existing web standards and principles, particularly HTTP and REST principles. This allows RPP to delegate functionality and features to the well-established infrastructure and semantics of the web, focusing its own definitions on the specific domain of object provisioning.  Therefore, we assume:
+This chapter provides an overview of the RESTful Provisioning Protocol (RPP) architecture. A key design principle is to leverage existing web standards and principles, particularly HTTP and REST principles. This allows RPP to delegate functionality and features to the well-established infrastructure and semantics of the web, focusing its own definitions on the specific domain of object provisioning. Therefore, we assume:
 
 * **HTTP and RESTful principles are foundational:** RPP leverages HTTP for transport and adheres to RESTful principles for resource management.
 * **Domain-specific logic resides in data representations:** The specifics of resource provisioning are encoded within the data structures and semantics of the RPP message bodies.
@@ -126,7 +126,7 @@ Similarily **Data Elements**, their **Mapping** onto Data Structure and **Operat
 ----
 
 === Resource Oriented Architecture
-RPP adopts a Resource Oriented Architecture (ROA), aligning with RESTful principles.  This approach defines all manageable entities as "resources," identified by unique URLs.  Operations on these resources are performed through a uniform interface using the standard HTTP methods and their semantics. This contrasts with RPC-style protocols, which often define new and specific operations with custom parameters.  ROA promotes a more standardized and interoperable approach, leveraging the existing web infrastructure and its well-defined semantics.  Key aspects of ROA within RPP include:
+RPP adopts a Resource Oriented Architecture (ROA), aligning with RESTful principles. This approach defines all manageable entities as "resources," identified by unique URLs. Operations on these resources are performed through a uniform interface using the standard HTTP methods and their semantics. This contrasts with RPC-style protocols, which often define new and specific operations with custom parameters. ROA promotes a more standardized and interoperable approach, leveraging the existing web infrastructure and its well-defined semantics. Key aspects of ROA within RPP include:
 
 * **Resource Identification:** Each resource is uniquely identifiable by a URL.
 * **Uniform Interface:** HTTP methods (HEAD, GET, POST, PUT, DELETE, PATCH) are used to perform operations on resources in a consistent manner.
@@ -205,7 +205,7 @@ Here solutions like OAuth2 RAR <<RFC9396>> could be considered to provide fine-g
 
 ==== Resource Addressing
 
-RPP resources are addressed using URLs.  Considerations include:
+RPP resources are addressed using URLs. Considerations include:
 
 * Hierarchical URL structure to represent resources of different type (e.g., `/domains/{domain-name}`, `/contacts/{contact-id}`).
 * URL structure to represent list of related resources (e.g., `/domains/{domain-name}/contacts/`)
@@ -218,7 +218,7 @@ As a matter of extensibility consideration RPP should allow for additional path 
 
 ===== Internationalized Domain Names (IDN)
 
-RPP will address the handling of Internationalized Domain Names (IDNs) in resource addressing.  Specifications will define whether to use IDN or UTF-8 encoding directly in URLs and whether to employ redirects to canonical URLs or "see-also" linking for alternative representations. For example,  a "see-also" link could point from a UTF-8 encoded URL to an IDN URL and vice versa, allowing clients to use either URL. Another way would be to always redirect to the canonical URL, which would be the IDN URL.
+RPP will address the handling of Internationalized Domain Names (IDNs) in resource addressing. Specifications will define whether to use IDN or UTF-8 encoding directly in URLs and whether to employ redirects to canonical URLs or "see-also" linking for alternative representations. For example,  a "see-also" link could point from a UTF-8 encoded URL to an IDN URL and vice versa, allowing clients to use either URL. Another way would be to always redirect to the canonical URL, which would be the IDN URL.
 
 ==== Mapping of basic operations to HTTP uniform interface (verbs)
 
@@ -324,7 +324,7 @@ Other future possibilities:
 The primary format for RPP data represetations shall be JSON, however RPP should be able to be extended to support other formats like XML, JWT, JWT-SD or CBOR.
 
 * **JSON:** Standard JSON format <<RFC8259>>. 
-* **XML:** Extensible Markup Language <<XML>> (considered for potential compatibility with EPP).
+* **XML:** eXtensible Markup Language <<XML>> (considered for potential compatibility with EPP).
 * **JWT:** JSON data encapsulated within a JSON Web Token <<RFC7519>> for potential use-cases when verifiable data consistency is required 
 * **JWT-SD:** JSON data with Selective Disclosure using JWTs <<I-D.draft-ietf-oauth-selective-disclosure-jwt>> for minimisation of exposed data. 
 * **CBOR:** Concise Binary Object Representation for specific use cases requiring compact binary encoding <<RFC8949>>.
