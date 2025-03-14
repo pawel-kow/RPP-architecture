@@ -90,7 +90,7 @@ This document defines the architecture for the RESTful Provisioning Protocol (RP
 
 <t anchor="_faa5d521-943b-4806-ab80-edade0074314">Similarily <strong>Data Elements</strong>, their <strong>Mapping</strong> onto Data Structure and <strong>Operations</strong> are elements of Resource Definition. They focus on the semantic structure of RPP resources and transformation of those resources.</t>
 
-<sourcecode anchor="_08290add-c7d7-73c2-60b0-296316fd689d"><![CDATA[  +---------------------------------------------------------+
+<sourcecode anchor="_c0a83e88-7311-1f2b-d84b-2681670fc6a1"><![CDATA[  +---------------------------------------------------------+
   |                      HTTP Transport                     |
   |                                                         |
   | +-----------------------------------------------------+ |
@@ -100,7 +100,7 @@ This document defines the architecture for the RESTful Provisioning Protocol (RP
   | |   |                Data Structure               |<-------+
   | |                                                     | |  |
   | |   | +-----------------------------------------+ |   | |  |
-  | |     |           Resource Description          |     | |  |
+  | |     |           Resource Definition           |     | |  |
   | |   | |                                         | |   | |  |
   | |     | +--------------+       +--------------+ |     | |  |
   | |   | | |              |       |              | | |   | |  |
