@@ -100,7 +100,7 @@ Similarily **Data Elements**, their **Mapping** onto Data Structure and **Operat
   | |   |                Data Structure               |<-------+
   | |                                                     | |  |
   | |   | +-----------------------------------------+ |   | |  |
-  | |     |           Resource Description          |     | |  |
+  | |     |           Resource Definition           |     | |  |
   | |   | |                                         | |   | |  |
   | |     | +--------------+       +--------------+ |     | |  |
   | |   | | |              |       |              | | |   | |  |
