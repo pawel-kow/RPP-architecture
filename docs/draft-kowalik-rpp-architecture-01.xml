@@ -36,9 +36,9 @@
       </address>
     </author>
     <area>Applications and Real-Time</area>
-    <abstract anchor="_ed4e83d1-939d-d957-640b-b5cd34bdbbeb">
+    <abstract anchor="_a6faae6c-a0f8-1342-d74f-d131bdc4c044">
 
-<t anchor="_29a5b82f-4eb8-90f9-34b1-3dcdb3b27e58">Advancements in development, integration, deployment environments and operational paradigms have led to a desire for an alternatve for the Extensible Provisioning Protocol (EPP).
+<t anchor="_b99c886c-25a0-715f-08e0-194621eb93aa">Advancements in development, integration, deployment environments and operational paradigms have led to a desire for an alternative for the Extensible Provisioning Protocol (EPP).
 This document defines the architecture for the RESTful Provisioning Protocol (RPP) an HTTP based provisioning protocol leveraging the REST architectural style and JSON data-interchange format, aiming to standardize a RESTful protocol for provisioning database objects. The architecture includes support for extensibility, allowing for multiple possible use cases. RPP is intended to co-exist with EPP, offering an alternative protocol including data model compatibility with EPP core objects and the benefits associated with the REST architectural style and widely adopted HTTP-based technologies.</t>
 
 
