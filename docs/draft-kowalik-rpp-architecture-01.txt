@@ -5,8 +5,8 @@
 Network Working Group                                         P. Kowalik
 Internet-Draft                                                  DENIC eG
 Intended status: Informational                                M. Wullink
-Expires: 15 September 2025                                     SIDN Labs
-                                                           14 March 2025
+Expires: 17 September 2025                                     SIDN Labs
+                                                           16 March 2025
 
 
                             RPP Architecture
@@ -15,7 +15,7 @@ Expires: 15 September 2025                                     SIDN Labs
 Abstract
 
    Advancements in development, integration, deployment environments and
-   operational paradigms have led to a desire for an alternatve for the
+   operational paradigms have led to a desire for an alternative for the
    Extensible Provisioning Protocol (EPP).  This document defines the
    architecture for the RESTful Provisioning Protocol (RPP) an HTTP
    based provisioning protocol leveraging the REST architectural style
@@ -47,13 +47,13 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 15 September 2025.
+   This Internet-Draft will expire on 17 September 2025.
 
 
 
 
 
-Kowalik & Wullink       Expires 15 September 2025               [Page 1]
+Kowalik & Wullink       Expires 17 September 2025               [Page 1]
 
 Internet-Draft              rpp-architecture                  March 2025
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Kowalik & Wullink       Expires 15 September 2025               [Page 2]
+Kowalik & Wullink       Expires 17 September 2025               [Page 2]
 
 Internet-Draft              rpp-architecture                  March 2025
 
@@ -165,7 +165,7 @@ Internet-Draft              rpp-architecture                  March 2025
 
 
 
-Kowalik & Wullink       Expires 15 September 2025               [Page 3]
+Kowalik & Wullink       Expires 17 September 2025               [Page 3]
 
 Internet-Draft              rpp-architecture                  March 2025
 
@@ -221,7 +221,7 @@ Internet-Draft              rpp-architecture                  March 2025
 
 
 
-Kowalik & Wullink       Expires 15 September 2025               [Page 4]
+Kowalik & Wullink       Expires 17 September 2025               [Page 4]
 
 Internet-Draft              rpp-architecture                  March 2025
 
@@ -277,7 +277,7 @@ Internet-Draft              rpp-architecture                  March 2025
 
 
 
-Kowalik & Wullink       Expires 15 September 2025               [Page 5]
+Kowalik & Wullink       Expires 17 September 2025               [Page 5]
 
 Internet-Draft              rpp-architecture                  March 2025
 
@@ -333,7 +333,7 @@ Internet-Draft              rpp-architecture                  March 2025
 
 
 
-Kowalik & Wullink       Expires 15 September 2025               [Page 6]
+Kowalik & Wullink       Expires 17 September 2025               [Page 6]
 
 Internet-Draft              rpp-architecture                  March 2025
 
@@ -389,7 +389,7 @@ Internet-Draft              rpp-architecture                  March 2025
 
 
 
-Kowalik & Wullink       Expires 15 September 2025               [Page 7]
+Kowalik & Wullink       Expires 17 September 2025               [Page 7]
 
 Internet-Draft              rpp-architecture                  March 2025
 
@@ -445,7 +445,7 @@ Internet-Draft              rpp-architecture                  March 2025
 
 
 
-Kowalik & Wullink       Expires 15 September 2025               [Page 8]
+Kowalik & Wullink       Expires 17 September 2025               [Page 8]
 
 Internet-Draft              rpp-architecture                  March 2025
 
@@ -501,7 +501,7 @@ Internet-Draft              rpp-architecture                  March 2025
 
 
 
-Kowalik & Wullink       Expires 15 September 2025               [Page 9]
+Kowalik & Wullink       Expires 17 September 2025               [Page 9]
 
 Internet-Draft              rpp-architecture                  March 2025
 
@@ -557,7 +557,7 @@ Internet-Draft              rpp-architecture                  March 2025
 
 
 
-Kowalik & Wullink       Expires 15 September 2025              [Page 10]
+Kowalik & Wullink       Expires 17 September 2025              [Page 10]
 
 Internet-Draft              rpp-architecture                  March 2025
 
@@ -613,7 +613,7 @@ Internet-Draft              rpp-architecture                  March 2025
 
 
 
-Kowalik & Wullink       Expires 15 September 2025              [Page 11]
+Kowalik & Wullink       Expires 17 September 2025              [Page 11]
 
 Internet-Draft              rpp-architecture                  March 2025
 
@@ -669,7 +669,7 @@ Internet-Draft              rpp-architecture                  March 2025
 
 
 
-Kowalik & Wullink       Expires 15 September 2025              [Page 12]
+Kowalik & Wullink       Expires 17 September 2025              [Page 12]
 
 Internet-Draft              rpp-architecture                  March 2025
 
@@ -725,7 +725,7 @@ Internet-Draft              rpp-architecture                  March 2025
 
 
 
-Kowalik & Wullink       Expires 15 September 2025              [Page 13]
+Kowalik & Wullink       Expires 17 September 2025              [Page 13]
 
 Internet-Draft              rpp-architecture                  March 2025
 
@@ -781,7 +781,7 @@ Internet-Draft              rpp-architecture                  March 2025
 
 
 
-Kowalik & Wullink       Expires 15 September 2025              [Page 14]
+Kowalik & Wullink       Expires 17 September 2025              [Page 14]
 
 Internet-Draft              rpp-architecture                  March 2025
 
@@ -837,7 +837,7 @@ Internet-Draft              rpp-architecture                  March 2025
 
 
 
-Kowalik & Wullink       Expires 15 September 2025              [Page 15]
+Kowalik & Wullink       Expires 17 September 2025              [Page 15]
 
 Internet-Draft              rpp-architecture                  March 2025
 
@@ -893,7 +893,7 @@ Internet-Draft              rpp-architecture                  March 2025
 
 
 
-Kowalik & Wullink       Expires 15 September 2025              [Page 16]
+Kowalik & Wullink       Expires 17 September 2025              [Page 16]
 
 Internet-Draft              rpp-architecture                  March 2025
 
@@ -949,7 +949,7 @@ Internet-Draft              rpp-architecture                  March 2025
 
 
 
-Kowalik & Wullink       Expires 15 September 2025              [Page 17]
+Kowalik & Wullink       Expires 17 September 2025              [Page 17]
 
 Internet-Draft              rpp-architecture                  March 2025
 
@@ -1005,7 +1005,7 @@ Internet-Draft              rpp-architecture                  March 2025
 
 
 
-Kowalik & Wullink       Expires 15 September 2025              [Page 18]
+Kowalik & Wullink       Expires 17 September 2025              [Page 18]
 
 Internet-Draft              rpp-architecture                  March 2025
 
@@ -1061,7 +1061,7 @@ Authors' Addresses
 
 
 
-Kowalik & Wullink       Expires 15 September 2025              [Page 19]
+Kowalik & Wullink       Expires 17 September 2025              [Page 19]
 
 Internet-Draft              rpp-architecture                  March 2025
 
@@ -1117,4 +1117,4 @@ Internet-Draft              rpp-architecture                  March 2025
 
 
 
-Kowalik & Wullink       Expires 15 September 2025              [Page 20]
+Kowalik & Wullink       Expires 17 September 2025              [Page 20]
