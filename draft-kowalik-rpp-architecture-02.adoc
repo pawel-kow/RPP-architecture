@@ -145,6 +145,7 @@ It encompasses aspects such as:
 * **Resource Addressing using URLs:** Consistent and meaningful URL structures for identifying, accessing resources and enable request routing.
 * **Mapping of basic operations to HTTP uniform interface (verbs):** Mapping CRUD (Create, Read, Update, Delete) operations to POST, HEAD/GET, PUT/PATCH, and DELETE respectively.
 * **Mapping of operations beyond HTTP uniform interface to URLs and verbs:** Handling more complex operations through appropriate URL structures and HTTP methods.
+* **Asynchronous Operation Management:** Facilitating the handling of operations that are not completed immediately, by defining an HTTP-based interaction pattern for deferred result retrieval.
 * **RPP specific error codes and relation to HTTP error codes:** Defining RPP-specific error codes while relating them to standard HTTP error codes for consistency.
 * **Transaction tracing and idempotency:** Mechanisms for tracking requests and ensuring idempotent operations where appropriate.
 * **Caching:** Leveraging HTTP caching mechanisms to improve performance.
@@ -242,6 +243,16 @@ Other transform operations like renew, or restore which are not addressable reso
 
 This basic set of rules and guidelines will be further refined in the RPP specifications and give an universal toolset for extending RPP with new resources and commands.
 
+==== Asynchronous Operation Processing
+The RPP architecture accommodates operations that are potentially long-running or cannot be completed synchronously due to their nature (e.g., acting on multiple objects, resource-intensive tasks, or processes involving manual steps). This is achieved by leveraging standard HTTP mechanisms to provide an asynchronous interaction pattern. This pattern allows a client to initiate an operation and receive an immediate acknowledgment, with the means to check the operation's status and retrieve its outcome at a later point.
+
+The typical interaction flow facilitated by the architecture is as follows:
+1.  A client initiates an operation via an HTTP request.
+2.  For operations processed asynchronously, the server typically responds immediately with an appropriate HTTP status code. The resource may be dedicated to the operation, be a subresource of the resource being processed, or be a separate poll queue resource.
+3.  The server may also provide additional signalling in the response to indicate the expected time for completion or other relevant information using standard HTTP mechanisms.
+4.  The representation of the status resource reflects the operation's progress. Once the operation concludes, this representation indicates the final outcome, providing either the results directly, links to the results, or detailed error information in line with RPP's error reporting principles.
+
+This architectural approach to asynchronous operations allows client applications to remain responsive and manage extended processing times effectively, contributing to the overall scalability and robustness of interactions within the RPP ecosystem. Specific RPP operations intended for asynchronous execution will be designed to utilize this pattern.
 
 ==== RPP specific error codes and relation to HTTP error codes
 
