@@ -130,6 +130,7 @@ RPP adopts a Resource Oriented Architecture (ROA), aligning with RESTful princip
 
 * **Resource Identification:** Each resource is uniquely identifiable by a URL.
 * **Uniform Interface:** HTTP methods (HEAD, GET, POST, PUT, DELETE, PATCH) are used to perform operations on resources in a consistent manner.
+* **Operation Singularity** Operations, excluding collection retrieval, are defined to target a single resource. Operations intended to affect multiple resources, such as bulk operations (a single command applied to multiple resources) or command sets (multiple commands on multiple resources), should be modeled through dedicated "batch" or "bulk operation" resources.
 * **Representation:** Resources can be represented in various formats (e.g., JSON, XML) through HTTP standard content negotiation.
 * **Statelessness:** Each request to a resource is treated as independent of previous requests. The server does not maintain client state between requests.
 * **Cacheability:** Responses can be cached to improve performance.
