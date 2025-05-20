@@ -5,12 +5,12 @@
 Network Working Group                                         P. Kowalik
 Internet-Draft                                                  DENIC eG
 Intended status: Informational                                M. Wullink
-Expires: 13 September 2025                                     SIDN Labs
-                                                           12 March 2025
+Expires: 21 November 2025                                      SIDN Labs
+                                                             20 May 2025
 
 
                             RPP Architecture
-                   draft-kowalik-rpp-architecture-01
+                   draft-kowalik-rpp-architecture-02
 
 Abstract
 
@@ -47,15 +47,15 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 13 September 2025.
+   This Internet-Draft will expire on 21 November 2025.
 
 
 
 
 
-Kowalik & Wullink       Expires 13 September 2025               [Page 1]
+Kowalik & Wullink       Expires 21 November 2025                [Page 1]
 
-Internet-Draft              rpp-architecture                  March 2025
+Internet-Draft              rpp-architecture                    May 2025
 
 
 Copyright Notice
@@ -109,9 +109,9 @@ Table of Contents
 
 
 
-Kowalik & Wullink       Expires 13 September 2025               [Page 2]
+Kowalik & Wullink       Expires 21 November 2025                [Page 2]
 
-Internet-Draft              rpp-architecture                  March 2025
+Internet-Draft              rpp-architecture                    May 2025
 
 
      6.1.  -00 to -01  . . . . . . . . . . . . . . . . . . . . . . .  17
@@ -165,9 +165,9 @@ Internet-Draft              rpp-architecture                  March 2025
 
 
 
-Kowalik & Wullink       Expires 13 September 2025               [Page 3]
+Kowalik & Wullink       Expires 21 November 2025                [Page 3]
 
-Internet-Draft              rpp-architecture                  March 2025
+Internet-Draft              rpp-architecture                    May 2025
 
 
    *  *REST:* REpresentational State Transfer architectural style
@@ -221,9 +221,9 @@ Internet-Draft              rpp-architecture                  March 2025
 
 
 
-Kowalik & Wullink       Expires 13 September 2025               [Page 4]
+Kowalik & Wullink       Expires 21 November 2025                [Page 4]
 
-Internet-Draft              rpp-architecture                  March 2025
+Internet-Draft              rpp-architecture                    May 2025
 
 
    Similarily *Data Elements*, their *Mapping* onto Data Structure and
@@ -277,9 +277,9 @@ Internet-Draft              rpp-architecture                  March 2025
 
 
 
-Kowalik & Wullink       Expires 13 September 2025               [Page 5]
+Kowalik & Wullink       Expires 21 November 2025                [Page 5]
 
-Internet-Draft              rpp-architecture                  March 2025
+Internet-Draft              rpp-architecture                    May 2025
 
 
    and its well-defined semantics.  Key aspects of ROA within RPP
@@ -333,9 +333,9 @@ Internet-Draft              rpp-architecture                  March 2025
 
 
 
-Kowalik & Wullink       Expires 13 September 2025               [Page 6]
+Kowalik & Wullink       Expires 21 November 2025                [Page 6]
 
-Internet-Draft              rpp-architecture                  March 2025
+Internet-Draft              rpp-architecture                    May 2025
 
 
    *  *Transaction tracing and idempotency:* Mechanisms for tracking
@@ -389,9 +389,9 @@ Internet-Draft              rpp-architecture                  March 2025
 
 
 
-Kowalik & Wullink       Expires 13 September 2025               [Page 7]
+Kowalik & Wullink       Expires 21 November 2025                [Page 7]
 
-Internet-Draft              rpp-architecture                  March 2025
+Internet-Draft              rpp-architecture                    May 2025
 
 
    *  *Data elements:* Defining the individual data elements that make
@@ -445,9 +445,9 @@ Internet-Draft              rpp-architecture                  March 2025
 
 
 
-Kowalik & Wullink       Expires 13 September 2025               [Page 8]
+Kowalik & Wullink       Expires 21 November 2025                [Page 8]
 
-Internet-Draft              rpp-architecture                  March 2025
+Internet-Draft              rpp-architecture                    May 2025
 
 
 5.1.1.1.  Authorization Scopes
@@ -501,9 +501,9 @@ Internet-Draft              rpp-architecture                  March 2025
 
 
 
-Kowalik & Wullink       Expires 13 September 2025               [Page 9]
+Kowalik & Wullink       Expires 21 November 2025                [Page 9]
 
-Internet-Draft              rpp-architecture                  March 2025
+Internet-Draft              rpp-architecture                    May 2025
 
 
 5.1.2.1.  Internationalized Domain Names (IDN)
@@ -557,9 +557,9 @@ Internet-Draft              rpp-architecture                  March 2025
 
 
 
-Kowalik & Wullink       Expires 13 September 2025              [Page 10]
+Kowalik & Wullink       Expires 21 November 2025               [Page 10]
 
-Internet-Draft              rpp-architecture                  March 2025
+Internet-Draft              rpp-architecture                    May 2025
 
 
    initiate the transfer, GET operation to query the transfer status and
@@ -613,9 +613,9 @@ Internet-Draft              rpp-architecture                  March 2025
 
 
 
-Kowalik & Wullink       Expires 13 September 2025              [Page 11]
+Kowalik & Wullink       Expires 21 November 2025               [Page 11]
 
-Internet-Draft              rpp-architecture                  March 2025
+Internet-Draft              rpp-architecture                    May 2025
 
 
 5.1.5.  Transaction tracing and idempotency
@@ -669,9 +669,9 @@ Internet-Draft              rpp-architecture                  March 2025
 
 
 
-Kowalik & Wullink       Expires 13 September 2025              [Page 12]
+Kowalik & Wullink       Expires 21 November 2025               [Page 12]
 
-Internet-Draft              rpp-architecture                  March 2025
+Internet-Draft              rpp-architecture                    May 2025
 
 
    *  Server implementations MAY support multiple languages for textual
@@ -725,9 +725,9 @@ Internet-Draft              rpp-architecture                  March 2025
 
 
 
-Kowalik & Wullink       Expires 13 September 2025              [Page 13]
+Kowalik & Wullink       Expires 21 November 2025               [Page 13]
 
-Internet-Draft              rpp-architecture                  March 2025
+Internet-Draft              rpp-architecture                    May 2025
 
 
    *  Service discovery shall utilize standardised methods, like URI
@@ -781,9 +781,9 @@ Internet-Draft              rpp-architecture                  March 2025
 
 
 
-Kowalik & Wullink       Expires 13 September 2025              [Page 14]
+Kowalik & Wullink       Expires 21 November 2025               [Page 14]
 
-Internet-Draft              rpp-architecture                  March 2025
+Internet-Draft              rpp-architecture                    May 2025
 
 
    *  *JWT:* JSON data encapsulated within a JSON Web Token [RFC7519]
@@ -837,9 +837,9 @@ Internet-Draft              rpp-architecture                  March 2025
 
 
 
-Kowalik & Wullink       Expires 13 September 2025              [Page 15]
+Kowalik & Wullink       Expires 21 November 2025               [Page 15]
 
-Internet-Draft              rpp-architecture                  March 2025
+Internet-Draft              rpp-architecture                    May 2025
 
 
    *  Identification of logical data units (e.g. a stable identifier of
@@ -893,9 +893,9 @@ Internet-Draft              rpp-architecture                  March 2025
 
 
 
-Kowalik & Wullink       Expires 13 September 2025              [Page 16]
+Kowalik & Wullink       Expires 21 November 2025               [Page 16]
 
-Internet-Draft              rpp-architecture                  March 2025
+Internet-Draft              rpp-architecture                    May 2025
 
 
    FIXME: find an appropriate section for this * Compatibility Profiles
@@ -949,9 +949,9 @@ Internet-Draft              rpp-architecture                  March 2025
 
 
 
-Kowalik & Wullink       Expires 13 September 2025              [Page 17]
+Kowalik & Wullink       Expires 21 November 2025               [Page 17]
 
-Internet-Draft              rpp-architecture                  March 2025
+Internet-Draft              rpp-architecture                    May 2025
 
 
    [REST]     "Fielding, R., "Architectural Styles and the Design of
@@ -1005,9 +1005,9 @@ Internet-Draft              rpp-architecture                  March 2025
 
 
 
-Kowalik & Wullink       Expires 13 September 2025              [Page 18]
+Kowalik & Wullink       Expires 21 November 2025               [Page 18]
 
-Internet-Draft              rpp-architecture                  March 2025
+Internet-Draft              rpp-architecture                    May 2025
 
 
    [I-D.draft-ietf-oauth-selective-disclosure-jwt]
@@ -1061,9 +1061,9 @@ Authors' Addresses
 
 
 
-Kowalik & Wullink       Expires 13 September 2025              [Page 19]
+Kowalik & Wullink       Expires 21 November 2025               [Page 19]
 
-Internet-Draft              rpp-architecture                  March 2025
+Internet-Draft              rpp-architecture                    May 2025
 
 
    M Wullink
@@ -1117,4 +1117,4 @@ Internet-Draft              rpp-architecture                  March 2025
 
 
 
-Kowalik & Wullink       Expires 13 September 2025              [Page 20]
+Kowalik & Wullink       Expires 21 November 2025               [Page 20]

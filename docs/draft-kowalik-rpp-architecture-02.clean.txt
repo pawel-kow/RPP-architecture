@@ -5,12 +5,12 @@
 Network Working Group                                         P. Kowalik
 Internet-Draft                                                  DENIC eG
 Intended status: Informational                                M. Wullink
-Expires: 13 September 2025                                     SIDN Labs
-                                                           12 March 2025
+Expires: 21 November 2025                                      SIDN Labs
+                                                             20 May 2025
 
 
                             RPP Architecture
-                   draft-kowalik-rpp-architecture-01
+                   draft-kowalik-rpp-architecture-02
 
 Abstract
 
@@ -47,7 +47,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 13 September 2025.
+   This Internet-Draft will expire on 21 November 2025.
 
 Copyright Notice
 

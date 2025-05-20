@@ -5,7 +5,7 @@
 :abbrev: rpp-architecture
 :intended-series: informational
 :submission-type: IETF
-:docnumber: draft-kowalik-rpp-architecture-01
+:docnumber: draft-kowalik-rpp-architecture-02
 :status: informational
 :ipr: trust200902
 :area: Applications and Real-Time
