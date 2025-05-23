@@ -145,7 +145,7 @@ It encompasses aspects such as:
 * **Resource Addressing using URLs:** Consistent and meaningful URL structures for identifying, accessing resources and enable request routing.
 * **Mapping of basic operations to HTTP uniform interface (verbs):** Mapping CRUD (Create, Read, Update, Delete) operations to POST, HEAD/GET, PUT/PATCH, and DELETE respectively.
 * **Mapping of operations beyond HTTP uniform interface to URLs and verbs:** Handling more complex operations through appropriate URL structures and HTTP methods.
-* **Asynchronous Operation Management:** Facilitating the handling of operations that are not completed immediately, by defining an HTTP-based interaction pattern for deferred result retrieval.
+* **Asynchronous Operation Management:** Facilitating the handling of operations that are not completed immediately, by defining an HTTP-based interaction pattern for status checking and deferred result retrieval.
 * **RPP specific error codes and relation to HTTP error codes:** Defining RPP-specific error codes while relating them to standard HTTP error codes for consistency.
 * **Transaction tracing and idempotency:** Mechanisms for tracking requests and ensuring idempotent operations where appropriate.
 * **Caching:** Leveraging HTTP caching mechanisms to improve performance.
