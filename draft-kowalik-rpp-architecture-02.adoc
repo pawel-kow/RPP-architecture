@@ -208,9 +208,9 @@ Here solutions like OAuth2 RAR <<RFC9396>> could be considered to provide fine-g
 
 ===== Relationship between clients and authentication credentials
 
-In case of HTTP basic authentication it means that one user id is always bound to at most one RPP client. In case of OAuth it means that the issued token would be bound to a context of at most one RPP client, even though the OAuth client itself might have access to more than one RPP client. The wished assignment would be then controlled through authorization flow, for example using OAuth scope parameter.
-RPP authentication and authorization model will make a clear distinction between the login credentials and the authorization to act in context of a given RPP client. More than one credential might be authorized to act on behalf of the same RPP client. The same credential however must be always assigned to one and only one RPP client.
-In case of HTTP Basic Authentication, one user ID is always bound to at most one RPP client. For OAuth, the issued token is bound to the context of at most one RPP client, even though the OAuth client itself might have access to multiple RPP clients. 
+RPP authentication and authorization model will make a clear distinction between the login credentials and the authorization to act in context of a given RPP client. More than one credential might be authorized to act on behalf of the same RPP client. The same credential however must be always assigned to one and only one RPP client context.
+
+In case of HTTP Basic Authentication, one user-id is always bound to at most one RPP client. For OAuth, the issued token is bound to the context of at most one RPP client, even though the OAuth client itself might have access to multiple RPP clients.
 
 The assignment of tokens to specific RPP clients can be controlled through the authorization flow using the OAuth scope parameter. For example, if an OAuth client has access to two RPP clients (Client A and Client B), the scope parameter can specify which client the token applies to. A scope value like `scope=rpp:clientA` would ensure the token is valid only for Client A, while `scope=rpp:clientB` would apply to Client B.
 
