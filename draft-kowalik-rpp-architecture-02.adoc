@@ -374,6 +374,8 @@ FIXME: find an appropriate section for this
 
 === -01 to -02
 
+* Added Security section to <<authentication-authorization>>.
+
 === -00 to -01
 
 * Removed requirements and replaced with a reference to RPP WG
