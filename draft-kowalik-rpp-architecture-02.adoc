@@ -376,9 +376,6 @@ Each resource type shall define operations possible on this resource type. This 
 
 Operations shall be defined in IANA registry in a way that allows for automated processing of the operation definition, including constraints and references to other resource types.
 
-FIXME: find an appropriate section for this
-*  Compatibility Profiles - to define subsets of RPP for specific use cases or EPP compatibility.
-
 == Change History
 
 === -00 to -01
