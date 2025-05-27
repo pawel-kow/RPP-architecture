@@ -203,6 +203,10 @@ RPP authorization models may become fine-grained, extending beyond simple auth-c
 
 Here solutions like OAuth2 RAR <<RFC9396>> could be considered to provide fine-grained access control.
 
+===== Security
+
+RPP will not explicitely define security related policies related to authentication or authorization (such as password complexity, token lifetime or cryptography used) on the protocol level. Instead, these properties will be delegated to the best practices of the chosen authentication schemes, which may evolve over time and would have to be independet of the protocol itself.
+
 ==== Resource Addressing
 
 RPP resources are addressed using URLs. Considerations include:
