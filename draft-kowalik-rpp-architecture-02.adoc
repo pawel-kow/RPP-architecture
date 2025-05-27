@@ -385,6 +385,7 @@ FIXME: find an appropriate section for this
 === -01 to -02
 
 * Added Security section to <<authentication-authorization>>.
+* Added Relationship between clients and authentication credentials to <<authentication-authorization>>.
 
 === -00 to -01
 
