@@ -151,6 +151,7 @@ It encompasses aspects such as:
 * **Transaction tracing and idempotency:** Mechanisms for tracking requests and ensuring idempotent operations where appropriate.
 * **Caching:** Leveraging HTTP caching mechanisms to improve performance.
 * **Content negotiation for media types:** Supporting multiple data representation formats and using content negotiation to select the appropriate format.
+* **Versions and profiles:** Support signalling of versions of RPP protocol and other protocol elements as well as defining sets of protocol elements and their versions in form of profiles.
 * **Language negotiation for textual content:** Supporting multiple languages for textual content and using language negotiation to select the appropriate language.
 * **Definition of special resources:** Defining specific resources for service discovery, metadata retrieval, etc.
 * **Service discovery mechanisms:** Mechanisms for clients to discover available RPP services.
@@ -180,6 +181,7 @@ It encompasses aspects such as:
 
 This section provides further details on each layer of the RPP architecture.
 
+[[http-layer-details]]
 === HTTP Transport Layer Details
 
 The RPP architecture uses the best practices described in <<RFC9205>> for the HTTP transport layer.
@@ -268,7 +270,20 @@ RPP supports content negotiation to allow clients to specify preferred media typ
 *  Support for 'application/rpp+json' as the primary media type.
 *  Potential support for other media types defined in the Data Representation Layer
 
-===== Prefer Header for Response Verbosity
+==== Protocol Versioning
+RPP will define a versioning schema for the protocol itself, the extensions and other protocol elements such as profiles as appropriate. The versioning schema shall on one side allow for independent introduction of new features in a non-breaking manner on both client and server side, and on the other side allow the opposite party of the communication to determine if the version is compatible or not.
+One of potential approaches having this property might be use of Semantic Versioning <<SemVer>>, but also other versioning schema shall be possible.
+
+Signalling of the versions will be preferrably realised using parameters of the media type.
+
+==== Profiles
+In the real operational conditions different RPP server operators may have different requirements regarding set of protocol elements and their versions necessary to be supported by the client to enable reliable communication. Such requirements may be also defined by external policies. For this purpose RPP will define a concept of profiles, being identifiers translated into a certain minimum configuration of protocol version, extensions and their versions. The profiles themserves will be versioned same way as other protocol elements.
+
+RPP may define a machine-readible definition of profiles to allow automatic processing by the clients, but may also refer to other form of profile specification.
+
+Signalling of the profiles will be preferrably realised using parameters of the media type.
+
+==== Prefer Header for Response Verbosity
 
 RPP may utilize the HTTP `Prefer` header <<RFC7240>> with the "return" preference to allow clients to control the verbosity of responses. For example, clients not interested in full resource representations could use `Prefer: return=minimal` to request minimal responses, reducing payload sizes and improving efficiency. The default behavior, without the `Prefer` header, would be to return a full resource representation, similar to object info responses in EPP, especially after compound requests are completed.
 
@@ -299,9 +314,9 @@ protocol-level metadata, potentially including OpenAPI definitions for documenta
 RPP will define mechanisms for service discovery, allowing clients
 to dynamically discover RPP service endpoints and capabilities, reducing coupling between clients and servers.
 
-*  Potential discovery of RPP server location, like  IANA bootstrapppign document or a special DNS TXT RR with location of RPP service for the tld.
+*  Potential discovery of RPP server location, like  IANA bootstrappping document or a special DNS TXT RR with location of RPP service for the tld.
 *  Potential use of well-known URIs (e.g., `/.well-known/rpp-capabilities`) for service discovery.
-*  Options for advertising supported protocol versions,
+*  Advertising supported protocol versions,
 extensions, available resource types, authentication methods, and supported features.
 *  It may be considered for RPP to distribute service discovery for each resource type separately for better scalability and management. For example instead of having a single service discovery endpoint for the whole registry on `/.well-known/rpp-capabilities` there might be a separate discovery placed under `/{resource-type}/.well-known/rpp-capabilities` e.g. `/domains/.well-known/rpp-capabilities`.
 *  Service discovery shall utilize standardised methods, like URI templates <<RFC6570>> to allow easy navigation of resources and avoid hard-coding of URLs.
@@ -365,14 +380,13 @@ Each resource type shall define operations possible on this resource type. This 
 
 Operations shall be defined in IANA registry in a way that allows for automated processing of the operation definition, including constraints and references to other resource types.
 
-FIXME: find an appropriate section for this
-*  Compatibility Profiles - to define subsets of RPP for specific use cases or EPP compatibility.
-
 == Change History
 
 === -01 to -02
 
 * Added Operation Singularity to <<resource-oriented-architecture>>.
+* Added Versioning chapter to <<http-layer-details>>.
+* Added Profiles chapter to <<http-layer-details>>.
 
 === -00 to -01
 
@@ -391,6 +405,7 @@ FIXME: find an appropriate section for this
 * [[[RFC5733, RFC 5733]]] Hollenbeck, S., "Extensible Provisioning Protocol (EPP) Contact Mapping", STD 69, RFC 5733, DOI 10.17487/RFC5733, August 2009, <https://www.rfc-editor.org/info/rfc5733>.
 * [[[RFC7231, RFC 7231]]] Fielding, R., Ed., and J. Reschke, Ed., "Hypertext Transfer Protocol (HTTP/1.1): Semantics and Content", RFC 7231, DOI 10.17487/RFC7231, June 2014, <https://www.rfc-editor.org/info/rfc7231>.
 * [[[REST, REST]]] Fielding, R., "Architectural Styles and the Design of Network-based Software Architectures", Doctoral Dissertation, University of California, Irvine, September 2000, <http://roy.gbiv.com/pubs/dissertation/top.htm>.
+* [[[SemVer, SemVer]]] "Semantic Versioning 2.0.0", https://semver.org/spec/v2.0.0.html
 * [[[RFC7240, RFC 7240]]] Snell, J., "Prefer Header for HTTP", RFC 7240, DOI 10.17487/RFC7240, June 2014, <https://www.rfc-editor.org/info/rfc7240>.
 * [[[RFC8259,RFC 8259]]] Bray, T., Ed., "The JavaScript Object Notation (JSON) Data Interchange Format", STD 90, RFC 8259, DOI 10.17487/RFC8259, December 2017, <https://www.rfc-editor.org/info/rfc8259>.
 * [[[RFC6570, RFC 6570]]] Gregorio, J., Fielding, R., Hadley, M., Nottingham, M., and D. Orchard, "URI Template", RFC 6570, DOI 10.17487/RFC6570, March 2012, <https://www.rfc-editor.org/info/rfc6570>.
