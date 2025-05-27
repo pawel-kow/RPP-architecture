@@ -135,6 +135,7 @@ RPP adopts a Resource Oriented Architecture (ROA), aligning with RESTful princip
 * **Cacheability:** Responses can be cached to improve performance.
 
 === Architecture Layers
+[[http-transport-layer-overview]]
 ==== HTTP Transport Layer
 
 This layer defines the transport mechanism for RPP messages, utilizing HTTP as the underlying protocol. 
@@ -179,6 +180,7 @@ It encompasses aspects such as:
 
 This section provides further details on each layer of the RPP architecture.
 
+[[http-layer-details]]
 === HTTP Transport Layer Details
 
 The RPP architecture uses the best practices described in <<RFC9205>> for the HTTP transport layer.
@@ -380,6 +382,8 @@ FIXME: find an appropriate section for this
 == Change History
 
 === -01 to -02
+
+* Added description of asynchronous handling to <<http-transport-layer-overview>> and <<http-layer-details>>.
 
 === -00 to -01
 
