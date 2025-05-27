@@ -189,6 +189,7 @@ The RPP architecture uses the best practices described in <<RFC9205>> for the HT
 RPP is aimed to leverage scalable and modern authorization standards, with a focus on OAuth 2.0 <<RFC6749>> and related frameworks, however it should also support other authentication schemes defined for HTTP, an example would be HTTP Basic Authentication which might be required for compatibility with existing EPP systems. RPP should be able to support future authentication and authorization standards defined for HTTP.
 
 Specifications will define profiles for:
+
 *  HTTP Authentication schemes (e.g., HTTP Basic Authentication, Bearer Token <<RFC6750>> etc.)
 *  Authorization frameworks (e.g., OAuth 2.0 <<RFC6749>>)
 
@@ -377,6 +378,8 @@ Each resource type shall define operations possible on this resource type. This 
 Operations shall be defined in IANA registry in a way that allows for automated processing of the operation definition, including constraints and references to other resource types.
 
 == Change History
+
+=== -01 to -02
 
 === -00 to -01
 
