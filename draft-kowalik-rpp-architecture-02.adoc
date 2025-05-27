@@ -125,11 +125,13 @@ Similarily **Data Elements**, their **Mapping** onto Data Structure and **Operat
 
 ----
 
+[[resource-oriented-architecture]]
 === Resource Oriented Architecture
 RPP adopts a Resource Oriented Architecture (ROA), aligning with RESTful principles. This approach defines all manageable entities as "resources," identified by unique URLs. Operations on these resources are performed through a uniform interface using the standard HTTP methods and their semantics. This contrasts with RPC-style protocols, which often define new and specific operations with custom parameters. ROA promotes a more standardized and interoperable approach, leveraging the existing web infrastructure and its well-defined semantics. Key aspects of ROA within RPP include:
 
 * **Resource Identification:** Each resource is uniquely identifiable by a URL.
 * **Uniform Interface:** HTTP methods (HEAD, GET, POST, PUT, DELETE, PATCH) are used to perform operations on resources in a consistent manner.
+* **Operation Singularity** Operations, excluding collection retrieval, are defined to target a single resource. Operations intended to affect multiple resources, such as bulk operations (a single command applied to multiple resources) or command sets (multiple commands on multiple resources), should be modeled through dedicated "batch" or "bulk operation" resources.
 * **Representation:** Resources can be represented in various formats (e.g., JSON, XML) through HTTP standard content negotiation.
 * **Statelessness:** Each request to a resource is treated as independent of previous requests. The server does not maintain client state between requests.
 * **Cacheability:** Responses can be cached to improve performance.
@@ -369,6 +371,8 @@ FIXME: find an appropriate section for this
 == Change History
 
 === -01 to -02
+
+* Added Operation Singularity to <<resource-oriented-architecture>>.
 
 === -00 to -01
 
