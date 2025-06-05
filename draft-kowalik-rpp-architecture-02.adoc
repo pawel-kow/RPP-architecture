@@ -177,7 +177,7 @@ It encompasses aspects such as:
 * **Resource type definitions:** Defining the structure of specific resource types by combining data elements.
 * **IANA registry definitions:** Potentially registering resource definitions with IANA for standardized and automated processing.
 * **Mapping of data elements to media types:** Defining how the data elements of a resource type are represented in different media types (e.g., JSON, XML).
-* **Extensibility mechanisms on the resource type level:** Providing mechanisms for extending resource types with new data elements or operations.
+* **Extension mechanisms:** Providing mechanisms for creating new resource types and for extending existing resource types with new data elements or operations including potentially new response status codes.
 
 == Protocol Details
 
@@ -394,6 +394,19 @@ Each resource type shall define operations possible on this resource type. This 
 
 Operations shall be defined in IANA registry in a way that allows for automated processing of the operation definition, including constraints and references to other resource types.
 
+=== Extension mechanisms
+The RPP architecture is designed to be extensible, allowing for the addition of new resource types, data elements, and operations without breaking existing implementations. This extensibility is achieved through:
+
+* **Layered Design:** Each architectural layer (HTTP Transport, Data Representation, Resource Definition) is defined independently, allowing new features or technologies to be introduced at one layer without impacting others.
+* **IANA Registries:** Resource types, data elements, mappings, and operations are registered in IANA registries using machine-readable formats. This enables automated processing, discovery, and extension of protocol elements without requiring changes to the core specifications.
+* **Resource and Operation Extension:** New resource types and operations can be defined and registered. Existing resources can be extended with additional data elements or operations in a backward-compatible manner.
+* **Profile and Compatibility Layers:** Compatibility profiles can be defined to support subsets of RPP for specific use cases (such as EPP compatibility)
+* **Discovery and Negotiation:** Service discovery endpoints and content negotiation mechanisms allow clients and servers to dynamically discover and utilize new capabilities, resource types, and representations as they are introduced.
+* **Status codes:** New RPP status codes can be defined and registered including their mapping to HTTP status codes.
+
+These extensibility mechanisms ensure that RPP can evolve to meet future requirements, integrate with emerging technologies, and support a wide range of provisioning scenarios while maintaining interoperability and stability.
+
+
 == Change History
 
 === -01 to -02
@@ -410,6 +423,7 @@ Operations shall be defined in IANA registry in a way that allows for automated 
 * Added reference to JSContact as a possible contact representation
 * Added HEAD verb to basic operations
 * Updated RPP specific status codes and relation to HTTP status codes
+* Added Extension mechanisms section to Protocol Details
 
 == References
 
