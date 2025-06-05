@@ -260,14 +260,16 @@ The typical interaction flow facilitated by the architecture is as follows:
 
 This architectural approach to asynchronous operations allows client applications to remain responsive and manage extended processing times effectively, contributing to the overall scalability and robustness of interactions within the RPP ecosystem. Specific RPP operations intended for asynchronous execution will be designed to utilize this pattern.
 
-==== RPP specific error codes and relation to HTTP error codes
+==== RPP specific status codes and relation to HTTP status codes
 
-RPP utilizes both HTTP status codes and RPP-specific error codes within RPP-specific HTTP Headers and the response body for detailed error reporting and allowing the client or an intermediate to determine what action to take based on status code and header details only.
+RPP utilizes HTTP headers for transferring HTTP and RPP status codes, using the standard HTTP headers and RPP-specific HTTP headers. The response body may contain machine readable problem details. Using HTTP status codes and headers allows the client or an intermediate to determine what action to take based on status code only.
 
-*  Use of HTTP status codes to indicate general categories of errors (e.g., 2xx success responses, 4xx for client errors, 5xx for server errors) <<RFC7231>>.
+*  Use of HTTP status codes to indicate general status categories (e.g., 2xx success responses, 4xx for client errors, 5xx for server errors) <<RFC7231>>.
 *  Use of additional signalling already standardised for HTTP, for example for rate limiting
-*  Definition of RPP-specific error codes, warnings of additional processing information, provided in the response, preferably outside of resource representation (e.g. in HTTP Headers) to give granular information about provisioning errors.
-*  Categorization of RPP error codes as temporary or permanent to guide client retry behavior.
+*  Definition of RPP-specific status codes, warnings or additional processing information, provided in the response, preferably outside of resource representation (e.g. in HTTP Headers) to give granular information about provisioning request status. 
+* RPP-specific status codes will be defined in a way that allows for easy mapping to HTTP status codes, but also provide additional information specific to RPP operations.
+* The HTTP status code is used to determine if the outcome of a request is successful or not.
+* Categorization of RPP status codes as temporary or permanent to guide client retry behavior.
 
 ==== Transaction tracing and idempotency
 RPP shall support identification of requests and reponses on both client side and server side with use of client provided identifiers  and server provided identifiers. This will allow for tracking of requests and responses in case of errors, and for idempotency of requests. This should be defined outside of the Data Representation Layer (e.g. as HTTP Headers), to assure clear separation of resourse representation from performed actions. If possible existing mechanisms of HTTP shall be employed.
@@ -407,6 +409,7 @@ Operations shall be defined in IANA registry in a way that allows for automated 
 * Encapsulation removed as a primary extension point and part of architecture
 * Added reference to JSContact as a possible contact representation
 * Added HEAD verb to basic operations
+* Updated RPP specific status codes and relation to HTTP status codes
 
 == References
 
