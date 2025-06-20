@@ -420,13 +420,11 @@ These extensibility mechanisms ensure that RPP can evolve to meet future require
 
 ==== Collision Avoidance and Namespace Management
 
-RPP extensions MUST define a unique namespace to prevent conflicts with other extensions and with core protocol elements. This namespace is used consistently in resource identifiers, data element identifiers, and URL path segments. Identifiers are constructed using a namespace prefix and a local name, for example: `myextension_domainname`, where `myextension` is the namespace prefix. The separator character should be compatible with common programming languages; use of the "." (dot) is discouraged for this reason.
+RPP extensions MUST define a unique namespace to prevent conflicts with other extensions and with core protocol elements. This namespace is used consistently in resource identifiers, data element identifiers, and URL path segments.
 
-Standardized RPP extensions MUST register their namespace prefix with IANA to ensure global uniqueness and avoid collisions. Private (non-standardized) extensions are also required to use a namespace prefix, but registration with IANA is not mandatory. However, private extensions SHOULD choose a prefix that is unlikely to conflict with other extensions or with RPP core elements.
+Standardized RPP extensions MUST register their namespace at a dedicated IANA registry for RPP extensions, to ensure global uniqueness and avoid collisions. Private (non-standardized) extensions are also required to use a unique namespace, however they are not required to register with IANA. This allows for private extensions to be developed and used within specific implementations or organizations without impacting the global RPP ecosystem. Private extensions must use a namespace that is unlikely to conflict with other extensions or with RPP core elements, this may be done by using the reverse domain notation as a prefix for the namespace (e.g., `org.example.rpp`).
 
 This namespace mechanism ensures that new resource types, data elements, and operations can be introduced independently and safely, supporting the extensibility goals of the RPP architecture while maintaining interoperability and clarity across implementations.
-
-TODO: see RDAP discussion about bare identifiers, need to make a choice here also.
 
 == Change History
 
