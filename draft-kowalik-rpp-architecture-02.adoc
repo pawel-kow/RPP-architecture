@@ -222,6 +222,7 @@ In case of HTTP Basic Authentication, one user-id is always bound to at most one
 
 RPP will not explicitely define security related policies related to authentication or authorization (such as password complexity, token lifetime or cryptography used) on the protocol level. Instead, these properties will be delegated to the best practices of the chosen authentication schemes, which may evolve over time and would have to be independet of the protocol itself.
 
+[[resource-addressing]]
 ==== Resource Addressing
 
 RPP resources are addressed using URLs. Considerations include:
@@ -231,7 +232,7 @@ RPP resources are addressed using URLs. Considerations include:
 
 RPP URL structure will be designed to be human-readable, intuitive, and RESTful, allowing clients to easily navigate and interact with resources.
 
-RPP would not require all URLs to be hard wired to server's RPP root URL. Instead, it would allow for relative URLs to be defined and discovered by the client. This would allow servers to distibute resources across multiple servers and URLs and allow for easier scaling as described in <<RFC9205>>.
+RPP would not require all URLs to be hard wired to server's RPP root URL. Instead, it would allow for relative URLs to be defined and discovered by the client. This would allow servers to distibute resources across multiple servers and URLs and allow for easier scaling as described in <<RFC9205>>. Same time the URLs shall be deterministic for the duration of the client session in order to minimise round trips and streamline the interaction.
 
 As a matter of extensibility consideration RPP should allow for additional path segments to be added to the URLs and be discoverable by clients.
 
@@ -347,7 +348,8 @@ to dynamically discover RPP service endpoints and capabilities, reducing couplin
 *  Advertising supported protocol versions,
 extensions, available resource types, authentication methods, and supported features.
 *  It may be considered for RPP to distribute service discovery for each resource type separately for better scalability and management. For example instead of having a single service discovery endpoint for the whole registry on `/.well-known/rpp-capabilities` there might be a separate discovery placed under `/{resource-type}/.well-known/rpp-capabilities` e.g. `/domains/.well-known/rpp-capabilities`.
-*  Service discovery shall utilize standardised methods, like URI templates <<RFC6570>> to allow easy navigation of resources and avoid hard-coding of URLs.
+*  Service discovery shall utilize standardised methods, like URI templates <<RFC6570>> to allow easy navigation of resources and avoid hard-coding of URLs, same time allowing clients to navigate directly to a known resource without additional server queries.
+*  As a matter of principle service discovery shall be used to bootstrap the communication between client and server, its capabilities and operational policies. The server configuration shall be considered static between reconfiguration of the server and not be used for any dynamic configuration, like load balancing etc. It would enable the right balance between discoverability and reduction of round trips between clients and servers.
 
 === Data Representation Layer
 
@@ -426,6 +428,7 @@ These extensibility mechanisms ensure that RPP can evolve to meet future require
 === -01 to -02
 
 * Added responses must contains links to relevant object to <<resource-addressing>> 
+* Added round trip minimalisation principle to <<service-discovery>>
 * Added description of asynchronous handling to <<http-transport-layer-overview>> and <<http-layer-details>>.
 * Added Operation Singularity to <<resource-oriented-architecture>>.
 * Added Versioning chapter to <<http-layer-details>>.
