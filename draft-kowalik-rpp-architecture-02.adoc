@@ -312,9 +312,11 @@ RPP may define a machine-readible definition of profiles to allow automatic proc
 
 Signalling of the profiles will be preferrably realised using parameters of the media type.
 
+[[prefer-header]]
 ==== Prefer Header for Response Verbosity
 
 RPP may utilize the HTTP `Prefer` header <<RFC7240>> with the "return" preference to allow clients to control the verbosity of responses. For example, clients not interested in full resource representations could use `Prefer: return=minimal` to request minimal responses, reducing payload sizes and improving efficiency. The default behavior, without the `Prefer` header, would be to return a full resource representation, similar to object info responses in EPP, especially after compound requests are completed.
+For certain use-cases it might be convenient for a client to receive also dereferenced full or partial representation of related objects. For example details about sponsoring client of domain name instead of just ID. "return" preference syntax alone is not be sufficient for this purpose, therefore RPP would need to define custom preference and register it in "HTTP Preferences" IANA registry.
 
 ==== Language negotiation for textual content
 
@@ -354,6 +356,7 @@ extensions, available resource types, authentication methods, and supported feat
 *  It may be considered for RPP to distribute service discovery for each resource type separately for better scalability and management. For example instead of having a single service discovery endpoint for the whole registry on `/.well-known/rpp-capabilities` there might be a separate discovery placed under `/{resource-type}/.well-known/rpp-capabilities` e.g. `/domains/.well-known/rpp-capabilities`.
 *  Service discovery shall utilize standardised methods, like URI templates <<RFC6570>> to allow easy navigation of resources and avoid hard-coding of URLs.
 
+[[data-representation-layer]]
 === Data Representation Layer
 
 This layer focuses on the data representation of RPP messages. It defines the media type used to carry RPP data and supports various data representation formats.
@@ -381,6 +384,12 @@ The primary format for RPP data represetations shall be JSON, however RPP should
 * **CBOR:** Concise Binary Object Representation for specific use cases requiring compact binary encoding <<RFC8949>>.
 
 Some data formats can be optionally represented in other encapsulations, for example JSON data can be represented also in JWT or CBOR. Change of encapsulation shall not affect the data structure. This might be beneficial if RPP is to be extended to support different data formats in the future that only require additional properties provided by encapsulation, like signing, encryption or binary representation.
+
+[[data-validation]]
+==== Data Validation
+
+Data structures and formats will be described using a schema language, such as JSON Schema, OpenAPI, CDDL or other appropriate stable and open standard for JSON data structures. It will enable data validation to be performed by both client and servers on received requests and responses. For example, JSON Schema can define the expected structure of a domain object, including required fields and data types, allowing clients to validate their requests before sending them and servers to ensure incoming data conforms to the expected format.
+The schemas must support both strict and lenient processing of requests and responses and support protocol extensibility.
 
 ==== Media Type definition
 Together data structure and data format would define the whole media type. So application/rpp+json would be the primary media type with "rpp" payloads in plain json format. application/epp+xml would be epp payload as per <<RFC5730>>. 
@@ -444,7 +453,9 @@ This naming mechanism ensures that new resource types, data elements, and operat
 * Added Profiles chapter to <<http-layer-details>>.
 * Added Security section to <<authentication-authorization>>.
 * Added Relationship between clients and authentication credentials to <<authentication-authorization>>.
+* Add <<data-validation, Data Validation>> section with schema language support for RPP to <<data-representation-layer>>
 * Added Name Management and Collision Avoidance section to <<extension-mechanisms>>.
+* Added Section about dereferenced related object representation to <<prefer-header>>.
 
 === -00 to -01
 
