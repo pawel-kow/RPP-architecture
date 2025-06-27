@@ -225,12 +225,6 @@ RPP will not explicitely define security related policies related to authenticat
 ===== Object level authorization
 RPP will define a mechanism for object-level authorization, preventing unauthorized access to specific objects or resources. Each object will have an associated sponsor or owner with full control over an object, and the protocol will allow for the specification of which clients are authorized to access or modify non-sponsored/owned objects. This could be achieved through state-of-art standards like OAuth authorization tokens, scopes, and resource-specific permissions but also shared secrets for backward compatibility with EPP password-based authorization information.
 
-===== Object level authorization
-RPP will define a mechanism for object-level authorization, preventing unauthorized access to specific objects or resources. Each object will have an associated sponsor or owner with full control over an object, and the protocol will allow for the specification of which clients are authorized to access or modify non-sponsored/owned objects. This could be achieved through state-of-art standards like OAuth authorization tokens, scopes, and resource-specific permissions but also shared secrets for backward compatibility with EPP password-based authorization information.
-
-===== Object level authorization
-RPP will define a mechanism for object-level authorization, preventing unauthorized access to specific objects or resources. Each object will have an associated sponsor or owner with full control over an object, and the protocol will allow for the specification of which clients are authorized to access or modify non-sponsored/owned objects. This could be achieved through state-of-art standards like OAuth authorization tokens, scopes, and resource-specific permissions but also shared secrets for backward compatibility with EPP password-based authorization information.
-
 [[resource-addressing]]
 ==== Resource Addressing
 
