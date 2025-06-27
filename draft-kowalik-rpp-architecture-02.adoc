@@ -309,9 +309,11 @@ RPP may define a machine-readible definition of profiles to allow automatic proc
 
 Signalling of the profiles will be preferrably realised using parameters of the media type.
 
+[[prefer-header]]
 ==== Prefer Header for Response Verbosity
 
 RPP may utilize the HTTP `Prefer` header <<RFC7240>> with the "return" preference to allow clients to control the verbosity of responses. For example, clients not interested in full resource representations could use `Prefer: return=minimal` to request minimal responses, reducing payload sizes and improving efficiency. The default behavior, without the `Prefer` header, would be to return a full resource representation, similar to object info responses in EPP, especially after compound requests are completed.
+For certain use-cases it might be convenient for a client to receive also dereferenced full or partial representation of related objects. For example details about sponsoring client of domain name instead of just ID. "return" preference syntax alone is not be sufficient for this purpose, therefore RPP would need to define custom preference and register it in "HTTP Preferences" IANA registry.
 
 ==== Language negotiation for textual content
 
@@ -429,6 +431,7 @@ These extensibility mechanisms ensure that RPP can evolve to meet future require
 * Added Profiles chapter to <<http-layer-details>>.
 * Added Security section to <<authentication-authorization>>.
 * Added Relationship between clients and authentication credentials to <<authentication-authorization>>.
+* Added Section about dereferenced related object representation to <<prefer-header>>.
 
 === -00 to -01
 
