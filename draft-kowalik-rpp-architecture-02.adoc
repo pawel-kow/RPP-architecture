@@ -327,6 +327,10 @@ textual content in responses to provide human-readable localized responses.
 languages will be defined, preferably using HTTP methods, like OPTIONS or HEAD requests.
 * application/rpp+json media type may support multi-language representations, especially for witing operations involving user provided content. Other media types may have different mechanisms for language representation.
 
+==== Prefer Header for Request Validation
+
+RPP may utilize the HTTP `Prefer` header <<RFC7240>> for signalling the preference for either strict or lenient processing of requests. This allows clients to indicate whether they prefer strict validation of message payloads and rejection of requests with unknown properties or a more lenient approach ignoring unknown properties that may allow for additional flexibility in processing. The default behavior, without the `Prefer` header, would be to process requests lenient.
+
 ==== Definition of special resources
 
 RPP may define special resources for specific purposes:
@@ -420,17 +424,26 @@ The RPP architecture is designed to be extensible, allowing for the addition of 
 
 These extensibility mechanisms ensure that RPP can evolve to meet future requirements, integrate with emerging technologies, and support a wide range of provisioning scenarios while maintaining interoperability and stability.
 
+==== Name Management and Collision Avoidance
+
+RPP extensions MUST define unique names for all extension elements to prevent conflicts with other extensions and with core protocol elements. These names are used consistently in resource identifiers, data element identifiers, and URL path segments.
+
+Standardized RPP extensions MUST register their names in a dedicated IANA registry for RPP extensions to ensure global uniqueness and avoid collisions. Private (non-standardized) extensions are also required to use unique names, but are not required to register with IANA. This allows private extensions to be developed and used within specific implementations or organizations without impacting the global RPP ecosystem. Private extensions should use names that are unlikely to conflict with other extensions or with RPP core elements, for example by using reverse domain notation as a prefix (e.g., `org.example.rpp`).
+
+This naming mechanism ensures that new resource types, data elements, and operations can be introduced independently and safely, supporting the extensibility goals of the RPP architecture while maintaining interoperability and clarity across implementations.
 
 == Change History
 
 === -01 to -02
 
+* Added description of lenient versus strict request validation to <<Resource Definition Layer>>.
 * Added description of asynchronous handling to <<http-transport-layer-overview>> and <<http-layer-details>>.
 * Added Operation Singularity to <<resource-oriented-architecture>>.
 * Added Versioning chapter to <<http-layer-details>>.
 * Added Profiles chapter to <<http-layer-details>>.
 * Added Security section to <<authentication-authorization>>.
 * Added Relationship between clients and authentication credentials to <<authentication-authorization>>.
+* Added Name Management and Collision Avoidance section to <<extension-mechanisms>>.
 * Added Section about dereferenced related object representation to <<prefer-header>>.
 
 === -00 to -01
