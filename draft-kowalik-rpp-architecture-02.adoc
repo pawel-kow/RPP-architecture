@@ -325,6 +325,10 @@ textual content in responses to provide human-readable localized responses.
 languages will be defined, preferably using HTTP methods, like OPTIONS or HEAD requests.
 * application/rpp+json media type may support multi-language representations, especially for witing operations involving user provided content. Other media types may have different mechanisms for language representation.
 
+==== Prefer Header for Request Validation
+
+RPP may utilize the HTTP `Prefer` header <<RFC7240>> for signalling the preference for either strict or lenient processing of requests. This allows clients to indicate whether they prefer strict validation of message payloads and rejection of requests with unknown properties or a more lenient approach ignoring unknown properties that may allow for additional flexibility in processing. The default behavior, without the `Prefer` header, would be to process requests lenient.
+
 ==== Definition of special resources
 
 RPP may define special resources for specific purposes:
@@ -423,6 +427,7 @@ These extensibility mechanisms ensure that RPP can evolve to meet future require
 
 === -01 to -02
 
+* Added description of lenient versus strict request validation to <<Resource Definition Layer>>.
 * Added description of asynchronous handling to <<http-transport-layer-overview>> and <<http-layer-details>>.
 * Added Operation Singularity to <<resource-oriented-architecture>>.
 * Added Versioning chapter to <<http-layer-details>>.
