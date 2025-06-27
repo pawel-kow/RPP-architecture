@@ -223,7 +223,7 @@ In case of HTTP Basic Authentication, one user-id is always bound to at most one
 RPP will not explicitely define security related policies related to authentication or authorization (such as password complexity, token lifetime or cryptography used) on the protocol level. Instead, these properties will be delegated to the best practices of the chosen authentication schemes, which may evolve over time and would have to be independet of the protocol itself.
 
 ===== Object level authorization
-RPP will define a mechanism for object-level authorization, preventing unauthorized access to specific objects or resources. Each object will have an associated sponsor or owner, and the protocol will allow for the specification of which clients are authorized to access or modify that object. This could be achieved through a combination of authentication tokens, scopes, and resource-specific permissions.
+RPP will define a mechanism for object-level authorization, preventing unauthorized access to specific objects or resources. Each object will have an associated sponsor or owner with full control over an object, and the protocol will allow for the specification of which clients are authorized to access or modify non-sponsored/owned objects. This could be achieved through state-of-art standards like OAuth authorization tokens, scopes, and resource-specific permissions but also shared secrets for backward compatibility with EPP password-based authorization information.
 
 ==== Resource Addressing
 
