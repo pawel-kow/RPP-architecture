@@ -418,7 +418,7 @@ The RPP architecture is designed to be extensible, allowing for the addition of 
 
 These extensibility mechanisms ensure that RPP can evolve to meet future requirements, integrate with emerging technologies, and support a wide range of provisioning scenarios while maintaining interoperability and stability.
 
-==== Collision Avoidance and Name Management
+==== Name Management and Collision Avoidance
 
 RPP extensions MUST define unique names for all extension elements to prevent conflicts with other extensions and with core protocol elements. These names are used consistently in resource identifiers, data element identifiers, and URL path segments.
 
