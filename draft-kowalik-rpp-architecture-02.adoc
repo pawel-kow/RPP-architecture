@@ -327,7 +327,7 @@ languages will be defined, preferably using HTTP methods, like OPTIONS or HEAD r
 
 ==== Prefer Header for Request Validation
 
-RPP may utilize the HTTP `Prefer` header <<RFC7240>> for signalling the preference for either strict or lenient processing of requests. This allows clients to indicate whether they prefer strict adherence to protocol rules or a more lenient approach that may allow for additional flexibility in processing. The default behavior, without the `Prefer` header, would be to process requests lenient.
+RPP may utilize the HTTP `Prefer` header <<RFC7240>> for signalling the preference for either strict or lenient processing of requests. This allows clients to indicate whether they prefer strict validation of message payloads and rejection of requests with unknown properties or a more lenient approach ignoring unknown properties that may allow for additional flexibility in processing. The default behavior, without the `Prefer` header, would be to process requests lenient.
 
 ==== Definition of special resources
 
