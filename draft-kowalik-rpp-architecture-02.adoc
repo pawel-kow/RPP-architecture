@@ -442,7 +442,7 @@ This namespace mechanism ensures that new resource types, data elements, and ope
 * Added Profiles chapter to <<http-layer-details>>.
 * Added Security section to <<authentication-authorization>>.
 * Added Relationship between clients and authentication credentials to <<authentication-authorization>>.
-* Added Collision Avoidance and Namespace Management section to <<extension-mechanisms>>.
+* Added Name Management and Collision Avoidance section to <<extension-mechanisms>>.
 
 === -00 to -01
 
