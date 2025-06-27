@@ -380,7 +380,7 @@ Some data formats can be optionally represented in other encapsulations, for exa
 ==== Data Validation
 
 Data structures and formats will be described using a schema language, such as JSON Schema, OpenAPI, CDDL or other appropriate stable and open standard for JSON data structures. It will enable data validation to be performed by both client and servers on received requests and responses. For example, JSON Schema can define the expected structure of a domain object, including required fields and data types, allowing clients to validate their requests before sending them and servers to ensure incoming data conforms to the expected format.
-The schemas will be constructed in both strict variant not allowing additional unknown properties, but also in lenient variant ignoring those. The schema language must support schema composition through modular definitions and references to enable extensibility at the allowed extension points.
+The schemas must support both strict and lenient processing of requests and responses and support protocol extensibility.
 
 ==== Media Type definition
 Together data structure and data format would define the whole media type. So application/rpp+json would be the primary media type with "rpp" payloads in plain json format. application/epp+xml would be epp payload as per <<RFC5730>>. 
