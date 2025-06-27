@@ -430,12 +430,6 @@ Standardized RPP extensions MUST register their names in a dedicated IANA regist
 
 This naming mechanism ensures that new resource types, data elements, and operations can be introduced independently and safely, supporting the extensibility goals of the RPP architecture while maintaining interoperability and clarity across implementations.
 
-RPP extensions MUST define a unique namespace to prevent conflicts with other extensions and with core protocol elements. This namespace is used consistently in resource identifiers, data element identifiers, and URL path segments.
-
-Standardized RPP extensions MUST register their namespace at a dedicated IANA registry for RPP extensions, to ensure global uniqueness and avoid collisions. Private (non-standardized) extensions are also required to use a unique namespace, however they are not required to register with IANA. This allows for private extensions to be developed and used within specific implementations or organizations without impacting the global RPP ecosystem. Private extensions must use a namespace that is unlikely to conflict with other extensions or with RPP core elements, this may be done by using the reverse domain notation as a prefix for the namespace (e.g., `org.example.rpp`).
-
-This namespace mechanism ensures that new resource types, data elements, and operations can be introduced independently and safely, supporting the extensibility goals of the RPP architecture while maintaining interoperability and clarity across implementations.
-
 == Change History
 
 === -01 to -02
