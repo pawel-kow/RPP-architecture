@@ -235,7 +235,7 @@ RPP resources are addressed using URLs. Considerations include:
 
 RPP URL structure will be designed to be human-readable, intuitive, and RESTful, allowing clients to easily navigate and interact with resources.
 
-RPP would not require all URLs to be hard wired to server's RPP root URL. Instead, it would allow for relative URLs to be defined and discovered by the client. This would allow servers to distibute resources across multiple servers and URLs and allow for easier scaling as described in <<RFC9205>>. Same time the URLs shall be deterministic for the duration of the client session in order to minimise round trips and streamline the interaction.
+RPP would not require all URLs to be hard wired to server's RPP root URL. Instead, it would allow for relative URLs to be defined and discovered by the client. This would allow servers to distibute resources across multiple servers and URLs and allow for easier scaling as described in <<RFC9205>>. At the same time the URLs shall be deterministic for the duration of the client session in order to minimise round trips and streamline the interaction.
 
 As a matter of extensibility consideration RPP should allow for additional path segments to be added to the URLs and be discoverable by clients.
 
