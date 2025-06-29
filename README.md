@@ -2,7 +2,7 @@
 This repository contains the initial draft of the RPP (RESTful Provisioning Protocol) architecture. 
 
 ## Overview
-The [Architecture](./draft-kowalik-rpp-architecture-00.adoc) file outlines the core components, design considerations, and requirements for RPP. 
+The [Architecture](https://pawel-kow.github.io/RPP-architecture) file outlines the core components, design considerations, and requirements for RPP. 
 
 Key sections include:
 * **Introduction:** Background on EPP and the motivation for RPP.
