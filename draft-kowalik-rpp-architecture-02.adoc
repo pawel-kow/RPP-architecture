@@ -426,6 +426,7 @@ Each resource type shall define operations possible on this resource type. This 
 
 Operations shall be defined in IANA registry in a way that allows for automated processing of the operation definition, including constraints and references to other resource types.
 
+[[extension-mechanisms]]
 === Extension mechanisms
 The RPP architecture is designed to be extensible, allowing for the addition of new resource types, data elements, and operations without breaking existing implementations. This extensibility is achieved through:
 
